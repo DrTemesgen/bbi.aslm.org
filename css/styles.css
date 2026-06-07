@@ -46,11 +46,12 @@ p { margin: 0 0 1rem; }
 .center { text-align: center; }
 
 /* ---------- Top bar ---------- */
-/* Wrapper generates no box so the sticky header sticks relative to <body>,
-   not to this short wrapper (which would let it scroll away immediately). */
-#app-header { display: contents; }
-.appbar {
+/* The wrapper (a normal block child of <body>) is the sticky element, so its
+   containing block is <body> and it stays pinned across the whole page. */
+#app-header {
   position: sticky; top: 0; z-index: 50;
+}
+.appbar {
   background: var(--green-900);
   color: #fff;
   border-bottom: 3px solid var(--gold);
