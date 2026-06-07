@@ -16,18 +16,17 @@ BBI.regions = [
   { key: 'western', name: 'Western Africa', color: '#c0392b' }
 ];
 
-// Professional certification disciplines (modelled on IFBA's certification areas)
+// The four official technical areas of the Regional Training & Certification
+// Program for Biosafety & Biosecurity Professionals (RTCPBBP, Africa CDC BBI).
 BBI.certTypes = [
   { key: 'brm', abbr: 'BRM', name: 'Biorisk Management', color: '#0f4f3c',
-    desc: 'Core competency in assessing and managing biological risk in laboratories and programmes.' },
-  { key: 'bsc', abbr: 'BSC', name: 'Biosafety Cabinets', color: '#1c7d61',
-    desc: 'Selection, certification and safe use of biological safety cabinets and primary containment.' },
-  { key: 'bcf', abbr: 'BCF', name: 'Biocontainment Facilities', color: '#1f6feb',
-    desc: 'Design, commissioning and operation of high- and maximum-containment laboratory facilities.' },
-  { key: 'bph', abbr: 'BPH', name: 'Biosafety & Public Health', color: '#b4861e',
-    desc: 'Applying biosafety in public-health laboratories, surveillance and outbreak response.' },
-  { key: 'bbn', abbr: 'BBN', name: 'Biosecurity & Biological Nonproliferation', color: '#c0392b',
-    desc: 'Pathogen security, accountability and prevention of deliberate misuse of biological agents.' }
+    desc: 'Assessing and managing biological risk in laboratories and programmes.' },
+  { key: 'bce', abbr: 'BCE', name: 'Biocontainment Engineering', color: '#1f6feb',
+    desc: 'Design, commissioning and operation of containment laboratory engineering systems.' },
+  { key: 'bwm', abbr: 'BWM', name: 'Biological Waste Management', color: '#b4861e',
+    desc: 'Safe handling, treatment and disposal of biological and laboratory waste.' },
+  { key: 'bsc', abbr: 'BSC', name: 'Certification of Biological Safety Cabinets', color: '#1c7d61',
+    desc: 'Field certification, testing and safe use of biological safety cabinets.' }
 ];
 
 BBI.certSteps = [
@@ -62,17 +61,21 @@ BBI.domains = [
     text: 'Governing the safe transfer, storage and disposal of High Consequence Agents and Toxins (HCATs).' }
 ];
 
+// The six official BBI priority areas (Africa CDC BBI 2021–2025 Strategic Plan):
+// two enabling efforts + four operational priorities.
 BBI.pillars = [
-  { n: 1, title: 'Regional Technical Working Groups', icon: '⚙️',
-    text: 'Establish and operationalise five regional, multisectoral Biosafety & Biosecurity Technical Working Groups (RBB-TWGs) to coordinate implementation and monitoring across the continent.' },
-  { n: 2, title: 'Legal & Regulatory Framework', icon: '⚖️',
-    text: 'Develop and roll out a harmonised, African Union–endorsed regional legislative framework so Member States can enact and align national biosafety and biosecurity regulations.' },
-  { n: 3, title: 'Training & Certification', icon: '🎓',
-    text: 'Deliver a Regional Training and Certification Programme that turns biosafety and biosecurity into a recognised professional discipline with certified practitioners.' },
-  { n: 4, title: 'Institutional Certification', icon: '🏛️',
-    text: 'Build a regulatory and certification programme for institutions and laboratories that manage high-consequence pathogens, agents and toxins.' },
-  { n: 5, title: 'National Systems Strengthening', icon: '🛡️',
-    text: 'Strengthen National Public Health Institutions and National Reference Laboratories to prevent, detect and respond to accidental and deliberate biological threats.' }
+  { n: 1, kind: 'Enabling', title: 'Strategic focus at Africa CDC', icon: '🎯',
+    text: 'Enable Africa CDC to form a strategic focus on biosafety and biosecurity and to effectively implement, evaluate and measure the impact of the BBI.' },
+  { n: 2, kind: 'Enabling', title: 'Continental & Regional TWGs', icon: '⚙️',
+    text: 'Establish and operationalise five multisectoral, multi-expert Regional Biosafety & Biosecurity Technical Working Groups (RBB-TWGs) and a continental TWG.' },
+  { n: 3, kind: 'Operational', title: 'Legal Framework', icon: '⚖️',
+    text: 'Develop an African Union–endorsed biosafety and biosecurity legal framework for use across AU Member States.' },
+  { n: 4, kind: 'Operational', title: 'Institutional Certification', icon: '🏛️',
+    text: 'Establish a regulatory and certification framework for institutions handling High Consequence Agents and Toxins (HCAT).' },
+  { n: 5, kind: 'Operational', title: 'Training & Certification', icon: '🎓',
+    text: 'Establish a regional training and certification programme for biosafety and biosecurity experts.' },
+  { n: 6, kind: 'Operational', title: 'National Capabilities', icon: '🛡️',
+    text: 'Strengthen AU Member States’ capabilities — including National Public Health Institutes and National Reference Laboratories — to prevent, detect and respond to accidental or deliberate biological events.' }
 ];
 
 BBI.timeline = [
@@ -81,7 +84,7 @@ BBI.timeline = [
   { yr: '2022', title: 'Legal framework endorsed', text: 'The regional Biosafety and Biosecurity Legal Framework is endorsed by the African Union.' },
   { yr: '2023–2024', title: 'Training & certification scales', text: 'Regional Training and Certification Programme expands; 400+ professionals certified across the continent.' },
   { yr: '2025', title: 'Five-year review', text: 'Africa CDC and ASLM complete a five-year review, charting a new continental strategy.' },
-  { yr: '2025–2030', title: 'New strategy', text: 'National TWGs and professional associations, sustainable domestic funding and ethical R&D become priorities.' }
+  { yr: '2026–2030', title: 'New strategy', text: 'National TWGs and professional associations, sustainable domestic funding and ethical R&D become priorities.' }
 ];
 
 // Country engagement by region (status: active / emerging / planned)
@@ -148,7 +151,7 @@ BBI.news = [
     title: 'Northern Africa experts convene in Dakar for regional training',
     text: 'Regional biosafety and biosecurity training strengthens harmonised practice across borders.' },
   { d: '30', m: 'Oct', y: '2025', region: 'northern', tag: 'Strategy',
-    title: 'North Africa consultative meeting on the 2025–2030 strategy',
+    title: 'North Africa consultative meeting on the 2026–2030 strategy',
     text: 'Africa CDC concludes a regional consultation shaping the next five-year biosafety and biosecurity strategy.' },
   { d: '12', m: 'Sep', y: '2025', region: 'central', tag: 'Strategy',
     title: 'Five-year BBI review charts new continental strategy',
@@ -157,8 +160,10 @@ BBI.news = [
 
 BBI.resources = [
   { type: 'PDF', title: 'Regional Biosafety & Biosecurity Legal Framework (2023)', meta: 'Africa CDC, AU-PANVAC & AU-IBAR · Framework', cat: 'Framework', url: 'resources/regional-bsbs-legal-framework-2023.pdf' },
-  { type: 'PDF', title: '2025–2030 Continental Biosafety & Biosecurity Strategy', meta: 'Africa CDC · Strategy', cat: 'Strategy' },
-  { type: 'DOC', title: 'Regional Training & Certification Programme Curriculum', meta: 'ASLM Academy · Training', cat: 'Training' },
+  { type: 'PDF', title: 'BBI 2021–2025 Strategic Plan', meta: 'Africa CDC · Strategy', cat: 'Strategy', url: 'resources/The-Africa-CDC-5-Year-Strategic-Plan_Final_13-June-2021_FINAL_23June2021-2.pdf' },
+  { type: 'PDF', title: 'Regional Training & Certification Program for Biosafety & Biosecurity Professionals (2022)', meta: 'Africa CDC · Training', cat: 'Training', url: 'resources/Training-and-Certification-Program-for-Biosafety-and-Biosecurity-Professionals_English.pdf' },
+  { type: 'PDF', title: 'BBI 2021–2025 End-Term Evaluation Report', meta: 'Africa CDC · Evaluation', cat: 'Evaluation', url: 'resources/BSBS-2021-2025-FINAL-Evaluation-Report.pdf' },
+  { type: 'PDF', title: 'Biosafety & Biosecurity Strategy 2026–2030 (Phase III)', meta: 'Africa CDC · Strategy', cat: 'Strategy', url: 'resources/bbi-strategy-2026-2030-africacdc.pdf' },
   { type: 'PDF', title: 'BioRisk Management Field Guide', meta: 'Africa CDC · Guidance', cat: 'Guidance' },
   { type: 'PDF', title: 'Institutional Certification Standard for High-Consequence Facilities', meta: 'Africa CDC · Standard', cat: 'Standard' },
   { type: 'LINK', title: 'LabVoice: The next five years of Biosafety & Biosecurity', meta: 'ASLM · Podcast', cat: 'Media', url: 'https://aslm.org/resource/labvoice-empawering-africas-future-the-next-five-years-of-biosafety-and-biosecurity/' },
@@ -176,7 +181,7 @@ BBI.resources = [
 // mentor: available in the mentorship programme. hero: spotlight citation (or '').
 BBI.directory = [
   { id: 'amara-okonkwo', name: 'Dr Amara Okonkwo', role: 'Regional TWG Chair', org: 'Nigeria CDC', country: 'Nigeria', region: 'western', specialties: ['Biorisk Management', 'Policy'], level: 'Lead',
-    certs: [{ t: 'brm', y: 2019 }, { t: 'bbn', y: 2021 }], mentor: true,
+    certs: [{ t: 'brm', y: 2019 }, { t: 'bce', y: 2021 }], mentor: true,
     hero: 'Chairs the West Africa RBB-TWG and has championed national biosafety legislation across the region.',
     bio: 'Amara leads regional coordination of biosafety and biosecurity policy in West Africa, bridging laboratory practice and national regulation under a One Health approach.' },
   { id: 'lydia-mwangi', name: 'Dr Lydia Mwangi', role: 'Biosafety Officer', org: 'Kenya Medical Research Institute', country: 'Kenya', region: 'eastern', specialties: ['Laboratory Biosafety', 'Training'], level: 'Senior',
@@ -184,17 +189,17 @@ BBI.directory = [
     hero: '',
     bio: 'Lydia oversees laboratory biosafety at KEMRI and trains the next generation of biosafety officers across Eastern Africa.' },
   { id: 'samuel-tadesse', name: 'Dr Samuel Tadesse', role: 'National Reference Lab Lead', org: 'Ethiopian Public Health Institute', country: 'Ethiopia', region: 'eastern', specialties: ['Pathogen Control', 'Diagnostics'], level: 'Senior',
-    certs: [{ t: 'bph', y: 2021 }], mentor: false, hero: '',
+    certs: [{ t: 'bwm', y: 2021 }], mentor: false, hero: '',
     bio: 'Samuel leads Ethiopia’s national reference laboratory, strengthening diagnostics and pathogen control for outbreak preparedness.' },
   { id: 'fatima-el-amrani', name: 'Dr Fatima El-Amrani', role: 'Biosecurity Regulator', org: 'Institut Pasteur de Tunis', country: 'Tunisia', region: 'northern', specialties: ['Regulation', 'Legal Framework'], level: 'Lead',
-    certs: [{ t: 'bbn', y: 2020 }, { t: 'brm', y: 2018 }], mentor: true,
+    certs: [{ t: 'bce', y: 2020 }, { t: 'brm', y: 2018 }], mentor: true,
     hero: 'A leading voice for harmonised biosecurity regulation across North Africa.',
     bio: 'Fatima advises on national biosecurity regulation and the domestication of the AU legal framework in North Africa.' },
   { id: 'thabo-nkosi', name: 'Dr Thabo Nkosi', role: 'Biorisk Manager', org: 'NICD', country: 'South Africa', region: 'southern', specialties: ['High Containment', 'Waste Management'], level: 'Senior',
-    certs: [{ t: 'bcf', y: 2019 }, { t: 'brm', y: 2017 }], mentor: true, hero: '',
+    certs: [{ t: 'bce', y: 2019 }, { t: 'bwm', y: 2017 }], mentor: true, hero: '',
     bio: 'Thabo manages biorisk in high-containment facilities at the NICD and advises on biological waste management.' },
   { id: 'aicha-diallo', name: 'Dr Aïcha Diallo', role: 'Training Coordinator', org: 'Institut Pasteur de Dakar', country: 'Senegal', region: 'western', specialties: ['Training', 'Certification'], level: 'Lead',
-    certs: [{ t: 'brm', y: 2018 }, { t: 'bph', y: 2021 }], mentor: true,
+    certs: [{ t: 'brm', y: 2018 }, { t: 'bwm', y: 2021 }], mentor: true,
     hero: 'Has trained hundreds of professionals through the regional certification programme.',
     bio: 'Aïcha coordinates the regional training and certification programme, mentoring candidates from across Francophone Africa.' },
   { id: 'jean-paul-mbarga', name: 'Dr Jean-Paul Mbarga', role: 'Laboratory Director', org: 'Centre Pasteur du Cameroun', country: 'Cameroon', region: 'central', specialties: ['Laboratory Biosafety', 'Equipment'], level: 'Senior',
@@ -204,26 +209,26 @@ BBI.directory = [
     certs: [{ t: 'brm', y: 2022 }], mentor: false, hero: '',
     bio: 'Grace supports biosafety and disease surveillance systems at the Zambia NPHI.' },
   { id: 'yusuf-abdallah', name: 'Dr Yusuf Abdallah', role: 'Biosecurity Analyst', org: 'Tanzania NPHL', country: 'Tanzania', region: 'eastern', specialties: ['Pathogen Control', 'Policy'], level: 'Associate',
-    certs: [{ t: 'bbn', y: 2022 }], mentor: false, hero: '',
+    certs: [{ t: 'brm', y: 2022 }], mentor: false, hero: '',
     bio: 'Yusuf analyses biosecurity risks and supports pathogen accountability at Tanzania’s national health laboratory.' },
   { id: 'mariam-coulibaly', name: 'Dr Mariam Coulibaly', role: 'Programme Officer', org: "Ministry of Health, Côte d'Ivoire", country: "Côte d'Ivoire", region: 'western', specialties: ['Policy', 'Coordination'], level: 'Associate',
-    certs: [{ t: 'bph', y: 2023 }], mentor: false, hero: '',
+    certs: [{ t: 'brm', y: 2023 }], mentor: false, hero: '',
     bio: 'Mariam coordinates national biosafety and biosecurity activities within the Ivorian Ministry of Health.' },
   { id: 'ahmed-hassan', name: 'Dr Ahmed Hassan', role: 'BioRisk Advisor', org: 'Egyptian Ministry of Health', country: 'Egypt', region: 'northern', specialties: ['High Containment', 'Regulation'], level: 'Senior',
-    certs: [{ t: 'bcf', y: 2020 }, { t: 'bbn', y: 2021 }], mentor: true, hero: '',
+    certs: [{ t: 'bce', y: 2020 }, { t: 'bsc', y: 2021 }], mentor: true, hero: '',
     bio: 'Ahmed advises on biorisk for high-containment facilities and regulatory compliance in Egypt.' },
   { id: 'esther-uwimana', name: 'Dr Esther Uwimana', role: 'Quality & Biosafety Lead', org: 'Rwanda Biomedical Centre', country: 'Rwanda', region: 'eastern', specialties: ['Laboratory Biosafety', 'Accreditation'], level: 'Senior',
-    certs: [{ t: 'brm', y: 2020 }, { t: 'bph', y: 2022 }], mentor: true,
+    certs: [{ t: 'brm', y: 2020 }, { t: 'bwm', y: 2022 }], mentor: true,
     hero: 'Drove laboratory accreditation and biosafety quality systems at the Rwanda Biomedical Centre.',
     bio: 'Esther leads quality and biosafety at the RBC, integrating accreditation with biorisk management.' },
   { id: 'kwame-mensah', name: 'Dr Kwame Mensah', role: 'Biosafety Officer', org: 'Noguchi Memorial Institute', country: 'Ghana', region: 'western', specialties: ['Training', 'Waste Management'], level: 'Associate',
-    certs: [{ t: 'brm', y: 2023 }], mentor: false, hero: '',
+    certs: [{ t: 'bwm', y: 2023 }], mentor: false, hero: '',
     bio: 'Kwame supports biosafety training and biological waste management at the Noguchi Memorial Institute.' },
   { id: 'nadia-benali', name: 'Dr Nadia Benali', role: 'Regulatory Affairs Lead', org: 'Institut Pasteur du Maroc', country: 'Morocco', region: 'northern', specialties: ['Legal Framework', 'Policy'], level: 'Lead',
-    certs: [{ t: 'bbn', y: 2019 }], mentor: true, hero: '',
+    certs: [{ t: 'brm', y: 2019 }], mentor: true, hero: '',
     bio: 'Nadia leads regulatory affairs and supports the alignment of Moroccan law with the AU framework.' },
   { id: 'patrick-lukusa', name: 'Dr Patrick Lukusa', role: 'High-Containment Specialist', org: 'INRB', country: 'DR Congo', region: 'central', specialties: ['High Containment', 'Pathogen Control'], level: 'Senior',
-    certs: [{ t: 'bcf', y: 2021 }, { t: 'brm', y: 2019 }], mentor: true,
+    certs: [{ t: 'bce', y: 2021 }, { t: 'brm', y: 2019 }], mentor: true,
     hero: 'Operates one of Central Africa’s key high-containment laboratories on the front line of outbreak response.',
     bio: 'Patrick specialises in high-containment operations and pathogen control at the INRB in Kinshasa.' },
   { id: 'tendai-moyo', name: 'Dr Tendai Moyo', role: 'Biosafety Trainer', org: 'Zimbabwe NMRL', country: 'Zimbabwe', region: 'southern', specialties: ['Training', 'Certification'], level: 'Senior',
@@ -246,7 +251,7 @@ BBI.events = [
     desc: 'Specialist training for biocontainment facility operators and engineers.' },
   { d: '09', m: 'Sep', y: '2026', loc: 'Kigali, Rwanda', type: 'Summit', reg: false,
     title: 'Continental Biosafety Leadership Summit', region: 'eastern',
-    desc: 'TWG chairs and national focal points review progress on the 2025–2030 strategy.' }
+    desc: 'TWG chairs and national focal points review progress on the 2026–2030 strategy.' }
 ];
 
 BBI.getInvolved = [

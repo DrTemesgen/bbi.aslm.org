@@ -57,11 +57,12 @@
 
     // --- Pillar progress ---
     const pillarProg = [
-      { t: 'Regional TWGs operationalised', v: 100 },
+      { t: 'Strategic focus at Africa CDC', v: 85 },
+      { t: 'Continental & Regional TWGs', v: 100 },
       { t: 'Legal framework endorsed', v: 100 },
-      { t: 'Training & certification', v: 78 },
       { t: 'Institutional certification', v: 45 },
-      { t: 'National systems strengthening', v: 60 }
+      { t: 'Training & certification', v: 78 },
+      { t: 'National capabilities', v: 60 }
     ];
     const pp = document.getElementById('pillar-progress');
     if (pp) {

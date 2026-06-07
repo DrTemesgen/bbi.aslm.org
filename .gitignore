@@ -6,6 +6,10 @@ npm-debug.log*
 # Local tooling
 .claude/
 
+# Draft / working documents — not for public publication unless approved
+*.docx
+resources/Inception Report Draft.docx
+
 # OS / editor
 .DS_Store
 Thumbs.db

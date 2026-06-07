@@ -41,8 +41,8 @@
     <div class="container">
       <div class="section-head">
         <div class="eyebrow">What we do</div>
-        <h2>Five strategic pillars</h2>
-        <p class="muted">The BBI organises continental action around five mutually reinforcing pillars that turn biosafety and biosecurity into a sustained, professional discipline.</p>
+        <h2>Six priority areas</h2>
+        <p class="muted">The BBI 2021–2025 Strategic Plan organises continental action around six priority areas — two enabling efforts and four operational priorities — that turn biosafety and biosecurity into a sustained, professional discipline.</p>
       </div>
       <div class="grid cols-3" id="pillars"></div>
     </div>
@@ -108,7 +108,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('pillars').innerHTML = BBI.pillars.map(p => `
         <div class="card"><div class="ico">${p.icon}</div>
-          <div class="pillar"><span class="n">Pillar ${p.n}</span><h3>${p.title}</h3>
+          <div class="pillar"><span class="n">Priority ${p.n} · ${p.kind}</span><h3>${p.title}</h3>
           <p class="muted" style="margin:0">${p.text}</p></div></div>`).join('');
       document.getElementById('timeline').innerHTML = BBI.timeline.map(t => `
         <li><span class="yr">${t.yr}</span> — <strong>${t.title}</strong><div class="muted">${t.text}</div></li>`).join('');
