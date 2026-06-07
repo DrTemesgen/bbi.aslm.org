@@ -119,6 +119,17 @@ It runs entirely from the static frontend using **Firebase** (Auth + Firestore) 
 
 > **Note:** Firebase **email** auth has no per-message cost (unlike SMS), so no Blaze billing is required for sign-in. Verification emails are sent automatically; approval is still done by an admin.
 
+### Email alerts to admins (optional)
+
+The app can email you whenever someone **registers** or **submits an application**, using [EmailJS](https://www.emailjs.com) (free tier, sends from the browser — no server). It's off until configured.
+
+1. Create a free **EmailJS** account → connect an email service (e.g. your Gmail or domain SMTP).
+2. Create an **email template** that uses `{{subject}}` and `{{message}}` in the body, and set the template's **To Email** to your admin address (or `{{to_email}}`).
+3. Copy three values from the EmailJS dashboard: **Public Key**, **Service ID**, **Template ID**.
+4. Paste them into `EMAILJS_CONFIG` in [`js/firebase-config.js`](js/firebase-config.js) and set `adminEmail`.
+
+Done — new registrations and applications will email you a summary with a link to the admin panel. (Free tier ≈ 200 emails/month.)
+
 ### Document uploads
 
 This version captures document **links** (e.g. Google Drive/OneDrive). Direct file uploads can be added later with **Firebase Storage** (requires the Blaze plan).

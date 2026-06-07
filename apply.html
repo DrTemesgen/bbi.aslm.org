@@ -111,8 +111,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/notify.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
@@ -172,6 +174,13 @@
         };
         try {
           await A.submitApplication(data);
+          if (window.BBINotify) {
+            await BBINotify.send(
+              'New BBI application submitted',
+              `A new certification application has been submitted:\n\nName: ${data.name}\nEmail: ${data.email}\nCountry: ${data.country}\nOrganisation: ${data.org}\nArea: ${data.areaName} (Level ${data.level})\nPathway: ${data.pathway}\nExperience: ${data.experience} years\n\nReview it here: https://drtemesgen.github.io/bbi.aslm.org/admin.html`,
+              data.email, data.name
+            );
+          }
           $('app-form').classList.add('hidden');
           $('success').classList.remove('hidden');
           window.scrollTo({ top: 0, behavior: 'smooth' });

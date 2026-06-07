@@ -26,6 +26,20 @@ window.FIREBASE_CONFIG = {
   measurementId: "G-MSLXQDB2WR"
 };
 
+// Email alerts to admins (optional) via EmailJS — sends email straight from
+// the app, no server. Get these from https://dashboard.emailjs.com:
+//   publicKey  → Account → General → Public Key
+//   serviceId  → Email Services (e.g. your Gmail) → Service ID
+//   templateId → Email Templates → your template's Template ID
+// Create a template that uses {{subject}} and {{message}}, with the "To Email"
+// set to your admin address (or {{to_email}}). Leave as PASTE_… to disable.
+window.EMAILJS_CONFIG = {
+  publicKey: "PASTE_EMAILJS_PUBLIC_KEY",
+  serviceId: "PASTE_EMAILJS_SERVICE_ID",
+  templateId: "PASTE_EMAILJS_TEMPLATE_ID",
+  adminEmail: "info@drtemesgen.com"
+};
+
 // Admin accounts — anyone who signs in with one of these emails is an
 // administrator (and is auto-approved). No Firestore setup needed.
 // Keep this list in sync with the admin emails in firestore.rules.
