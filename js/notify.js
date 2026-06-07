@@ -14,15 +14,16 @@
   window.BBINotify = {
     ready: ready,
     // Best-effort; resolves to true/false and never throws.
-    send: function (subject, message, replyTo, fromName) {
+    // Pass an object of template params (subject, name, email, message, …).
+    send: function (params) {
       if (!ready) return Promise.resolve(false);
-      return emailjs.send(cfg.serviceId, cfg.templateId, {
-        subject: subject,
-        message: message,
+      var merged = Object.assign({
         to_email: cfg.adminEmail || '',
-        reply_to: replyTo || '',
-        from_name: fromName || 'BBI Africa'
-      }).then(function () { return true; })
+        from_name: 'BBI Africa',
+        link: 'https://drtemesgen.github.io/bbi.aslm.org/admin.html'
+      }, params || {});
+      return emailjs.send(cfg.serviceId, cfg.templateId, merged)
+        .then(function () { return true; })
         .catch(function (e) { console.warn('Email notification failed:', e && e.text || e); return false; });
     }
   };

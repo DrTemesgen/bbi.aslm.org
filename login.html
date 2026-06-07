@@ -115,11 +115,14 @@
           const email = f.email.value.trim();
           await A.register(email, f.password.value, { name: f.name.value, country: f.country.value, org: f.org.value });
           if (window.BBINotify) {
-            await BBINotify.send(
-              'New BBI account registered',
-              `A new account has registered and is awaiting approval:\n\nName: ${f.name.value}\nEmail: ${email}\nCountry: ${f.country.value}\nOrganisation: ${f.org.value}\n\nApprove it here: https://drtemesgen.github.io/bbi.aslm.org/admin.html`,
-              email, f.name.value
-            );
+            await BBINotify.send({
+              subject: 'New BBI account registered',
+              type: 'New account registration (awaiting approval)',
+              name: f.name.value, email: email, country: f.country.value, org: f.org.value,
+              line1: '', line2: '', line3: '', line4: '',
+              from_name: f.name.value, reply_to: email,
+              message: `New account registration (awaiting approval)\n\nName: ${f.name.value}\nEmail: ${email}\nCountry: ${f.country.value}\nOrganisation: ${f.org.value}`
+            });
           }
           location.href = 'account.html';
         } catch (err) { msg(friendly(err)); } finally { b.disabled = false; b.textContent = 'Create account'; }

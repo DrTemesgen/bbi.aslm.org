@@ -175,11 +175,17 @@
         try {
           await A.submitApplication(data);
           if (window.BBINotify) {
-            await BBINotify.send(
-              'New BBI application submitted',
-              `A new certification application has been submitted:\n\nName: ${data.name}\nEmail: ${data.email}\nCountry: ${data.country}\nOrganisation: ${data.org}\nArea: ${data.areaName} (Level ${data.level})\nPathway: ${data.pathway}\nExperience: ${data.experience} years\n\nReview it here: https://drtemesgen.github.io/bbi.aslm.org/admin.html`,
-              data.email, data.name
-            );
+            await BBINotify.send({
+              subject: 'New BBI application submitted',
+              type: 'New certification application',
+              name: data.name, email: data.email, country: data.country, org: data.org,
+              line1: `Area: ${data.areaName} (Level ${data.level})`,
+              line2: `Pathway: ${data.pathway}`,
+              line3: `Experience: ${data.experience} years`,
+              line4: `Qualification: ${data.qualification}`,
+              from_name: data.name, reply_to: data.email,
+              message: `New certification application\n\nName: ${data.name}\nEmail: ${data.email}\nCountry: ${data.country}\nOrganisation: ${data.org}\nArea: ${data.areaName} (Level ${data.level})\nPathway: ${data.pathway}\nExperience: ${data.experience} years\nQualification: ${data.qualification}`
+            });
           }
           $('app-form').classList.add('hidden');
           $('success').classList.remove('hidden');
