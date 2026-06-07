@@ -5,13 +5,13 @@
    PUBLIC client keys and are safe to commit.
 
    Then in the Firebase console:
-     1. Authentication → Sign-in method → enable "Phone".
+     1. Authentication → Sign-in method → enable "Email/Password".
      2. Authentication → Settings → Authorized domains → add
         "drtemesgen.github.io" (and "bbi.aslm.org" once DNS is set).
      3. Firestore Database → create database (production mode) and paste
         the rules from firestore.rules.
      4. Add yourself as an admin: create collection "admins", document id =
-        your user UID (shown on the Account page after you log in once).
+        your user UID (shown on the Account page after you register once).
 
    Until real values are filled in, the app shows a friendly
    "sign-in is being set up" notice instead of breaking.
@@ -25,9 +25,6 @@ window.FIREBASE_CONFIG = {
   appId: "1:482261576405:web:2f0a174c9b1b48b56f505c",
   measurementId: "G-MSLXQDB2WR"
 };
-
-// Default region/country code applied to phone numbers entered without "+".
-window.BBI_DEFAULT_DIAL_CODE = "+251"; // Ethiopia; change as needed
 
 window.BBI_FIREBASE_READY =
   !!window.FIREBASE_CONFIG &&

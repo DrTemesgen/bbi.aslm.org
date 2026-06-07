@@ -11,6 +11,12 @@ service cloud.firestore {
       return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
     }
 
+    function isApproved() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.approved == true;
+    }
+
     // Admins registry: each admin is a document whose id is the user's UID.
     // Readable by the owner (so the app can check its own admin status) and by admins.
     match /admins/{uid} {
@@ -18,10 +24,23 @@ service cloud.firestore {
       allow write: if false; // manage admins from the Firebase console only
     }
 
+    // User profiles (registrations). approved=false until an admin approves.
+    match /users/{uid} {
+      // A user creates their own profile at registration, defaulting to not approved.
+      allow create: if signedIn()
+                    && request.auth.uid == uid
+                    && request.resource.data.approved == false
+                    && request.resource.data.role == 'applicant';
+      // Read your own profile, or any profile if admin.
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      // Only admins change approval / roles.
+      allow update, delete: if isAdmin();
+    }
+
     // Applications.
     match /applications/{id} {
-      // An applicant may create their own application.
-      allow create: if signedIn()
+      // Only an APPROVED applicant may create their own application.
+      allow create: if isApproved()
                     && request.resource.data.uid == request.auth.uid
                     && request.resource.data.status == 'submitted';
 
@@ -29,8 +48,7 @@ service cloud.firestore {
       allow read: if signedIn()
                   && (resource.data.uid == request.auth.uid || isAdmin());
 
-      // Update: only admins, and only the status/updatedAt fields
-      // (applicants cannot edit after submission in this version).
+      // Update: only admins (e.g. status changes).
       allow update: if isAdmin()
                     && request.resource.data.uid == resource.data.uid;
 

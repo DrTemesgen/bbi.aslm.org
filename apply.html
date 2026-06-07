@@ -49,14 +49,21 @@
       <div id="gate" class="card center">
         <div class="ico" style="margin:0 auto 12px">🔐</div>
         <h3>Sign in to apply</h3>
-        <p class="muted">Create an account or sign in with your phone number to start and track your application.</p>
+        <p class="muted">Create an account or sign in with your email to start and track your application.</p>
         <a class="btn btn-primary" href="login.html?next=apply.html">Sign in / create account</a>
         <div id="not-config" class="notice hidden" style="margin-top:14px">🔧 Online applications are being set up. Meanwhile you can apply on the official ASLM portal below.</div>
         <p style="margin-top:14px"><a href="https://professionals.aslm.org/" target="_blank" rel="noopener">Official ASLM professionals portal ↗</a></p>
       </div>
 
+      <div id="pending" class="card center hidden">
+        <div class="ico" style="margin:0 auto 12px">⏳</div>
+        <h3>Your account is awaiting approval</h3>
+        <p class="muted">Thanks for registering. An administrator will review your account shortly. You’ll be able to submit an application once it’s approved.</p>
+        <a class="btn btn-outline" href="account.html">Go to my account</a>
+      </div>
+
       <form id="app-form" class="form card hidden" style="max-width:760px">
-        <p class="muted" style="margin-top:0">Signed in as <strong id="who"></strong>. Your contact phone is your account number.</p>
+        <p class="muted" style="margin-top:0">Signed in as <strong id="who"></strong>.</p>
         <div class="grid cols-2">
           <label>Full name<input name="name" required /></label>
           <label>Email (optional)<input type="email" name="email" /></label>
@@ -135,14 +142,18 @@
 
       if (!A || !A.ready) { $('not-config').classList.remove('hidden'); return; }
 
-      A.onAuth((user) => {
-        if (user) {
-          $('gate').classList.add('hidden');
-          $('app-form').classList.remove('hidden');
-          $('who').textContent = user.phoneNumber || 'your account';
-        } else {
-          $('gate').classList.remove('hidden');
-          $('app-form').classList.add('hidden');
+      A.onAuth((user, admin) => {
+        const approved = A.isApproved();
+        $('gate').classList.toggle('hidden', !!user);
+        $('pending').classList.toggle('hidden', !(user && !approved));
+        $('app-form').classList.toggle('hidden', !(user && approved));
+        if (user) $('who').textContent = (A.profile && A.profile.name) ? `${A.profile.name} (${user.email})` : (user.email || 'your account');
+        if (user && approved && A.profile) {
+          const f = $('app-form');
+          if (!f.name.value) f.name.value = A.profile.name || '';
+          if (!f.email.value) f.email.value = user.email || '';
+          if (!f.country.value) f.country.value = A.profile.country || '';
+          if (!f.org.value) f.org.value = A.profile.org || '';
         }
       });
 

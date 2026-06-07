@@ -36,11 +36,19 @@
         <div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
           <div class="avatar" style="background:var(--green-700)">👤</div>
           <div style="flex:1;min-width:200px">
-            <h3 style="margin:0" id="acc-phone"></h3>
-            <div class="muted" style="font-size:.82rem">User ID: <code id="acc-uid"></code></div>
+            <h3 style="margin:0" id="acc-name"></h3>
+            <div class="muted" id="acc-email" style="font-size:.9rem"></div>
+            <div class="muted" style="font-size:.78rem">User ID: <code id="acc-uid"></code></div>
           </div>
-          <a class="btn btn-primary" href="apply.html">+ New application</a>
+          <a class="btn btn-primary" href="apply.html" id="new-app">+ New application</a>
           <button class="btn btn-outline" id="signout">Sign out</button>
+        </div>
+
+        <div id="pending-banner" class="notice hidden" style="margin-bottom:16px">
+          ⏳ <strong>Your account is pending approval.</strong> An administrator will review it shortly; you’ll be able to submit applications once approved.
+        </div>
+        <div id="approved-banner" class="notice hidden" style="margin-bottom:16px;background:#e3f2ec;border-color:#bcdfcd">
+          ✅ <strong>Your account is approved.</strong> You can submit and track applications.
         </div>
 
         <div id="admin-link" class="notice hidden" style="background:#e6effd;border-color:#bcd4fb">
@@ -72,14 +80,19 @@
         if (!user) { $('account').classList.add('hidden'); $('signed-out').classList.remove('hidden'); return; }
         $('signed-out').classList.add('hidden');
         $('account').classList.remove('hidden');
-        $('acc-phone').textContent = user.phoneNumber || 'My account';
+        const approved = A.isApproved();
+        $('acc-name').textContent = (A.profile && A.profile.name) || 'My account';
+        $('acc-email').textContent = user.email || '';
         $('acc-uid').textContent = user.uid;
         $('admin-link').classList.toggle('hidden', !admin);
+        $('pending-banner').classList.toggle('hidden', approved);
+        $('approved-banner').classList.toggle('hidden', !approved);
+        $('new-app').classList.toggle('hidden', !approved);
 
         const apps = await A.myApplications();
         $('apps').innerHTML = apps.length
           ? apps.map(BBI.renderAppCard).join('')
-          : `<div class="card center muted">No applications yet. <a href="apply.html">Start one →</a></div>`;
+          : `<div class="card center muted">${approved ? 'No applications yet. <a href="apply.html">Start one →</a>' : 'You can apply once your account is approved.'}</div>`;
       });
 
       $('signout').addEventListener('click', () => A.signOut().then(() => location.reload()));

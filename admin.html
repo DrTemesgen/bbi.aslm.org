@@ -33,17 +33,31 @@
       </div>
 
       <div id="panel" class="hidden">
-        <div class="grid cols-4" id="stats" style="margin-bottom:22px"></div>
-
-        <div class="toolbar">
-          <input type="search" id="q" placeholder="Search name, organisation, country, phone…" />
-          <select id="f-status"><option value="">All statuses</option></select>
-          <select id="f-area"><option value="">All areas</option></select>
-          <span class="count-tag" id="count"></span>
-          <button class="btn btn-outline" id="export" style="padding:8px 14px">⤓ Export CSV</button>
+        <div class="tabs" style="max-width:420px">
+          <button class="tab active" data-atab="apps">Applications</button>
+          <button class="tab" data-atab="regs">Registrations <span id="pending-pill"></span></button>
         </div>
 
-        <div id="rows"></div>
+        <section id="tab-apps">
+          <div class="grid cols-4" id="stats" style="margin-bottom:22px"></div>
+          <div class="toolbar">
+            <input type="search" id="q" placeholder="Search name, organisation, country, email…" />
+            <select id="f-status"><option value="">All statuses</option></select>
+            <select id="f-area"><option value="">All areas</option></select>
+            <span class="count-tag" id="count"></span>
+            <button class="btn btn-outline" id="export" style="padding:8px 14px">⤓ Export CSV</button>
+          </div>
+          <div id="rows"></div>
+        </section>
+
+        <section id="tab-regs" class="hidden">
+          <div class="toolbar">
+            <input type="search" id="uq" placeholder="Search registrations by name, email, country…" />
+            <select id="f-appr"><option value="">All accounts</option><option value="pending">Pending only</option><option value="approved">Approved only</option></select>
+            <span class="count-tag" id="ucount"></span>
+          </div>
+          <div id="urows"></div>
+        </section>
       </div>
     </div>
   </main>

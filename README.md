@@ -96,21 +96,28 @@ Until the DNS record exists, use the `drtemesgen.github.io` URL above.
 
 ## Applications, accounts & admin (Firebase)
 
-The app includes an **end-to-end application system**: applicants create an account with their **phone number (SMS one-time code)**, submit an Expression of Interest to the **RTCP-BBP** programme, and track its status. Administrators review submissions in a gated **admin panel** (`admin.html`).
+The app includes an **end-to-end application system**: applicants create an account with their **email + password**, an administrator **approves** the account, and then the applicant submits an Expression of Interest to the **RTCP-BBP** programme and tracks its status. Administrators review registrations and applications in a gated **admin panel** (`admin.html`).
 
-It runs entirely from the static frontend using **Firebase** (Auth + Firestore) — no server to host. It stays dormant (showing a friendly "being set up" notice) until you add your Firebase config.
+It runs entirely from the static frontend using **Firebase** (Auth + Firestore) — no server to host, and **email auth is free** (no SMS/billing). It stays dormant (showing a friendly "being set up" notice) until you add your Firebase config.
 
 ### One-time setup
 
 1. **Create a Firebase project** at <https://console.firebase.google.com>.
 2. **Add a Web app** (Project settings → General → Your apps → Web). Copy the config object.
-3. Paste it into [`js/firebase-config.js`](js/firebase-config.js) (replace the `PASTE_…` values). Also set `BBI_DEFAULT_DIAL_CODE` to your country code. These are public client keys — safe to commit.
-4. **Authentication → Sign-in method →** enable **Phone**.
+3. Paste it into [`js/firebase-config.js`](js/firebase-config.js) (replace the `PASTE_…` values). These are public client keys — safe to commit.
+4. **Authentication → Sign-in method →** enable **Email/Password**.
 5. **Authentication → Settings → Authorized domains →** add `drtemesgen.github.io` (and `bbi.aslm.org` once DNS is live).
 6. **Firestore Database → Create database** (production mode), then **Rules** → paste the contents of [`firestore.rules`](firestore.rules) → Publish.
-7. **Make yourself an admin:** sign in once on the live site at `/login.html`, copy the **User ID** shown on `/account.html`, then in Firestore create a collection **`admins`** with a document whose **ID = that User ID** (any field/value). Reload `/admin.html`.
+7. **Make yourself an admin:** register once on the live site at `/login.html`, copy the **User ID** shown on `/account.html`, then in Firestore create a collection **`admins`** with a document whose **ID = that User ID** (any field/value). Reload `/admin.html`.
 
-> **Billing note:** Firebase Phone Auth includes a small free daily SMS quota; higher volume requires the pay-as-you-go **Blaze** plan, and SMS messages have a per-message cost. WhatsApp codes are **not** used in this version (SMS only) — WhatsApp can be added later via a provider such as Twilio.
+### How approval works
+
+- A new user registers (`users/{uid}` is created with `approved: false`).
+- They see a **"pending approval"** banner and cannot submit yet.
+- In **Admin → Registrations**, an admin clicks **Approve**; the user can then submit applications.
+- The Firestore rules enforce this: only approved users can create an application.
+
+> **Note:** Firebase **email** auth has no per-message cost (unlike SMS), so no Blaze billing is required for sign-in. Verification emails are sent automatically; approval is still done by an admin.
 
 ### Document uploads
 

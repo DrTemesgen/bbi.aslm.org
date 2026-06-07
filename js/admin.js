@@ -4,7 +4,7 @@
     const A = window.BBIAuth, $ = (id) => document.getElementById(id);
     if (!A || !A.ready) { $('not-config').classList.remove('hidden'); $('no-access').classList.remove('hidden'); return; }
 
-    let ALL = [];
+    let ALL = [], USERS = [];
 
     A.onAuth(async (user, admin) => {
       if (!user || !admin) {
@@ -17,12 +17,76 @@
       try {
         ALL = await A.allApplications();
       } catch (e) {
-        $('panel').innerHTML = `<div class="notice">Could not load applications: ${e.message || e}</div>`;
-        return;
+        $('rows').innerHTML = `<div class="notice">Could not load applications: ${e.message || e}</div>`;
+      }
+      try {
+        USERS = await A.allUsers();
+      } catch (e) {
+        $('urows').innerHTML = `<div class="notice">Could not load registrations: ${e.message || e}</div>`;
       }
       initFilters();
+      initTabs();
       render();
+      renderUsers();
     });
+
+    function initTabs() {
+      document.querySelectorAll('[data-atab]').forEach(t => t.addEventListener('click', () => {
+        document.querySelectorAll('[data-atab]').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        const which = t.getAttribute('data-atab');
+        $('tab-apps').classList.toggle('hidden', which !== 'apps');
+        $('tab-regs').classList.toggle('hidden', which !== 'regs');
+      }));
+      [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
+    }
+
+    function renderUsers() {
+      const term = ($('uq').value || '').toLowerCase().trim();
+      const filt = $('f-appr').value;
+      const pendingCount = USERS.filter(u => !u.approved).length;
+      $('pending-pill').innerHTML = pendingCount ? `<span class="tag gold" style="margin-left:4px">${pendingCount}</span>` : '';
+      const list = USERS.filter(u => {
+        if (filt === 'pending' && u.approved) return false;
+        if (filt === 'approved' && !u.approved) return false;
+        if (term && !(`${u.name} ${u.email} ${u.country} ${u.org}`.toLowerCase().includes(term))) return false;
+        return true;
+      });
+      $('ucount').textContent = `${list.length} of ${USERS.length}`;
+      $('urows').innerHTML = list.length ? `
+        <div class="table-wrap"><table class="adm-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Country / Org</th><th>Registered</th><th>Status</th><th></th></tr></thead>
+          <tbody>${list.map(userRow).join('')}</tbody>
+        </table></div>` : `<div class="card center muted">No registrations match.</div>`;
+      $('urows').querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', () => toggleApprove(b.getAttribute('data-approve'), true)));
+      $('urows').querySelectorAll('[data-revoke]').forEach(b => b.addEventListener('click', () => toggleApprove(b.getAttribute('data-revoke'), false)));
+    }
+
+    function userRow(u) {
+      const badge = u.approved
+        ? `<span class="tag" style="background:#0f4f3c1a;color:#0f4f3c">Approved</span>`
+        : `<span class="tag gold">Pending</span>`;
+      const action = u.approved
+        ? `<button class="btn btn-outline" style="padding:6px 12px" data-revoke="${u.uid}">Revoke</button>`
+        : `<button class="btn btn-primary" style="padding:6px 12px" data-approve="${u.uid}">Approve</button>`;
+      return `<tr>
+        <td><strong>${esc(u.name || '—')}</strong></td>
+        <td>${esc(u.email || '')}</td>
+        <td>${esc(u.country || '')}<div class="muted" style="font-size:.8rem">${esc(u.org || '')}</div></td>
+        <td>${BBI.fmtDate(u.createdAt)}</td>
+        <td>${badge}</td>
+        <td>${action}</td>
+      </tr>`;
+    }
+
+    async function toggleApprove(uid, approved) {
+      try {
+        await A.setApproved(uid, approved);
+        const u = USERS.find(x => x.uid === uid);
+        if (u) u.approved = approved;
+        renderUsers();
+      } catch (e) { alert('Could not update: ' + (e.message || e)); }
+    }
 
     function initFilters() {
       const fs = $('f-status'), fa = $('f-area');
@@ -41,7 +105,7 @@
         if (st && a.status !== st) return false;
         if (ar && a.area !== ar) return false;
         if (term) {
-          const hay = `${a.name} ${a.org} ${a.country} ${a.phone} ${a.email}`.toLowerCase();
+          const hay = `${a.name} ${a.org} ${a.country} ${a.email}`.toLowerCase();
           if (!hay.includes(term)) return false;
         }
         return true;
@@ -74,7 +138,7 @@
     function rowHtml(a) {
       const area = (BBI.helpers.certType(a.area).name) || a.areaName || a.area;
       return `<tr>
-        <td><strong>${esc(a.name)}</strong><div class="muted" style="font-size:.8rem">${esc(a.org || '')} · ${esc(a.country || '')}</div><div class="muted" style="font-size:.8rem">${esc(a.phone || '')}</div></td>
+        <td><strong>${esc(a.name)}</strong><div class="muted" style="font-size:.8rem">${esc(a.org || '')} · ${esc(a.country || '')}</div><div class="muted" style="font-size:.8rem">${esc(a.email || '')}</div></td>
         <td>${esc(area)} · L${esc(a.level || '')}</td>
         <td>${a.pathway === 'alternative' ? 'Alternative' : 'Direct'}</td>
         <td>${a.experience || 0}y</td>
