@@ -17,12 +17,13 @@
    "sign-in is being set up" notice instead of breaking.
    ---------------------------------------------------------------- */
 window.FIREBASE_CONFIG = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_PROJECT.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_SENDER_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyCb0oYM0xZHokmYu0Lysl3MsaOEH6jtSpI",
+  authDomain: "af-cdc-bbi.firebaseapp.com",
+  projectId: "af-cdc-bbi",
+  storageBucket: "af-cdc-bbi.firebasestorage.app",
+  messagingSenderId: "482261576405",
+  appId: "1:482261576405:web:2f0a174c9b1b48b56f505c",
+  measurementId: "G-MSLXQDB2WR"
 };
 
 // Default region/country code applied to phone numbers entered without "+".
