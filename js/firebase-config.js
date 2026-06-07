@@ -26,6 +26,13 @@ window.FIREBASE_CONFIG = {
   measurementId: "G-MSLXQDB2WR"
 };
 
+// Admin accounts — anyone who signs in with one of these emails is an
+// administrator (and is auto-approved). No Firestore setup needed.
+// Keep this list in sync with the admin emails in firestore.rules.
+window.BBI_ADMIN_EMAILS = [
+  "info@drtemesgen.com"
+];
+
 window.BBI_FIREBASE_READY =
   !!window.FIREBASE_CONFIG &&
   !String(window.FIREBASE_CONFIG.apiKey).startsWith("PASTE_");

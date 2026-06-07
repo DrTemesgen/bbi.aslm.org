@@ -4,6 +4,7 @@
    Requires firebase-app/auth/firestore compat SDKs + js/firebase-config.js. */
 (function () {
   const ready = window.BBI_FIREBASE_READY && typeof firebase !== 'undefined';
+  const ADMIN_EMAILS = (window.BBI_ADMIN_EMAILS || []).map((e) => String(e).toLowerCase());
   const api = { ready, user: null, profile: null, _admin: false, _authCbs: [] };
 
   if (ready) {
@@ -15,14 +16,19 @@
       api._admin = false;
       api.profile = null;
       if (u) {
+        // Admin by email allow-list (no Firestore setup needed); falls back
+        // to an optional admins/{uid} doc if present.
+        api._admin = ADMIN_EMAILS.includes(String(u.email || '').toLowerCase());
         try {
           const pd = await api.db.collection('users').doc(u.uid).get();
           api.profile = pd.exists ? pd.data() : null;
         } catch (e) {}
-        try {
-          const ad = await api.db.collection('admins').doc(u.uid).get();
-          api._admin = ad.exists;
-        } catch (e) {}
+        if (!api._admin) {
+          try {
+            const ad = await api.db.collection('admins').doc(u.uid).get();
+            api._admin = ad.exists;
+          } catch (e) {}
+        }
       }
       api._authCbs.forEach((cb) => { try { cb(api.user, api._admin, api.profile); } catch (e) {} });
     });
