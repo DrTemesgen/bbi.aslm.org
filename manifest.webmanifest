@@ -1,0 +1,61 @@
+{
+  "name": "BBI – Biosafety & Biosecurity Initiative",
+  "short_name": "BBI Africa",
+  "description": "The Africa CDC & ASLM Biosafety and Biosecurity Initiative — dashboard, professional directory, training and resources for strengthening biosafety and biosecurity across all 55 African Union Member States.",
+  "id": "/",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b3d2e",
+  "theme_color": "#0b3d2e",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["health", "education", "government", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "url": "dashboard.html",
+      "description": "View BBI metrics and progress"
+    },
+    {
+      "name": "Professional Directory",
+      "short_name": "Directory",
+      "url": "directory.html",
+      "description": "Browse certified biosafety professionals"
+    },
+    {
+      "name": "Training & Certification",
+      "short_name": "Training",
+      "url": "training.html",
+      "description": "Explore training programmes"
+    }
+  ]
+}

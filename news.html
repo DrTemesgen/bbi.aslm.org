@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>News &amp; Events · BBI Africa</title>
+  <meta name="description" content="Latest missions, trainings and strategy milestones from the Biosafety and Biosecurity Initiative." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / News</div>
+      <h1>News &amp; events</h1>
+      <p>Missions, regional trainings and strategy milestones from across the continent.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div class="toolbar">
+        <select id="nreg" aria-label="Filter by region"><option value="">All regions</option></select>
+        <span class="count-tag" id="ncount"></span>
+      </div>
+      <div class="card"><div id="news-list"></div></div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const list = document.getElementById('news-list');
+      const nreg = document.getElementById('nreg');
+      const ncount = document.getElementById('ncount');
+      BBI.regions.forEach(r => nreg.add(new Option(r.name, r.key)));
+      function render() {
+        const reg = nreg.value;
+        const items = BBI.news.filter(n => !reg || n.region === reg);
+        ncount.textContent = `${items.length} updates`;
+        list.innerHTML = items.map(n => `
+          <div class="news-item">
+            <div class="date"><b>${n.d}</b><span>${n.m} ${n.y}</span></div>
+            <div>
+              <span class="tag gold">${n.tag}</span> <span class="tag">${BBI.helpers.regionName(n.region)}</span>
+              <h3 style="margin-top:8px">${n.title}</h3>
+              <p class="muted" style="margin:0">${n.text}</p>
+            </div>
+          </div>`).join('');
+      }
+      nreg.addEventListener('input', render);
+      render();
+    });
+  </script>
+</body>
+</html>

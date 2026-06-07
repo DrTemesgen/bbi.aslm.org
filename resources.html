@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Resources · BBI Africa</title>
+  <meta name="description" content="Frameworks, strategies, guidance and media on biosafety and biosecurity from the BBI." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Resources</div>
+      <h1>Resources &amp; frameworks</h1>
+      <p>Key policy, strategy, training and guidance documents underpinning the initiative.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div class="toolbar">
+        <input type="search" id="rq" placeholder="Search resources…" aria-label="Search resources" />
+        <select id="rcat" aria-label="Filter by category"><option value="">All categories</option></select>
+        <span class="count-tag" id="rcount"></span>
+      </div>
+      <div class="card" style="padding:8px 22px"><div id="res-list"></div></div>
+      <div class="notice" style="margin-top:18px">📎 Document links are placeholders except where an external source is provided. Attach your official files (PDF/DOC) and update <code>js/data.js</code> to publish them.</div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const list = document.getElementById('res-list');
+      const rq = document.getElementById('rq');
+      const rcat = document.getElementById('rcat');
+      const rcount = document.getElementById('rcount');
+      [...new Set(BBI.resources.map(r => r.cat))].sort().forEach(c => rcat.add(new Option(c, c)));
+      function render() {
+        const term = (rq.value || '').toLowerCase().trim();
+        const cat = rcat.value;
+        const items = BBI.resources.filter(r => {
+          if (cat && r.cat !== cat) return false;
+          if (term && !(`${r.title} ${r.meta}`.toLowerCase().includes(term))) return false;
+          return true;
+        });
+        rcount.textContent = `${items.length} resources`;
+        list.innerHTML = items.map(r => {
+          const href = r.url || '#';
+          const ext = r.url ? ' target="_blank" rel="noopener"' : '';
+          return `<a class="res-item" href="${href}"${ext} style="text-decoration:none;color:inherit">
+            <span class="ficon">${r.type}</span>
+            <div style="flex:1"><b>${r.title}</b><div class="muted" style="font-size:.84rem">${r.meta}</div></div>
+            <span class="tag">${r.cat}</span>
+          </a>`;
+        }).join('') || `<div class="center muted" style="padding:20px">No resources match.</div>`;
+      }
+      [rq, rcat].forEach(el => el.addEventListener('input', render));
+      render();
+    });
+  </script>
+</body>
+</html>

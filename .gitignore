@@ -1,0 +1,20 @@
+# Dependencies (only used to generate icons; not needed to run the app)
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Local tooling
+.claude/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Build / packaging output
+*.apk
+*.aab
+*.keystore
+signing-key-info.txt

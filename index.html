@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>BBI · Biosafety &amp; Biosecurity Initiative — Africa CDC &amp; ASLM</title>
+  <meta name="description" content="The Africa CDC & ASLM Biosafety and Biosecurity Initiative: strengthening biosafety and biosecurity systems across all 55 African Union Member States." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="hero">
+    <div class="container">
+      <span class="pill">🛡️ Africa CDC · ASLM · African Union</span>
+      <h1>Securing Africa against biological threats</h1>
+      <p class="lead">The <strong>Biosafety &amp; Biosecurity Initiative (BBI)</strong> strengthens the systems that prevent, detect and respond to accidental and deliberate biological threats — across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="dashboard.html">View the dashboard →</a>
+        <a class="btn btn-ghost" href="directory.html">Professional directory</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="grid cols-4">
+        <div class="stat"><div class="num" data-count="55">0</div><div class="lbl">AU Member States</div><div class="sub">Continental coverage</div></div>
+        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Regional TWGs</div><div class="sub">Operationalised</div></div>
+        <div class="stat"><div class="num" data-count="400" data-suffix="+">0</div><div class="lbl">Professionals certified</div><div class="sub">2021–2025</div></div>
+        <div class="stat"><div class="num" data-count="1">0</div><div class="lbl">AU-endorsed framework</div><div class="sub">Regional legal basis</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">What we do</div>
+        <h2>Five strategic pillars</h2>
+        <p class="muted">The BBI organises continental action around five mutually reinforcing pillars that turn biosafety and biosecurity into a sustained, professional discipline.</p>
+      </div>
+      <div class="grid cols-3" id="pillars"></div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="grid cols-2" style="align-items:center;gap:40px">
+        <div>
+          <div class="eyebrow">The challenge</div>
+          <h2>One incident can cross borders in days</h2>
+          <p class="muted">“When a single biological incident, whether accidental or deliberate, can affect multiple countries in a matter of days, the necessity for a continent-wide, harmonised biosafety and biosecurity framework becomes undeniable.”</p>
+          <p class="muted" style="font-weight:600;color:var(--green-700)">— Dr Raji Tajudeen, Africa CDC</p>
+          <a class="btn btn-outline" href="about.html">Read about the initiative →</a>
+        </div>
+        <div class="grid" style="gap:14px">
+          <a class="card" href="framework.html" style="text-decoration:none;color:inherit"><div class="ico">⚖️</div><h3>Harmonised legal framework</h3><p class="muted" style="margin:0">The 2023 Regional BSBS Legal Framework, endorsed by the African Union, with six domains Member States can domesticate into national law. →</p></a>
+          <div class="card"><div class="ico">🤝</div><h3>One Health &amp; partner-backed</h3><p class="muted" style="margin:0">Spanning the human, animal, plant and environmental sectors, supported by global partners and AU Member States.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Journey</div>
+        <h2>From launch to a new five-year strategy</h2>
+      </div>
+      <ul class="timeline" id="timeline"></ul>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container">
+      <div class="cta">
+        <h2>Are you a certified biosafety professional?</h2>
+        <p>Explore the growing network of professionals advancing biosafety and biosecurity across the continent — or discover the training pathways that lead to certification.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn btn-primary" href="directory.html">Browse the directory</a>
+          <a class="btn btn-ghost" href="training.html" style="background:rgba(255,255,255,.18)">See training programmes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="app-footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('pillars').innerHTML = BBI.pillars.map(p => `
+        <div class="card"><div class="ico">${p.icon}</div>
+          <div class="pillar"><span class="n">Pillar ${p.n}</span><h3>${p.title}</h3>
+          <p class="muted" style="margin:0">${p.text}</p></div></div>`).join('');
+      document.getElementById('timeline').innerHTML = BBI.timeline.map(t => `
+        <li><span class="yr">${t.yr}</span> — <strong>${t.title}</strong><div class="muted">${t.text}</div></li>`).join('');
+    });
+  </script>
+</body>
+</html>

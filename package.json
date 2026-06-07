@@ -1,0 +1,13 @@
+{
+  "name": "bbi-africa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BBI Africa — Biosafety & Biosecurity Initiative PWA (Africa CDC & ASLM)",
+  "scripts": {
+    "start": "npx serve .",
+    "icons": "node gen-icons.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.0"
+  }
+}

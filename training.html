@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Training &amp; Certification · BBI Africa</title>
+  <meta name="description" content="BBI regional training and certification programmes building a professional biosafety and biosecurity workforce in Africa." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Training</div>
+      <h1>Training &amp; certification</h1>
+      <p>The Regional Training and Certification Programme turns biosafety and biosecurity into a recognised professional discipline.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div class="grid cols-3" style="margin-bottom:30px">
+        <div class="stat"><div class="num" data-count="400" data-suffix="+">0</div><div class="lbl">Professionals certified</div></div>
+        <div class="stat"><div class="num" data-count="30" data-suffix="+">0</div><div class="lbl">Trainings delivered</div></div>
+        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Regions covered</div></div>
+      </div>
+
+      <div class="section-head">
+        <div class="eyebrow">Programmes</div>
+        <h2>Courses &amp; certification pathways</h2>
+        <p class="muted">A blended portfolio spanning biorisk management, high-containment operations, waste management, equipment maintenance and policy.</p>
+      </div>
+      <div class="grid cols-2" id="training-grid"></div>
+
+      <div class="cta" style="margin-top:36px">
+        <h2>How certification works</h2>
+        <p>Practitioners progress through structured modules, supervised practical assessment and a regional examination aligned to the AU-endorsed standard — earning a portable, continent-wide credential.</p>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('training-grid').innerHTML = BBI.trainings.map(t => `
+        <div class="card">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <span class="tag gold">${t.level}</span><span class="tag blue">${t.mode}</span><span class="tag">${t.dur}</span>
+          </div>
+          <h3>${t.title}</h3>
+          <p class="muted" style="margin:0">${t.desc}</p>
+        </div>`).join('');
+    });
+  </script>
+</body>
+</html>
