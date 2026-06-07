@@ -1,6 +1,6 @@
 /* BBI Africa PWA — service worker
    Cache-first for the app shell, network-first for everything else. */
-const CACHE = 'bbi-africa-v6';
+const CACHE = 'bbi-africa-v7';
 const SHELL = [
   './',
   './index.html',
@@ -49,19 +49,17 @@ self.addEventListener('fetch', (event) => {
   if (request.method !== 'GET') return;
 
   const url = new URL(request.url);
-  // Navigation & same-origin: cache-first, fall back to network, then offline shell.
+  // Same-origin: NETWORK-FIRST so the latest code/HTML always loads when
+  // online; fall back to cache (then the offline shell) only when offline.
   if (request.mode === 'navigate' || url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        const network = fetch(request)
-          .then((resp) => {
-            const copy = resp.clone();
-            caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
-            return resp;
-          })
-          .catch(() => cached || caches.match('./index.html'));
-        return cached || network;
-      })
+      fetch(request)
+        .then((resp) => {
+          const copy = resp.clone();
+          caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
+          return resp;
+        })
+        .catch(() => caches.match(request).then((cached) => cached || caches.match('./index.html')))
     );
   }
 });
