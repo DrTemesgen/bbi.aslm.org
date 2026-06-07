@@ -72,9 +72,20 @@ This PWA is ready for [PWABuilder](https://www.pwabuilder.com/):
 
 ## Deploy as a website (GitHub Pages)
 
-1. Push this repo to GitHub.
-2. Settings → Pages → deploy from the `main` branch (root).
-3. Add a custom domain `bbi.aslm.org` (a `CNAME` file) and enable HTTPS.
+GitHub Pages is enabled on this repo. The live URL is:
+
+- **https://drtemesgen.github.io/bbi.aslm.org/**
+
+### Moving to the custom domain `bbi.aslm.org`
+
+Requires a DNS change on the `aslm.org` domain (done by whoever manages ASLM's DNS):
+
+1. At the `aslm.org` DNS provider, add a **CNAME record**: `bbi` → `drtemesgen.github.io`.
+2. In this repo: **Settings → Pages → Custom domain** → enter `bbi.aslm.org` → Save.
+   (This recreates a `CNAME` file containing `bbi.aslm.org`.)
+3. Wait for the DNS check to pass, then tick **Enforce HTTPS**.
+
+Until the DNS record exists, use the `drtemesgen.github.io` URL above.
 
 ## License & attribution
 
