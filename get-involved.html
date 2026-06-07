@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Get Involved · BBI Africa</title>
+  <meta name="description" content="Get involved in the Biosafety and Biosecurity Initiative — get certified, find a mentor, join a national technical working group, or partner with the BBI." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Get Involved</div>
+      <h1>Get involved</h1>
+      <p>Everyone has a role in strengthening biosafety and biosecurity. Here’s how you can contribute.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div class="grid cols-2" id="involve-grid" style="margin-bottom:44px"></div>
+
+      <div class="card" id="join" style="max-width:760px;margin:0 auto">
+        <div class="eyebrow">National Technical Working Group</div>
+        <h2 style="margin-top:4px">Express interest in joining a National TWG</h2>
+        <p class="muted">Tell us about yourself and your country’s biosafety and biosecurity work. Your email app will open with the details ready to send.</p>
+        <form id="join-form" class="form">
+          <div class="grid cols-2">
+            <label>Full name<input name="name" required /></label>
+            <label>Email<input type="email" name="email" required /></label>
+          </div>
+          <div class="grid cols-2">
+            <label>Organisation<input name="org" required /></label>
+            <label>Country<input name="country" required /></label>
+          </div>
+          <label>Sector
+            <select name="sector">
+              <option>Human health</option>
+              <option>Animal health</option>
+              <option>Plant / agriculture</option>
+              <option>Environment</option>
+              <option>Regulatory / policy</option>
+              <option>Academia / research</option>
+            </select>
+          </label>
+          <label>How would you like to contribute?<textarea name="message" rows="3"></textarea></label>
+          <button class="btn btn-primary" type="submit">✉️ Send expression of interest</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('involve-grid').innerHTML = BBI.getInvolved.map(g => `
+        <div class="card"><div class="ico">${g.icon}</div>
+          <h3>${g.title}</h3>
+          <p class="muted">${g.text}</p>
+          <a class="btn btn-outline" href="${g.href}">${g.cta} →</a>
+        </div>`).join('');
+
+      document.getElementById('join-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const subject = `BBI National TWG — expression of interest (${f.country.value})`;
+        const body = `Name: ${f.name.value}\nEmail: ${f.email.value}\nOrganisation: ${f.org.value}\nCountry: ${f.country.value}\nSector: ${f.sector.value}\n\n${f.message.value}`;
+        window.location.href = `mailto:info@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    });
+  </script>
+</body>
+</html>

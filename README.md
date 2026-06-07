@@ -14,12 +14,19 @@ It works as a **website** in any browser **and** packages into an **Android app 
 |------|-------------|
 | **Home** | Overview, key statistics, the five strategic pillars, and the initiative timeline. |
 | **Dashboard** | Continental progress: country engagement by region, status breakdown, pillar progress, and a country tracker. Charts are pure SVG/CSS — no external libraries, fully offline. |
-| **Directory** | Searchable, filterable professional directory of certified biosafety & biosecurity practitioners (currently illustrative sample data). |
+| **Dashboard** | Now includes an **interactive Africa coverage map** (SVG choropleth from GeoJSON) coloured by engagement status, with hover tooltips and click-to-inspect. |
+| **Directory** | Searchable/filterable directory with **certification badges** (5 disciplines + year), a **mentors-only** filter, and **click-through profile pages** (`profile.html?id=…`). Sample data — replace with the official roster. |
 | **Framework** | The official **Regional BSBS Legal Framework (2023)** and its six regulatory domains, with the full PDF bundled in `resources/`. |
-| **Training** | The Regional Training & Certification Programme and course catalogue. |
-| **Resources** | Frameworks, strategies, guidance and media, searchable by category. |
+| **Training** | Course catalogue plus **Certification Pathways** — the 5 disciplines and the Prepare → Apply → Maintain journey. |
+| **Mentorship** | Mentor directory + a request/become-a-mentor form (composes an email — no backend needed). |
+| **Events** | Conferences, trainings and workshops, filterable by type and region. |
+| **Knowledge Hub** | Frameworks, strategy, guidance and curated external references (WHO, IFBA, BWC, IHR), searchable by category. |
+| **Get Involved** | Get certified, find a mentor, join a National TWG (form), or partner with the BBI. |
+| **Home** | Adds a rotating **Biosafety Hero / professional spotlight**. |
 | **News** | Missions, trainings and strategy milestones, filterable by region. |
 | **About** | The initiative, the 2025–2030 strategy, partners and funders. |
+
+Feature set and structure are modelled in part on the IFBA platform (internationalbiosafety.org): professional certifications, a certified-professionals register, a mentorship programme, a spotlight, an events series and a knowledge hub.
 
 Plus full **PWA** support: installable, offline-capable (service worker app shell), app icons, and home-screen shortcuts.
 

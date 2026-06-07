@@ -1,15 +1,21 @@
 /* BBI Africa — shared shell: header, footer, nav, service worker */
 (function () {
-  const PAGES = [
+  const PRIMARY = [
     { href: 'index.html', label: 'Home' },
     { href: 'dashboard.html', label: 'Dashboard' },
     { href: 'directory.html', label: 'Directory' },
     { href: 'framework.html', label: 'Framework' },
-    { href: 'training.html', label: 'Training' },
+    { href: 'training.html', label: 'Training' }
+  ];
+  const MORE = [
+    { href: 'mentorship.html', label: 'Mentorship' },
+    { href: 'events.html', label: 'Events' },
     { href: 'resources.html', label: 'Resources' },
     { href: 'news.html', label: 'News' },
     { href: 'about.html', label: 'About' }
   ];
+  const CTA = { href: 'get-involved.html', label: 'Get Involved' };
+  const PAGES = [...PRIMARY, ...MORE, CTA]; // full list (footer + profile link targets)
 
   const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
 
@@ -22,13 +28,21 @@
   </svg>`;
 
   function header() {
-    const links = PAGES.map(p =>
-      `<a href="${p.href}" class="${p.href === current ? 'active' : ''}">${p.label}</a>`
-    ).join('');
+    const link = p => `<a href="${p.href}" class="${p.href === current ? 'active' : ''}">${p.label}</a>`;
+    const primaryLinks = PRIMARY.map(link).join('');
+    const moreLinks = MORE.map(link).join('');
+    const moreActive = MORE.some(p => p.href === current) ? ' active' : '';
     return `<header class="appbar"><div class="container">
       <a class="brand" href="index.html">${LOGO}<span><small>Africa CDC · ASLM</small><b>Biosafety &amp; Biosecurity Initiative</b></span></a>
       <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
-      <nav class="nav">${links}</nav>
+      <nav class="nav">
+        ${primaryLinks}
+        <span class="more">
+          <button class="more-btn${moreActive}" aria-expanded="false">More <span aria-hidden="true">▾</span></button>
+          <span class="more-menu">${moreLinks}</span>
+        </span>
+        <a href="${CTA.href}" class="nav-cta${CTA.href === current ? ' active' : ''}">${CTA.label}</a>
+      </nav>
     </div></header>`;
   }
 
@@ -73,6 +87,20 @@
         btn.setAttribute('aria-expanded', String(open));
       });
       nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+    }
+
+    // "More" dropdown (desktop)
+    const more = document.querySelector('.more');
+    const moreBtn = document.querySelector('.more-btn');
+    if (more && moreBtn) {
+      moreBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = more.classList.toggle('open');
+        moreBtn.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', (e) => {
+        if (!more.contains(e.target)) { more.classList.remove('open'); moreBtn.setAttribute('aria-expanded', 'false'); }
+      });
     }
   }
 

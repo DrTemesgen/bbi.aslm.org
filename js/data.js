@@ -16,6 +16,26 @@ BBI.regions = [
   { key: 'western', name: 'Western Africa', color: '#c0392b' }
 ];
 
+// Professional certification disciplines (modelled on IFBA's certification areas)
+BBI.certTypes = [
+  { key: 'brm', abbr: 'BRM', name: 'Biorisk Management', color: '#0f4f3c',
+    desc: 'Core competency in assessing and managing biological risk in laboratories and programmes.' },
+  { key: 'bsc', abbr: 'BSC', name: 'Biosafety Cabinets', color: '#1c7d61',
+    desc: 'Selection, certification and safe use of biological safety cabinets and primary containment.' },
+  { key: 'bcf', abbr: 'BCF', name: 'Biocontainment Facilities', color: '#1f6feb',
+    desc: 'Design, commissioning and operation of high- and maximum-containment laboratory facilities.' },
+  { key: 'bph', abbr: 'BPH', name: 'Biosafety & Public Health', color: '#b4861e',
+    desc: 'Applying biosafety in public-health laboratories, surveillance and outbreak response.' },
+  { key: 'bbn', abbr: 'BBN', name: 'Biosecurity & Biological Nonproliferation', color: '#c0392b',
+    desc: 'Pathogen security, accountability and prevention of deliberate misuse of biological agents.' }
+];
+
+BBI.certSteps = [
+  { icon: '📚', title: 'Prepare', text: 'Study the competency framework and use preparation resources and regional training to get exam-ready.' },
+  { icon: '📝', title: 'Apply & take the exam', text: 'Submit your application and sit the certification examination for your chosen discipline.' },
+  { icon: '🔁', title: 'Maintain', text: 'Keep your credential current through continuing professional development and periodic renewal.' }
+];
+
 BBI.metrics = {
   memberStates: 55,
   twgs: 5,
@@ -142,27 +162,98 @@ BBI.resources = [
   { type: 'PDF', title: 'BioRisk Management Field Guide', meta: 'Africa CDC · Guidance', cat: 'Guidance' },
   { type: 'PDF', title: 'Institutional Certification Standard for High-Consequence Facilities', meta: 'Africa CDC · Standard', cat: 'Standard' },
   { type: 'LINK', title: 'LabVoice: The next five years of Biosafety & Biosecurity', meta: 'ASLM · Podcast', cat: 'Media', url: 'https://aslm.org/resource/labvoice-empawering-africas-future-the-next-five-years-of-biosafety-and-biosecurity/' },
-  { type: 'LINK', title: 'ASLM Biosafety & Biosecurity programme page', meta: 'ASLM · Web', cat: 'Web', url: 'https://aslm.org/quality-systems-standards-regulation-and-accreditation/biosafety-biosecurity/' }
+  { type: 'LINK', title: 'ASLM Biosafety & Biosecurity programme page', meta: 'ASLM · Web', cat: 'Web', url: 'https://aslm.org/quality-systems-standards-regulation-and-accreditation/biosafety-biosecurity/' },
+  // ---- Knowledge Hub: curated external references ----
+  { type: 'LINK', title: 'WHO Laboratory Biosafety Manual (4th edition)', meta: 'World Health Organization · Guidance', cat: 'Guidance', url: 'https://www.who.int/publications/i/item/9789240011311' },
+  { type: 'LINK', title: 'IFBA Certification & Professional Register', meta: 'International Federation of Biosafety Associations', cat: 'Certification', url: 'https://internationalbiosafety.org/certification/' },
+  { type: 'LINK', title: 'Africa CDC — Biosafety & Biosecurity', meta: 'Africa CDC · Web', cat: 'Web', url: 'https://africacdc.org/' },
+  { type: 'LINK', title: 'Biological Weapons Convention (BWC)', meta: 'UNODA · Treaty', cat: 'Policy', url: 'https://disarmament.unoda.org/biological-weapons/' },
+  { type: 'LINK', title: 'International Health Regulations (IHR 2005)', meta: 'WHO · Framework', cat: 'Policy', url: 'https://www.who.int/health-topics/international-health-regulations' }
 ];
 
 // ---- ILLUSTRATIVE SAMPLE PROFILES — replace with the official roster ----
+// certs: keys into BBI.certTypes, each with the year achieved.
+// mentor: available in the mentorship programme. hero: spotlight citation (or '').
 BBI.directory = [
-  { name: 'Dr Amara Okonkwo', role: 'Regional TWG Chair', org: 'Nigeria CDC', country: 'Nigeria', region: 'western', specialties: ['Biorisk Management', 'Policy'], cert: 'Certified Professional', level: 'Lead' },
-  { name: 'Dr Lydia Mwangi', role: 'Biosafety Officer', org: 'Kenya Medical Research Institute', country: 'Kenya', region: 'eastern', specialties: ['Laboratory Biosafety', 'Training'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Samuel Tadesse', role: 'National Reference Lab Lead', org: 'Ethiopian Public Health Institute', country: 'Ethiopia', region: 'eastern', specialties: ['Pathogen Control', 'Diagnostics'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Fatima El-Amrani', role: 'Biosecurity Regulator', org: 'Institut Pasteur de Tunis', country: 'Tunisia', region: 'northern', specialties: ['Regulation', 'Legal Framework'], cert: 'Certified Professional', level: 'Lead' },
-  { name: 'Dr Thabo Nkosi', role: 'Biorisk Manager', org: 'NICD', country: 'South Africa', region: 'southern', specialties: ['High Containment', 'Waste Management'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Aïcha Diallo', role: 'Training Coordinator', org: 'Institut Pasteur de Dakar', country: 'Senegal', region: 'western', specialties: ['Training', 'Certification'], cert: 'Certified Trainer', level: 'Lead' },
-  { name: 'Dr Jean-Paul Mbarga', role: 'Laboratory Director', org: 'Centre Pasteur du Cameroun', country: 'Cameroon', region: 'central', specialties: ['Laboratory Biosafety', 'Equipment'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Grace Banda', role: 'Biosafety Specialist', org: 'Zambia National Public Health Institute', country: 'Zambia', region: 'southern', specialties: ['Biorisk Management', 'Surveillance'], cert: 'Certified Professional', level: 'Associate' },
-  { name: 'Dr Yusuf Abdallah', role: 'Biosecurity Analyst', org: 'Tanzania NPHL', country: 'Tanzania', region: 'eastern', specialties: ['Pathogen Control', 'Policy'], cert: 'Certified Professional', level: 'Associate' },
-  { name: 'Dr Mariam Coulibaly', role: 'Programme Officer', org: "Ministry of Health, Côte d'Ivoire", country: "Côte d'Ivoire", region: 'western', specialties: ['Policy', 'Coordination'], cert: 'Certified Professional', level: 'Associate' },
-  { name: 'Dr Ahmed Hassan', role: 'BioRisk Advisor', org: 'Egyptian Ministry of Health', country: 'Egypt', region: 'northern', specialties: ['High Containment', 'Regulation'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Esther Uwimana', role: 'Quality & Biosafety Lead', org: 'Rwanda Biomedical Centre', country: 'Rwanda', region: 'eastern', specialties: ['Laboratory Biosafety', 'Accreditation'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Kwame Mensah', role: 'Biosafety Officer', org: 'Noguchi Memorial Institute', country: 'Ghana', region: 'western', specialties: ['Training', 'Waste Management'], cert: 'Certified Professional', level: 'Associate' },
-  { name: 'Dr Nadia Benali', role: 'Regulatory Affairs Lead', org: 'Institut Pasteur du Maroc', country: 'Morocco', region: 'northern', specialties: ['Legal Framework', 'Policy'], cert: 'Certified Professional', level: 'Lead' },
-  { name: 'Dr Patrick Lukusa', role: 'High-Containment Specialist', org: 'INRB', country: 'DR Congo', region: 'central', specialties: ['High Containment', 'Pathogen Control'], cert: 'Certified Professional', level: 'Senior' },
-  { name: 'Dr Tendai Moyo', role: 'Biosafety Trainer', org: 'Zimbabwe NMRL', country: 'Zimbabwe', region: 'southern', specialties: ['Training', 'Certification'], cert: 'Certified Trainer', level: 'Senior' }
+  { id: 'amara-okonkwo', name: 'Dr Amara Okonkwo', role: 'Regional TWG Chair', org: 'Nigeria CDC', country: 'Nigeria', region: 'western', specialties: ['Biorisk Management', 'Policy'], level: 'Lead',
+    certs: [{ t: 'brm', y: 2019 }, { t: 'bbn', y: 2021 }], mentor: true,
+    hero: 'Chairs the West Africa RBB-TWG and has championed national biosafety legislation across the region.',
+    bio: 'Amara leads regional coordination of biosafety and biosecurity policy in West Africa, bridging laboratory practice and national regulation under a One Health approach.' },
+  { id: 'lydia-mwangi', name: 'Dr Lydia Mwangi', role: 'Biosafety Officer', org: 'Kenya Medical Research Institute', country: 'Kenya', region: 'eastern', specialties: ['Laboratory Biosafety', 'Training'], level: 'Senior',
+    certs: [{ t: 'brm', y: 2020 }, { t: 'bsc', y: 2022 }], mentor: true,
+    hero: '',
+    bio: 'Lydia oversees laboratory biosafety at KEMRI and trains the next generation of biosafety officers across Eastern Africa.' },
+  { id: 'samuel-tadesse', name: 'Dr Samuel Tadesse', role: 'National Reference Lab Lead', org: 'Ethiopian Public Health Institute', country: 'Ethiopia', region: 'eastern', specialties: ['Pathogen Control', 'Diagnostics'], level: 'Senior',
+    certs: [{ t: 'bph', y: 2021 }], mentor: false, hero: '',
+    bio: 'Samuel leads Ethiopia’s national reference laboratory, strengthening diagnostics and pathogen control for outbreak preparedness.' },
+  { id: 'fatima-el-amrani', name: 'Dr Fatima El-Amrani', role: 'Biosecurity Regulator', org: 'Institut Pasteur de Tunis', country: 'Tunisia', region: 'northern', specialties: ['Regulation', 'Legal Framework'], level: 'Lead',
+    certs: [{ t: 'bbn', y: 2020 }, { t: 'brm', y: 2018 }], mentor: true,
+    hero: 'A leading voice for harmonised biosecurity regulation across North Africa.',
+    bio: 'Fatima advises on national biosecurity regulation and the domestication of the AU legal framework in North Africa.' },
+  { id: 'thabo-nkosi', name: 'Dr Thabo Nkosi', role: 'Biorisk Manager', org: 'NICD', country: 'South Africa', region: 'southern', specialties: ['High Containment', 'Waste Management'], level: 'Senior',
+    certs: [{ t: 'bcf', y: 2019 }, { t: 'brm', y: 2017 }], mentor: true, hero: '',
+    bio: 'Thabo manages biorisk in high-containment facilities at the NICD and advises on biological waste management.' },
+  { id: 'aicha-diallo', name: 'Dr Aïcha Diallo', role: 'Training Coordinator', org: 'Institut Pasteur de Dakar', country: 'Senegal', region: 'western', specialties: ['Training', 'Certification'], level: 'Lead',
+    certs: [{ t: 'brm', y: 2018 }, { t: 'bph', y: 2021 }], mentor: true,
+    hero: 'Has trained hundreds of professionals through the regional certification programme.',
+    bio: 'Aïcha coordinates the regional training and certification programme, mentoring candidates from across Francophone Africa.' },
+  { id: 'jean-paul-mbarga', name: 'Dr Jean-Paul Mbarga', role: 'Laboratory Director', org: 'Centre Pasteur du Cameroun', country: 'Cameroon', region: 'central', specialties: ['Laboratory Biosafety', 'Equipment'], level: 'Senior',
+    certs: [{ t: 'bsc', y: 2021 }, { t: 'brm', y: 2020 }], mentor: false, hero: '',
+    bio: 'Jean-Paul directs laboratory operations and equipment reliability at the Centre Pasteur du Cameroun.' },
+  { id: 'grace-banda', name: 'Dr Grace Banda', role: 'Biosafety Specialist', org: 'Zambia National Public Health Institute', country: 'Zambia', region: 'southern', specialties: ['Biorisk Management', 'Surveillance'], level: 'Associate',
+    certs: [{ t: 'brm', y: 2022 }], mentor: false, hero: '',
+    bio: 'Grace supports biosafety and disease surveillance systems at the Zambia NPHI.' },
+  { id: 'yusuf-abdallah', name: 'Dr Yusuf Abdallah', role: 'Biosecurity Analyst', org: 'Tanzania NPHL', country: 'Tanzania', region: 'eastern', specialties: ['Pathogen Control', 'Policy'], level: 'Associate',
+    certs: [{ t: 'bbn', y: 2022 }], mentor: false, hero: '',
+    bio: 'Yusuf analyses biosecurity risks and supports pathogen accountability at Tanzania’s national health laboratory.' },
+  { id: 'mariam-coulibaly', name: 'Dr Mariam Coulibaly', role: 'Programme Officer', org: "Ministry of Health, Côte d'Ivoire", country: "Côte d'Ivoire", region: 'western', specialties: ['Policy', 'Coordination'], level: 'Associate',
+    certs: [{ t: 'bph', y: 2023 }], mentor: false, hero: '',
+    bio: 'Mariam coordinates national biosafety and biosecurity activities within the Ivorian Ministry of Health.' },
+  { id: 'ahmed-hassan', name: 'Dr Ahmed Hassan', role: 'BioRisk Advisor', org: 'Egyptian Ministry of Health', country: 'Egypt', region: 'northern', specialties: ['High Containment', 'Regulation'], level: 'Senior',
+    certs: [{ t: 'bcf', y: 2020 }, { t: 'bbn', y: 2021 }], mentor: true, hero: '',
+    bio: 'Ahmed advises on biorisk for high-containment facilities and regulatory compliance in Egypt.' },
+  { id: 'esther-uwimana', name: 'Dr Esther Uwimana', role: 'Quality & Biosafety Lead', org: 'Rwanda Biomedical Centre', country: 'Rwanda', region: 'eastern', specialties: ['Laboratory Biosafety', 'Accreditation'], level: 'Senior',
+    certs: [{ t: 'brm', y: 2020 }, { t: 'bph', y: 2022 }], mentor: true,
+    hero: 'Drove laboratory accreditation and biosafety quality systems at the Rwanda Biomedical Centre.',
+    bio: 'Esther leads quality and biosafety at the RBC, integrating accreditation with biorisk management.' },
+  { id: 'kwame-mensah', name: 'Dr Kwame Mensah', role: 'Biosafety Officer', org: 'Noguchi Memorial Institute', country: 'Ghana', region: 'western', specialties: ['Training', 'Waste Management'], level: 'Associate',
+    certs: [{ t: 'brm', y: 2023 }], mentor: false, hero: '',
+    bio: 'Kwame supports biosafety training and biological waste management at the Noguchi Memorial Institute.' },
+  { id: 'nadia-benali', name: 'Dr Nadia Benali', role: 'Regulatory Affairs Lead', org: 'Institut Pasteur du Maroc', country: 'Morocco', region: 'northern', specialties: ['Legal Framework', 'Policy'], level: 'Lead',
+    certs: [{ t: 'bbn', y: 2019 }], mentor: true, hero: '',
+    bio: 'Nadia leads regulatory affairs and supports the alignment of Moroccan law with the AU framework.' },
+  { id: 'patrick-lukusa', name: 'Dr Patrick Lukusa', role: 'High-Containment Specialist', org: 'INRB', country: 'DR Congo', region: 'central', specialties: ['High Containment', 'Pathogen Control'], level: 'Senior',
+    certs: [{ t: 'bcf', y: 2021 }, { t: 'brm', y: 2019 }], mentor: true,
+    hero: 'Operates one of Central Africa’s key high-containment laboratories on the front line of outbreak response.',
+    bio: 'Patrick specialises in high-containment operations and pathogen control at the INRB in Kinshasa.' },
+  { id: 'tendai-moyo', name: 'Dr Tendai Moyo', role: 'Biosafety Trainer', org: 'Zimbabwe NMRL', country: 'Zimbabwe', region: 'southern', specialties: ['Training', 'Certification'], level: 'Senior',
+    certs: [{ t: 'brm', y: 2020 }, { t: 'bsc', y: 2022 }], mentor: true, hero: '',
+    bio: 'Tendai trains and certifies biosafety practitioners across Southern Africa.' }
+];
+
+BBI.events = [
+  { d: '22', m: 'Jan', y: '2026', loc: 'Arusha, Tanzania', type: 'Conference', reg: true,
+    title: 'Global Voices in Biosafety & Biosecurity', region: 'eastern',
+    desc: 'Annual gathering celebrating diversity and sharing best practice in biosafety and biosecurity across Africa and beyond.' },
+  { d: '10', m: 'Mar', y: '2026', loc: 'Dakar, Senegal', type: 'Training', reg: true,
+    title: 'Regional Biorisk Management Certification Course', region: 'western',
+    desc: 'Five-day intensive preparing candidates for the Biorisk Management certification examination.' },
+  { d: '05', m: 'May', y: '2026', loc: 'Cairo, Egypt', type: 'Workshop', reg: true,
+    title: 'North Africa Legal Framework Domestication Workshop', region: 'northern',
+    desc: 'Regulators and policymakers work through enacting national legislation aligned to the AU framework.' },
+  { d: '18', m: 'Jul', y: '2026', loc: 'Johannesburg, South Africa', type: 'Training', reg: false,
+    title: 'High-Containment Facilities Operations Course', region: 'southern',
+    desc: 'Specialist training for biocontainment facility operators and engineers.' },
+  { d: '09', m: 'Sep', y: '2026', loc: 'Kigali, Rwanda', type: 'Summit', reg: false,
+    title: 'Continental Biosafety Leadership Summit', region: 'eastern',
+    desc: 'TWG chairs and national focal points review progress on the 2025–2030 strategy.' }
+];
+
+BBI.getInvolved = [
+  { icon: '🎓', title: 'Get certified', text: 'Join the regional training and certification programme and earn a recognised, portable credential.', cta: 'See pathways', href: 'training.html' },
+  { icon: '🧭', title: 'Find a mentor', text: 'Connect with experienced professionals through the mentorship programme to grow your career.', cta: 'Mentorship', href: 'mentorship.html' },
+  { icon: '🤝', title: 'Join a National TWG', text: 'Contribute to your country’s biosafety and biosecurity technical working group or professional association.', cta: 'Express interest', href: '#join' },
+  { icon: '🌍', title: 'Partner with the BBI', text: 'Institutions and funders can collaborate to strengthen biosafety and biosecurity systems across Africa.', cta: 'Contact us', href: 'mailto:info@aslm.org' }
 ];
 
 BBI.helpers = {
@@ -181,5 +272,11 @@ BBI.helpers = {
     const palette = ['#0f4f3c', '#13654d', '#1c7d61', '#b4861e', '#1f6feb', '#c0392b', '#6d4aab'];
     let h = 0; for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
     return palette[h % palette.length];
+  },
+  certType(key) {
+    return (BBI.certTypes || []).find(c => c.key === key) || { abbr: key, name: key, color: '#13654d', desc: '' };
+  },
+  person(id) {
+    return (BBI.directory || []).find(p => p.id === id) || null;
   }
 };

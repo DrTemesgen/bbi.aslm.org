@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mentorship · BBI Africa</title>
+  <meta name="description" content="The BBI mentorship programme connects emerging professionals with experienced biosafety and biosecurity mentors across Africa." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Mentorship</div>
+      <h1>Mentorship programme</h1>
+      <p>Connecting emerging professionals with experienced mentors to build skills, networks and leadership across the continent.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div class="grid cols-3" style="margin-bottom:36px">
+        <div class="card"><div class="ico">🧭</div><h3>Get guidance</h3><p class="muted" style="margin:0">One-to-one support from certified professionals on regional and global biosafety and biosecurity issues.</p></div>
+        <div class="card"><div class="ico">🌍</div><h3>Build networks</h3><p class="muted" style="margin:0">Connect across regions and disciplines, sharing experience and good practice.</p></div>
+        <div class="card"><div class="ico">📈</div><h3>Grow your career</h3><p class="muted" style="margin:0">Prepare for certification and step into leadership in your national programme.</p></div>
+      </div>
+
+      <div class="section-head">
+        <div class="eyebrow">Our mentors</div>
+        <h2>Available mentors</h2>
+        <p class="muted">Experienced professionals offering mentorship through the programme.</p>
+      </div>
+      <div class="grid cols-3" id="mentor-grid" style="margin-bottom:44px"></div>
+
+      <div class="card" id="join" style="max-width:760px;margin:0 auto">
+        <div class="eyebrow">Join the programme</div>
+        <h2 style="margin-top:4px">Request a mentor or become one</h2>
+        <p class="muted">Complete the form and your email app will open with the details ready to send to the programme team.</p>
+        <form id="mentor-form" class="form">
+          <div class="grid cols-2">
+            <label>Full name<input name="name" required /></label>
+            <label>Email<input type="email" name="email" required /></label>
+          </div>
+          <div class="grid cols-2">
+            <label>Country<input name="country" required /></label>
+            <label>I want to…
+              <select name="role">
+                <option value="find a mentor">Find a mentor</option>
+                <option value="become a mentor">Become a mentor</option>
+              </select>
+            </label>
+          </div>
+          <label>Area of interest
+            <select name="area" id="area"></select>
+          </label>
+          <label>Message (optional)<textarea name="message" rows="3"></textarea></label>
+          <button class="btn btn-primary" type="submit">✉️ Submit request</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const H = BBI.helpers;
+      const mentors = BBI.directory.filter(p => p.mentor);
+      document.getElementById('mentor-grid').innerHTML = mentors.map(p => {
+        const color = H.avatarColor(p.name);
+        const badges = p.certs.map(c => { const t = H.certType(c.t); return `<span class="tag" style="background:${t.color}1a;color:${t.color}">${t.abbr}</span>`; }).join('');
+        return `<a class="person fade-in" href="profile.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit">
+          <div class="avatar" style="background:${color}">${H.initials(p.name)}</div>
+          <div style="flex:1;min-width:0">
+            <h3>${p.name}</h3><div class="role">${p.role} · ${p.country}</div>
+            <div>${badges}</div>
+            <div class="flag">${H.regionName(p.region)} · ${p.specialties.join(', ')}</div>
+          </div></a>`;
+      }).join('');
+
+      const area = document.getElementById('area');
+      BBI.certTypes.forEach(c => area.add(new Option(c.name, c.name)));
+      area.add(new Option('General / not sure', 'General'));
+
+      document.getElementById('mentor-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = e.target;
+        const subject = `BBI Mentorship — ${f.role.value} (${f.area.value})`;
+        const body = `Name: ${f.name.value}\nEmail: ${f.email.value}\nCountry: ${f.country.value}\nRequest: ${f.role.value}\nArea of interest: ${f.area.value}\n\n${f.message.value}`;
+        window.location.href = `mailto:info@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    });
+  </script>
+</body>
+</html>

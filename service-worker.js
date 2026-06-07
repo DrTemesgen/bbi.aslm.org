@@ -1,21 +1,27 @@
 /* BBI Africa PWA — service worker
    Cache-first for the app shell, network-first for everything else. */
-const CACHE = 'bbi-africa-v4';
+const CACHE = 'bbi-africa-v5';
 const SHELL = [
   './',
   './index.html',
   './dashboard.html',
   './directory.html',
+  './profile.html',
   './framework.html',
   './training.html',
+  './mentorship.html',
+  './events.html',
   './resources.html',
   './news.html',
   './about.html',
+  './get-involved.html',
   './css/styles.css',
   './js/app.js',
   './js/data.js',
   './js/dashboard.js',
   './js/directory.js',
+  './js/map.js',
+  './assets/africa.geojson',
   './manifest.webmanifest',
   './assets/icons/icon.svg'
 ];

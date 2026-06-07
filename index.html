@@ -66,6 +66,17 @@
     </div>
   </section>
 
+  <section class="section" id="spotlight-section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">⭐ Biosafety Hero</div>
+        <h2>Professional spotlight</h2>
+        <p class="muted">Recognising professionals advancing biosafety and biosecurity across Africa.</p>
+      </div>
+      <div id="spotlight"></div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="section-head">
@@ -101,6 +112,30 @@
           <p class="muted" style="margin:0">${p.text}</p></div></div>`).join('');
       document.getElementById('timeline').innerHTML = BBI.timeline.map(t => `
         <li><span class="yr">${t.yr}</span> — <strong>${t.title}</strong><div class="muted">${t.text}</div></li>`).join('');
+
+      // Spotlight: rotate daily through professionals with a hero citation
+      const H = BBI.helpers;
+      const heroes = BBI.directory.filter(p => p.hero);
+      if (heroes.length) {
+        const dayIdx = Math.floor(Date.now() / 86400000) % heroes.length;
+        const p = heroes[dayIdx];
+        const color = H.avatarColor(p.name);
+        const badges = p.certs.map(c => { const t = H.certType(c.t); return `<span class="tag" style="background:${t.color}1a;color:${t.color}">${t.abbr}</span>`; }).join('');
+        document.getElementById('spotlight').innerHTML = `
+          <a class="card" href="profile.html?id=${encodeURIComponent(p.id)}" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;text-decoration:none;color:inherit">
+            <div class="avatar" style="background:${color};width:84px;height:84px;font-size:1.7rem">${H.initials(p.name)}</div>
+            <div style="flex:1;min-width:220px">
+              <span class="tag gold">⭐ Biosafety Hero</span>
+              <h3 style="margin:8px 0 2px;font-size:1.25rem">${p.name}</h3>
+              <div class="muted" style="margin-bottom:8px">${p.role} · ${p.org} · ${p.country}</div>
+              <p style="margin:0 0 8px">“${p.hero}”</p>
+              <div>${badges} ${p.mentor ? '<span class="tag">🧭 Mentor</span>' : ''}</div>
+            </div>
+            <span class="btn btn-outline" style="pointer-events:none">View profile →</span>
+          </a>`;
+      } else {
+        document.getElementById('spotlight-section').style.display = 'none';
+      }
     });
   </script>
 </body>

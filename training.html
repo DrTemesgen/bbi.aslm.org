@@ -36,9 +36,26 @@
       </div>
       <div class="grid cols-2" id="training-grid"></div>
 
-      <div class="cta" style="margin-top:36px">
-        <h2>How certification works</h2>
-        <p>Practitioners progress through structured modules, supervised practical assessment and a regional examination aligned to the AU-endorsed standard — earning a portable, continent-wide credential.</p>
+      <div class="section-head" style="margin-top:48px">
+        <div class="eyebrow">Certification pathways</div>
+        <h2>Choose your discipline</h2>
+        <p class="muted">Professional certification recognises competency in a specific discipline — a portable, continent-wide credential.</p>
+      </div>
+      <div class="grid cols-3" id="cert-types"></div>
+
+      <div class="section-head" style="margin-top:44px">
+        <div class="eyebrow">The journey</div>
+        <h2>Prepare → Apply → Maintain</h2>
+      </div>
+      <div class="grid cols-3" id="cert-steps"></div>
+
+      <div class="cta" style="margin-top:40px">
+        <h2>Ready to get certified?</h2>
+        <p>Find a mentor, browse upcoming training events, and join the network of certified professionals advancing biosafety and biosecurity across Africa.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn btn-primary" href="events.html">Upcoming training</a>
+          <a class="btn btn-ghost" href="mentorship.html" style="background:rgba(255,255,255,.18)">Find a mentor</a>
+        </div>
       </div>
     </div>
   </main>
@@ -56,6 +73,20 @@
           <h3>${t.title}</h3>
           <p class="muted" style="margin:0">${t.desc}</p>
         </div>`).join('');
+
+      document.getElementById('cert-types').innerHTML = BBI.certTypes.map(c => `
+        <div class="card" style="border-top:4px solid ${c.color}">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span class="tag" style="background:${c.color}1a;color:${c.color}">${c.abbr}</span>
+            <h3 style="margin:0;font-size:1.05rem">${c.name}</h3>
+          </div>
+          <p class="muted" style="margin:0">${c.desc}</p>
+        </div>`).join('');
+
+      document.getElementById('cert-steps').innerHTML = BBI.certSteps.map((s, i) => `
+        <div class="card"><div class="ico">${s.icon}</div>
+          <div class="pillar"><span class="n">Step ${i + 1}</span><h3>${s.title}</h3>
+          <p class="muted" style="margin:0">${s.text}</p></div></div>`).join('');
     });
   </script>
 </body>
