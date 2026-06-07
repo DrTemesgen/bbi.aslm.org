@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Apply · RTCP-BBP · BBI Africa</title>
+  <meta name="description" content="Apply to the Africa CDC Regional Training and Certification Program for Biosafety and Biosecurity Professionals (RTCP-BBP)." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Apply</div>
+      <h1>Apply for certification (RTCP-BBP)</h1>
+      <p>The Africa CDC Regional Training &amp; Certification Program for Biosafety and Biosecurity Professionals — Expression of Interest.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+
+      <!-- Program info -->
+      <div class="section-head">
+        <div class="eyebrow">Certification areas</div>
+        <h2>Choose your area &amp; level</h2>
+        <p class="muted">Certification is offered in four technical areas, each at three levels of competency, via two pathways.</p>
+      </div>
+      <div class="grid cols-2" id="areas-grid"></div>
+
+      <div class="grid cols-3" id="levels-grid" style="margin-top:18px"></div>
+      <div class="grid cols-2" id="pathways-grid" style="margin-top:18px"></div>
+
+      <div class="card" style="margin-top:24px">
+        <h3>📋 Documents you’ll need (Alternative Pathway)</h3>
+        <ul id="docs-list" class="muted" style="margin:0;padding-left:20px"></ul>
+      </div>
+
+      <!-- Application form -->
+      <div class="section-head" style="margin-top:48px">
+        <div class="eyebrow">Expression of Interest</div>
+        <h2>Submit your application</h2>
+      </div>
+
+      <div id="gate" class="card center">
+        <div class="ico" style="margin:0 auto 12px">🔐</div>
+        <h3>Sign in to apply</h3>
+        <p class="muted">Create an account or sign in with your phone number to start and track your application.</p>
+        <a class="btn btn-primary" href="login.html?next=apply.html">Sign in / create account</a>
+        <div id="not-config" class="notice hidden" style="margin-top:14px">🔧 Online applications are being set up. Meanwhile you can apply on the official ASLM portal below.</div>
+        <p style="margin-top:14px"><a href="https://professionals.aslm.org/" target="_blank" rel="noopener">Official ASLM professionals portal ↗</a></p>
+      </div>
+
+      <form id="app-form" class="form card hidden" style="max-width:760px">
+        <p class="muted" style="margin-top:0">Signed in as <strong id="who"></strong>. Your contact phone is your account number.</p>
+        <div class="grid cols-2">
+          <label>Full name<input name="name" required /></label>
+          <label>Email (optional)<input type="email" name="email" /></label>
+        </div>
+        <div class="grid cols-2">
+          <label>Country<input name="country" required /></label>
+          <label>Organisation<input name="org" required /></label>
+        </div>
+        <div class="grid cols-2">
+          <label>Certification area<select name="area" id="f-area" required></select></label>
+          <label>Level<select name="level" id="f-level" required></select></label>
+        </div>
+        <div class="grid cols-2">
+          <label>Pathway<select name="pathway" id="f-pathway" required></select></label>
+          <label>Years of relevant experience<input type="number" name="experience" min="0" max="60" required /></label>
+        </div>
+        <label>Highest qualification<input name="qualification" placeholder="e.g. MSc Microbiology" required /></label>
+        <label>Background statement
+          <textarea name="background" rows="3" placeholder="How your qualifications and experience align to the level you’re applying for…" required></textarea>
+        </label>
+        <label>Capability statement
+          <textarea name="capability" rows="3" placeholder="Relevant work history, methodologies and results…" required></textarea>
+        </label>
+        <label>Document links (CV, certificates, references — e.g. Google Drive / OneDrive links)
+          <textarea name="documents" rows="2" placeholder="Paste shareable links to your CV, certificates and references"></textarea>
+        </label>
+        <label class="chk-row"><input type="checkbox" name="confirm" required /> I confirm the information is accurate and I can provide the required documents on request.</label>
+        <button class="btn btn-primary" type="submit" id="submit-btn">Submit application</button>
+        <div id="form-msg" class="notice hidden"></div>
+      </form>
+
+      <div id="success" class="card center hidden">
+        <div class="ico" style="margin:0 auto 12px">🎉</div>
+        <h3>Application submitted</h3>
+        <p class="muted">Thank you. You can track its status any time from your account.</p>
+        <a class="btn btn-primary" href="account.html">View my applications →</a>
+      </div>
+
+      <div class="notice" style="margin-top:24px">ℹ️ This in-app Expression of Interest is captured in the BBI system. The formal programme is administered by Africa CDC &amp; ASLM; final evaluation is by the Examination &amp; Certification Committee (ECC). See the <a href="https://professionals.aslm.org/" target="_blank" rel="noopener">official ASLM portal</a>.</div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const A = window.BBIAuth, $ = (id) => document.getElementById(id);
+
+      // Program info
+      $('areas-grid').innerHTML = BBI.certTypes.map(c => `
+        <div class="card" style="border-top:4px solid ${c.color}">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+            <span class="tag" style="background:${c.color}1a;color:${c.color}">${c.abbr}</span>
+            <h3 style="margin:0;font-size:1.05rem">${c.name}</h3>
+          </div>
+          <p class="muted" style="margin:0 0 8px">${c.desc}</p>
+          <p style="margin:0;font-size:.85rem"><strong>Eligibility:</strong> <span class="muted">${BBI.eligibility[c.key] || ''}</span></p>
+        </div>`).join('');
+      $('levels-grid').innerHTML = BBI.certLevels.map(l => `
+        <div class="card"><h3 style="margin:0 0 4px">${l.name}</h3><p class="muted" style="margin:0;font-size:.9rem">${l.desc}</p></div>`).join('');
+      $('pathways-grid').innerHTML = BBI.pathways.map(p => `
+        <div class="card"><h3 style="margin:0 0 4px">${p.name}</h3><p class="muted" style="margin:0;font-size:.9rem">${p.desc}</p></div>`).join('');
+      $('docs-list').innerHTML = BBI.requiredDocs.map(d => `<li>${d}</li>`).join('');
+
+      // Form selects
+      BBI.certTypes.forEach(c => $('f-area').add(new Option(c.name, c.key)));
+      BBI.certLevels.forEach(l => $('f-level').add(new Option(l.name, l.key)));
+      BBI.pathways.forEach(p => $('f-pathway').add(new Option(p.name, p.key)));
+
+      if (!A || !A.ready) { $('not-config').classList.remove('hidden'); return; }
+
+      A.onAuth((user) => {
+        if (user) {
+          $('gate').classList.add('hidden');
+          $('app-form').classList.remove('hidden');
+          $('who').textContent = user.phoneNumber || 'your account';
+        } else {
+          $('gate').classList.remove('hidden');
+          $('app-form').classList.add('hidden');
+        }
+      });
+
+      $('app-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = $('form-msg');
+        msg.classList.add('hidden');
+        const btn = $('submit-btn'); btn.disabled = true; btn.textContent = 'Submitting…';
+        const f = e.target;
+        const data = {
+          name: f.name.value, email: f.email.value, country: f.country.value, org: f.org.value,
+          area: f.area.value, areaName: BBI.helpers.certType(f.area.value).name,
+          level: f.level.value, pathway: f.pathway.value,
+          experience: Number(f.experience.value), qualification: f.qualification.value,
+          background: f.background.value, capability: f.capability.value, documents: f.documents.value
+        };
+        try {
+          await A.submitApplication(data);
+          $('app-form').classList.add('hidden');
+          $('success').classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (err) {
+          msg.textContent = 'Could not submit: ' + (err.message || err);
+          msg.classList.remove('hidden');
+        } finally { btn.disabled = false; btn.textContent = 'Submit application'; }
+      });
+    });
+  </script>
+</body>
+</html>

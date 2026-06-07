@@ -94,6 +94,28 @@ Requires a DNS change on the `aslm.org` domain (done by whoever manages ASLM's D
 
 Until the DNS record exists, use the `drtemesgen.github.io` URL above.
 
+## Applications, accounts & admin (Firebase)
+
+The app includes an **end-to-end application system**: applicants create an account with their **phone number (SMS one-time code)**, submit an Expression of Interest to the **RTCP-BBP** programme, and track its status. Administrators review submissions in a gated **admin panel** (`admin.html`).
+
+It runs entirely from the static frontend using **Firebase** (Auth + Firestore) — no server to host. It stays dormant (showing a friendly "being set up" notice) until you add your Firebase config.
+
+### One-time setup
+
+1. **Create a Firebase project** at <https://console.firebase.google.com>.
+2. **Add a Web app** (Project settings → General → Your apps → Web). Copy the config object.
+3. Paste it into [`js/firebase-config.js`](js/firebase-config.js) (replace the `PASTE_…` values). Also set `BBI_DEFAULT_DIAL_CODE` to your country code. These are public client keys — safe to commit.
+4. **Authentication → Sign-in method →** enable **Phone**.
+5. **Authentication → Settings → Authorized domains →** add `drtemesgen.github.io` (and `bbi.aslm.org` once DNS is live).
+6. **Firestore Database → Create database** (production mode), then **Rules** → paste the contents of [`firestore.rules`](firestore.rules) → Publish.
+7. **Make yourself an admin:** sign in once on the live site at `/login.html`, copy the **User ID** shown on `/account.html`, then in Firestore create a collection **`admins`** with a document whose **ID = that User ID** (any field/value). Reload `/admin.html`.
+
+> **Billing note:** Firebase Phone Auth includes a small free daily SMS quota; higher volume requires the pay-as-you-go **Blaze** plan, and SMS messages have a per-message cost. WhatsApp codes are **not** used in this version (SMS only) — WhatsApp can be added later via a provider such as Twilio.
+
+### Document uploads
+
+This version captures document **links** (e.g. Google Drive/OneDrive). Direct file uploads can be added later with **Firebase Storage** (requires the Blaze plan).
+
 ## License & attribution
 
 Built for ASLM / Africa CDC. "BBI", "Africa CDC" and "ASLM" names and any official logos belong to their respective organisations.

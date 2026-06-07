@@ -12,9 +12,11 @@
     { href: 'events.html', label: 'Events' },
     { href: 'resources.html', label: 'Resources' },
     { href: 'news.html', label: 'News' },
-    { href: 'about.html', label: 'About' }
+    { href: 'get-involved.html', label: 'Get Involved' },
+    { href: 'about.html', label: 'About' },
+    { href: 'account.html', label: 'My Account' }
   ];
-  const CTA = { href: 'get-involved.html', label: 'Get Involved' };
+  const CTA = { href: 'apply.html', label: 'Apply' };
   const PAGES = [...PRIMARY, ...MORE, CTA]; // full list (footer + profile link targets)
 
   const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();

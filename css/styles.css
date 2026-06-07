@@ -286,6 +286,25 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 .form .btn { justify-self: start; }
 @media (max-width:560px){ .form .grid.cols-2 { grid-template-columns: 1fr; } }
 
+.form label.chk-row, .chk-row { display: flex; gap: 9px; align-items: flex-start; font-weight: 400; font-size: .9rem; }
+.chk-row input { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--green-700); flex: 0 0 auto; }
+
+/* ---------- Admin table ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.adm-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 720px; }
+.adm-table th { text-align: left; background: var(--green-100); color: var(--green-800); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; padding: 11px 14px; }
+.adm-table td { padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+.adm-table tr:hover td { background: #fafdfb; }
+
+/* ---------- Detail drawer ---------- */
+.drawer { position: fixed; inset: 0; z-index: 200; background: rgba(11,36,31,.45); display: flex; justify-content: flex-end; }
+.drawer-panel { width: min(520px, 100%); background: #fff; height: 100%; overflow-y: auto; padding: 26px; position: relative; box-shadow: -8px 0 30px rgba(0,0,0,.2); animation: slidein .2s ease; }
+@keyframes slidein { from { transform: translateX(30px); opacity: .6; } to { transform: none; opacity: 1; } }
+.drawer-close { position: absolute; top: 14px; right: 16px; border: 0; background: var(--bg); width: 34px; height: 34px; border-radius: 50%; font-size: 1.3rem; cursor: pointer; color: var(--ink); }
+.kv { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.kv span { display: block; font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 3px; }
+.kv div { font-size: .92rem; white-space: pre-wrap; word-break: break-word; }
+
 /* ---------- Footer ---------- */
 .footer { background: var(--green-900); color: #cfe6db; margin-top: 40px; padding: 40px 0 24px; }
 .footer a { color: #cfe6db; }

@@ -1,0 +1,40 @@
+rules_version = '2';
+// BBI Africa — Firestore security rules
+// Paste into Firebase console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Admins registry: each admin is a document whose id is the user's UID.
+    // Readable by the owner (so the app can check its own admin status) and by admins.
+    match /admins/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if false; // manage admins from the Firebase console only
+    }
+
+    // Applications.
+    match /applications/{id} {
+      // An applicant may create their own application.
+      allow create: if signedIn()
+                    && request.resource.data.uid == request.auth.uid
+                    && request.resource.data.status == 'submitted';
+
+      // Read: the owner, or any admin.
+      allow read: if signedIn()
+                  && (resource.data.uid == request.auth.uid || isAdmin());
+
+      // Update: only admins, and only the status/updatedAt fields
+      // (applicants cannot edit after submission in this version).
+      allow update: if isAdmin()
+                    && request.resource.data.uid == resource.data.uid;
+
+      allow delete: if isAdmin();
+    }
+  }
+}

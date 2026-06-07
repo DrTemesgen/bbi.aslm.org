@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Admin · BBI Africa</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="account.html">My Account</a> / Admin</div>
+      <h1>🛡️ Admin — applications</h1>
+      <p>Review and manage Expression of Interest submissions.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container">
+      <div id="not-config" class="notice hidden">🔧 The backend is being set up. Add your Firebase config to enable the admin panel.</div>
+      <div id="no-access" class="card center hidden">
+        <div class="ico" style="margin:0 auto 12px">⛔</div>
+        <h3>Admin access required</h3>
+        <p class="muted">This area is restricted to programme administrators.</p>
+        <a class="btn btn-primary" href="login.html?next=admin.html">Sign in</a>
+        <a class="btn btn-outline" href="index.html">Back to home</a>
+      </div>
+
+      <div id="panel" class="hidden">
+        <div class="grid cols-4" id="stats" style="margin-bottom:22px"></div>
+
+        <div class="toolbar">
+          <input type="search" id="q" placeholder="Search name, organisation, country, phone…" />
+          <select id="f-status"><option value="">All statuses</option></select>
+          <select id="f-area"><option value="">All areas</option></select>
+          <span class="count-tag" id="count"></span>
+          <button class="btn btn-outline" id="export" style="padding:8px 14px">⤓ Export CSV</button>
+        </div>
+
+        <div id="rows"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Detail drawer -->
+  <div id="drawer" class="drawer hidden">
+    <div class="drawer-panel">
+      <button class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+      <div id="drawer-body"></div>
+    </div>
+  </div>
+
+  <div id="app-footer"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin-shared.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>My Account · BBI Africa</title>
+  <meta name="description" content="Your BBI account: track your certification applications and their status." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / My Account</div>
+      <h1>My account</h1>
+      <p>Track your certification applications and their status.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container" style="max-width:880px">
+      <div id="not-config" class="notice hidden">🔧 Accounts are being set up. Please check back shortly.</div>
+
+      <div id="signed-out" class="card center hidden">
+        <div class="ico" style="margin:0 auto 12px">🔐</div>
+        <h3>Please sign in</h3>
+        <p class="muted">Sign in with your phone number to see your applications.</p>
+        <a class="btn btn-primary" href="login.html?next=account.html">Sign in / create account</a>
+      </div>
+
+      <div id="account" class="hidden">
+        <div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
+          <div class="avatar" style="background:var(--green-700)">👤</div>
+          <div style="flex:1;min-width:200px">
+            <h3 style="margin:0" id="acc-phone"></h3>
+            <div class="muted" style="font-size:.82rem">User ID: <code id="acc-uid"></code></div>
+          </div>
+          <a class="btn btn-primary" href="apply.html">+ New application</a>
+          <button class="btn btn-outline" id="signout">Sign out</button>
+        </div>
+
+        <div id="admin-link" class="notice hidden" style="background:#e6effd;border-color:#bcd4fb">
+          🛡️ You have admin access. <a href="admin.html">Open the admin panel →</a>
+        </div>
+
+        <h2 style="margin-top:10px">My applications</h2>
+        <div id="apps"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin-shared.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const A = window.BBIAuth, $ = (id) => document.getElementById(id);
+      if (!A || !A.ready) { $('not-config').classList.remove('hidden'); $('signed-out').classList.remove('hidden'); return; }
+
+      A.onAuth(async (user, admin) => {
+        if (!user) { $('account').classList.add('hidden'); $('signed-out').classList.remove('hidden'); return; }
+        $('signed-out').classList.add('hidden');
+        $('account').classList.remove('hidden');
+        $('acc-phone').textContent = user.phoneNumber || 'My account';
+        $('acc-uid').textContent = user.uid;
+        $('admin-link').classList.toggle('hidden', !admin);
+
+        const apps = await A.myApplications();
+        $('apps').innerHTML = apps.length
+          ? apps.map(BBI.renderAppCard).join('')
+          : `<div class="card center muted">No applications yet. <a href="apply.html">Start one →</a></div>`;
+      });
+
+      $('signout').addEventListener('click', () => A.signOut().then(() => location.reload()));
+    });
+  </script>
+</body>
+</html>

@@ -29,6 +29,36 @@ BBI.certTypes = [
     desc: 'Field certification, testing and safe use of biological safety cabinets.' }
 ];
 
+// RTCP-BBP certification levels
+BBI.certLevels = [
+  { key: 'I', name: 'Level I', desc: 'Foundational competency — entry practitioners building core skills in the discipline.' },
+  { key: 'II', name: 'Level II', desc: 'Intermediate competency — practitioners applying skills independently in their setting.' },
+  { key: 'III', name: 'Level III', desc: 'Advanced competency — experts leading, training and advising others in the discipline.' }
+];
+
+// RTCP-BBP pathways
+BBI.pathways = [
+  { key: 'direct', name: 'Direct (Training) Pathway', desc: 'Complete the structured training courses and assessments leading to certification.' },
+  { key: 'alternative', name: 'Alternative Pathway', desc: 'For experienced professionals — certify based on prior qualifications and demonstrated experience, assessed against the proficiency matrix.' }
+];
+
+// Eligibility by certification area (summarised from the official EOI)
+BBI.eligibility = {
+  brm: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.',
+  bce: 'Engineering or Biomedical degree/diploma relevant to facility and containment systems.',
+  bwm: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.',
+  bsc: 'Engineering/Biomedical degree, or a technical/vocational qualification relevant to safety-cabinet certification.'
+};
+
+// Required application documents (Alternative Pathway EOI)
+BBI.requiredDocs = [
+  'Background statement aligning your qualifications and experience to the desired certification level',
+  'Capability statement describing relevant work history, methodologies and results',
+  'Current Curriculum Vitae (CV)',
+  'Three references (current, not older than 3 years) with contact details',
+  'Electronic copies of degrees, diplomas, professional registrations and training certificates'
+];
+
 BBI.certSteps = [
   { icon: '📚', title: 'Prepare', text: 'Study the competency framework and use preparation resources and regional training to get exam-ready.' },
   { icon: '📝', title: 'Apply & take the exam', text: 'Submit your application and sit the certification examination for your chosen discipline.' },
@@ -255,7 +285,7 @@ BBI.events = [
 ];
 
 BBI.getInvolved = [
-  { icon: '🎓', title: 'Get certified', text: 'Join the regional training and certification programme and earn a recognised, portable credential.', cta: 'See pathways', href: 'training.html' },
+  { icon: '🎓', title: 'Get certified', text: 'Apply to the regional training and certification programme and earn a recognised, portable credential.', cta: 'Apply now', href: 'apply.html' },
   { icon: '🧭', title: 'Find a mentor', text: 'Connect with experienced professionals through the mentorship programme to grow your career.', cta: 'Mentorship', href: 'mentorship.html' },
   { icon: '🤝', title: 'Join a National TWG', text: 'Contribute to your country’s biosafety and biosecurity technical working group or professional association.', cta: 'Express interest', href: '#join' },
   { icon: '🌍', title: 'Partner with the BBI', text: 'Institutions and funders can collaborate to strengthen biosafety and biosecurity systems across Africa.', cta: 'Contact us', href: 'mailto:info@aslm.org' }
