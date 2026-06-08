@@ -190,6 +190,7 @@ BBI.news = [
 BBI.resources = [
   { type: 'PDF', title: 'Regional Biosafety & Biosecurity Legal Framework (2023)', meta: 'Africa CDC, AU-PANVAC & AU-IBAR · Framework', cat: 'Framework', url: 'resources/regional-bsbs-legal-framework-2023.pdf' },
   { type: 'PDF', title: 'BBI 2021–2025 Strategic Plan', meta: 'Africa CDC · Strategy', cat: 'Strategy', url: 'resources/The-Africa-CDC-5-Year-Strategic-Plan_Final_13-June-2021_FINAL_23June2021-2.pdf' },
+  { type: 'PAGE', title: 'Training & Certification Programme — guide (RTCP-BBP)', meta: 'BBI · Programme', cat: 'Training', url: 'program.html' },
   { type: 'PDF', title: 'Regional Training & Certification Program for Biosafety & Biosecurity Professionals (2022)', meta: 'Africa CDC · Training', cat: 'Training', url: 'resources/Training-and-Certification-Program-for-Biosafety-and-Biosecurity-Professionals_English.pdf' },
   { type: 'PDF', title: 'BBI 2021–2025 End-Term Evaluation Report', meta: 'Africa CDC · Evaluation', cat: 'Evaluation', url: 'resources/BSBS-2021-2025-FINAL-Evaluation-Report.pdf' },
   { type: 'PDF', title: 'Biosafety & Biosecurity Strategy 2026–2030 (Phase III)', meta: 'Africa CDC · Strategy', cat: 'Strategy', url: 'resources/bbi-strategy-2026-2030-africacdc.pdf' },

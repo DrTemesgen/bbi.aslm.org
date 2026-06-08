@@ -8,6 +8,7 @@
     { href: 'training.html', label: 'Training' }
   ];
   const MORE = [
+    { href: 'program.html', label: 'Programme' },
     { href: 'mentorship.html', label: 'Mentorship' },
     { href: 'events.html', label: 'Events' },
     { href: 'resources.html', label: 'Resources' },
