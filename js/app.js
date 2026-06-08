@@ -62,7 +62,7 @@
           <ul>${PAGES.slice(0, Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
         </div>
         <div>
-          <h4 aria-hidden="true">&nbsp;</h4>
+          <h4>Programme</h4>
           <ul>${PAGES.slice(Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
         </div>
         <div>
