@@ -358,6 +358,8 @@ body { text-align: center; }
 .adm-table, .adm-table th, .adm-table td,
 .kv, .kv span, .kv div,
 input, select, textarea,
+.form, .form label,
+.card ul, .card ol, .card li,
 .bar-row, .map-legend, .map-info,
 .timeline, .timeline li,
 .footer .partners { text-align: left; }
