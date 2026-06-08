@@ -59,7 +59,11 @@
         </div>
         <div>
           <h4>Explore</h4>
-          <ul>${PAGES.map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
+          <ul>${PAGES.slice(0, Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
+        </div>
+        <div>
+          <h4 aria-hidden="true">&nbsp;</h4>
+          <ul>${PAGES.slice(Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
         </div>
         <div>
           <h4>Partners</h4>

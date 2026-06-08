@@ -314,8 +314,9 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 .footer { background: var(--green-900); color: #cfe6db; margin-top: 40px; padding: 40px 0 24px; }
 .footer a { color: #cfe6db; }
 .footer h4 { color: #fff; font-size: .92rem; text-transform: uppercase; letter-spacing: .05em; }
-.footer .cols { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 28px; }
-@media (max-width:760px){ .footer .cols { grid-template-columns: 1fr; } }
+.footer .cols { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 28px; }
+@media (max-width:900px){ .footer .cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width:520px){ .footer .cols { grid-template-columns: 1fr; } }
 .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
 .footer .copy { border-top: 1px solid rgba(255,255,255,.12); margin-top: 26px; padding-top: 18px; font-size: .82rem; color: #9cc0b2; }
 .footer .partners { font-size: .8rem; color: #9cc0b2; }
