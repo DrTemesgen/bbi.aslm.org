@@ -20,6 +20,12 @@
         this._cache = this.defaults();
       }
       return this._cache;
+    },
+    // Synchronous lookup against whatever is loaded (or defaults).
+    get: function (key) {
+      const list = this._cache || this.defaults();
+      return list.find((c) => c.key === key)
+        || (window.BBI && BBI.helpers ? BBI.helpers.certType(key) : { key: key, abbr: key, name: key, color: '#13654d' });
     }
   };
 })();

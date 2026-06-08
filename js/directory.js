@@ -12,13 +12,18 @@
     const mentorChk = document.getElementById('f-mentor');
     const countEl = document.getElementById('result-count');
 
-    // Populate filters
+    // Populate filters — region now; certifications after categories load.
     BBI.regions.forEach(r => regionSel.add(new Option(r.name, r.key)));
-    BBI.certTypes.forEach(c => certSel.add(new Option(c.name, c.key)));
+    const cat = (key) => (window.BBICats ? BBICats.get(key) : H.certType(key));
+    if (window.BBICats) {
+      BBICats.load().then(cats => { cats.forEach(c => certSel.add(new Option(c.name, c.key))); render(); });
+    } else {
+      BBI.certTypes.forEach(c => certSel.add(new Option(c.name, c.key)));
+    }
 
     function badges(p) {
       return p.certs.map(c => {
-        const t = H.certType(c.t);
+        const t = cat(c.t);
         return `<span class="tag" title="${t.name} · ${c.y}" style="background:${t.color}1a;color:${t.color}">${t.abbr} ’${String(c.y).slice(2)}</span>`;
       }).join('');
     }
@@ -46,7 +51,7 @@
         if (ct && !p.certs.some(c => c.t === ct)) return false;
         if (mentorsOnly && !p.mentor) return false;
         if (term) {
-          const certNames = p.certs.map(c => H.certType(c.t).name).join(' ');
+          const certNames = p.certs.map(c => cat(c.t).name).join(' ');
           const hay = `${p.name} ${p.role} ${p.org} ${p.country} ${p.specialties.join(' ')} ${certNames}`.toLowerCase();
           if (!hay.includes(term)) return false;
         }
