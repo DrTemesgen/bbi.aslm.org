@@ -17,8 +17,8 @@
   <section class="hero">
     <div class="container">
       <span class="pill">🛡️ Africa CDC · ASLM · African Union</span>
-      <h1>Securing Africa against biological threats</h1>
-      <p class="lead">The <strong>Biosafety &amp; Biosecurity Initiative (BBI)</strong> strengthens the systems that prevent, detect and respond to accidental and deliberate biological threats — across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.</p>
+      <h1 id="hero-title">Securing Africa against biological threats</h1>
+      <p class="lead" id="hero-lead">The <strong>Biosafety &amp; Biosecurity Initiative (BBI)</strong> strengthens the systems that prevent, detect and respond to accidental and deliberate biological threats — across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="dashboard.html">View the dashboard →</a>
         <a class="btn btn-ghost" href="directory.html">Professional directory</a>
@@ -29,12 +29,7 @@
 
   <section class="section tight">
     <div class="container">
-      <div class="grid cols-4">
-        <div class="stat"><div class="num" data-count="55">0</div><div class="lbl">AU Member States</div><div class="sub">Continental coverage</div></div>
-        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Regional TWGs</div><div class="sub">Operationalised</div></div>
-        <div class="stat"><div class="num" data-count="400" data-suffix="+">0</div><div class="lbl">Professionals certified</div><div class="sub">2021–2025</div></div>
-        <div class="stat"><div class="num" data-count="1">0</div><div class="lbl">AU-endorsed framework</div><div class="sub">Regional legal basis</div></div>
-      </div>
+      <div class="grid cols-4" id="home-stats"></div>
     </div>
   </section>
 
@@ -103,10 +98,40 @@
 
   <div id="app-footer"></div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // ---- Editable home content (hero + stats) ----
+      function renderHome(home) {
+        document.getElementById('hero-title').textContent = home.heroTitle;
+        document.getElementById('hero-lead').innerHTML = home.heroLead;
+        document.getElementById('home-stats').innerHTML = (home.stats || []).map(s => `
+          <div class="stat"><div class="num" data-count="${s.num}" data-suffix="${s.suffix || ''}">0</div>
+            <div class="lbl">${s.label || ''}</div><div class="sub">${s.sub || ''}</div></div>`).join('');
+        document.querySelectorAll('#home-stats [data-count]').forEach(el => {
+          const target = parseFloat(el.getAttribute('data-count'));
+          const suffix = el.getAttribute('data-suffix') || '';
+          let start = null;
+          requestAnimationFrame(function step(ts) {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / 1100, 1);
+            el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString() + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          });
+        });
+      }
+      renderHome(BBI.home);
+      const A = window.BBIAuth;
+      if (A && A.ready) {
+        A.getSetting('home').then(d => { if (d) renderHome(Object.assign({}, BBI.home, d)); }).catch(() => {});
+      }
+
       document.getElementById('pillars').innerHTML = BBI.pillars.map(p => `
         <div class="card"><div class="ico">${p.icon}</div>
           <div class="pillar"><span class="n">Priority ${p.n} · ${p.kind}</span><h3>${p.title}</h3>

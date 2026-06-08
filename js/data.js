@@ -74,6 +74,18 @@ BBI.metrics = {
   institutionsCertified: 18
 };
 
+// Editable home-page content (admin can override via settings/home).
+BBI.home = {
+  heroTitle: 'Securing Africa against biological threats',
+  heroLead: 'The <strong>Biosafety &amp; Biosecurity Initiative (BBI)</strong> strengthens the systems that prevent, detect and respond to accidental and deliberate biological threats — across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.',
+  stats: [
+    { num: 55, suffix: '', label: 'AU Member States', sub: 'Continental coverage' },
+    { num: 5, suffix: '', label: 'Regional TWGs', sub: 'Operationalised' },
+    { num: 400, suffix: '+', label: 'Professionals certified', sub: '2021–2025' },
+    { num: 1, suffix: '', label: 'AU-endorsed framework', sub: 'Regional legal basis' }
+  ]
+};
+
 // The 6 domains of the Regional BSBS Legal Framework (AU Member States, 2023)
 BBI.domains = [
   { n: 1, icon: '🏛️', title: 'Lead Agency / Institution',

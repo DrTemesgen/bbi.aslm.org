@@ -12,10 +12,13 @@
       const A = window.BBIAuth;
       if (!A || !A.ready || !A.db) { this._cache = this.defaults(); return this._cache; }
       try {
-        const snap = await A.db.collection('categories').orderBy('order').get();
-        this._cache = snap.empty
-          ? this.defaults()
-          : snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+        // Get all (no orderBy — that would drop docs missing the field),
+        // then sort client-side so admin-added categories always appear.
+        const snap = await A.db.collection('categories').get();
+        const arr = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+        arr.sort((a, b) => ((a.order == null ? 999 : a.order) - (b.order == null ? 999 : b.order))
+          || String(a.name || '').localeCompare(String(b.name || '')));
+        this._cache = arr.length ? arr : this.defaults();
       } catch (e) {
         this._cache = this.defaults();
       }

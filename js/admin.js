@@ -40,9 +40,11 @@
         $('tab-cats').classList.toggle('hidden', which !== 'cats');
         $('tab-dir').classList.toggle('hidden', which !== 'dir');
         $('tab-ecc').classList.toggle('hidden', which !== 'ecc');
+        $('tab-home').classList.toggle('hidden', which !== 'home');
         if (which === 'cats') loadCats();
         if (which === 'dir') loadDir();
         if (which === 'ecc') loadEcc();
+        if (which === 'home') loadHome();
       }));
       $('new-profile').addEventListener('click', () => openProfileDrawer(null));
       $('dq').addEventListener('input', renderDir);
@@ -231,6 +233,56 @@
         if (p.order != null) prof.order = p.order;
         try { await A.saveProfile(prof); BBIDir._cache = null; closeDrawer(); await loadDir(); }
         catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+      });
+    }
+
+    // ---- Home page editor ----
+    let HOME = null;
+    async function loadHome() {
+      try { HOME = await A.getSetting('home'); } catch (e) { HOME = null; }
+      if (!HOME) HOME = JSON.parse(JSON.stringify(BBI.home));
+      HOME.stats = HOME.stats || [];
+      while (HOME.stats.length < 4) HOME.stats.push({ num: 0, suffix: '', label: '', sub: '' });
+      renderHomeEditor();
+    }
+    function renderHomeEditor() {
+      $('home-editor').innerHTML = `
+        <div class="card" style="text-align:left;margin-bottom:16px">
+          <h3 style="margin-top:0">Hero</h3>
+          <label class="form" style="margin:0 0 12px">Title
+            <input id="h-title" value="${escAttr(HOME.heroTitle || '')}" />
+          </label>
+          <label class="form" style="margin:0">Subtitle <span class="muted" style="font-weight:400">(HTML allowed, e.g. &lt;strong&gt;)</span>
+            <textarea id="h-lead" rows="4">${esc(HOME.heroLead || '')}</textarea>
+          </label>
+        </div>
+        <div class="card" style="text-align:left;margin-bottom:16px">
+          <h3 style="margin-top:0">Headline statistics</h3>
+          ${HOME.stats.slice(0, 4).map((s, i) => `
+            <div class="ecc-row">
+              <input data-h="${i}.num" value="${escAttr(s.num != null ? s.num : '')}" placeholder="Number" style="max-width:110px" />
+              <input data-h="${i}.suffix" value="${escAttr(s.suffix || '')}" placeholder="+ / %" style="max-width:80px" />
+              <input data-h="${i}.label" value="${escAttr(s.label || '')}" placeholder="Label" />
+              <input data-h="${i}.sub" value="${escAttr(s.sub || '')}" placeholder="Sub-label" />
+            </div>`).join('')}
+        </div>
+        <div style="text-align:left">
+          <button class="btn btn-primary" id="home-save">Save home content</button>
+          <a class="btn btn-outline" href="index.html" target="_blank" rel="noopener">Preview ↗</a>
+          <span id="home-msg" class="muted" style="margin-left:10px"></span>
+        </div>`;
+      $('home-save').addEventListener('click', async () => {
+        HOME.heroTitle = $('h-title').value;
+        HOME.heroLead = $('h-lead').value;
+        document.querySelectorAll('#home-editor [data-h]').forEach(inp => {
+          const p = inp.getAttribute('data-h').split('.');
+          let v = inp.value;
+          if (p[1] === 'num') v = parseFloat(v) || 0;
+          HOME.stats[p[0]][p[1]] = v;
+        });
+        const m = $('home-msg'); m.textContent = 'Saving…'; m.style.color = '';
+        try { await A.saveSetting('home', HOME); m.textContent = 'Saved ✓'; m.style.color = '#0f4f3c'; }
+        catch (e) { m.textContent = 'Could not save: ' + (e.message || e); m.style.color = '#c0392b'; }
       });
     }
 
