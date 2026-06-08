@@ -331,3 +331,42 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 .hidden { display: none !important; }
+
+/* ===========================================================
+   Centered layout + Africa illustration
+   =========================================================== */
+body { text-align: center; }
+
+/* Center the prose blocks that have a max-width so they sit in the middle */
+.section-head { margin-inline: auto; }
+.hero p.lead { margin-inline: auto; }
+.pillar { border-left: 0; padding-left: 0; }     /* drop left accent so centred text reads cleanly */
+.hero-actions, .toolbar { justify-content: center; }
+.card .ico { margin-inline: auto; }
+
+/* Keep functional / data / tabular UI left-aligned for readability */
+.adm-table, .adm-table th, .adm-table td,
+.kv, .kv span, .kv div,
+input, select, textarea,
+.bar-row, .map-legend, .map-info,
+.timeline, .timeline li,
+.footer .partners { text-align: left; }
+.bar-row .v { text-align: right; }
+.chk-row, .toolbar .chk { text-align: left; }
+.timeline { display: inline-block; }             /* centre the timeline block, keep its text left */
+
+/* Africa illustration in the hero */
+.hero-illus {
+  display: block; width: min(440px, 82%); margin: 30px auto 0;
+  filter: drop-shadow(0 16px 30px rgba(0,0,0,.28));
+}
+
+/* Faint Africa watermark on interior page headers ("here and there") */
+.page-head { position: relative; overflow: hidden; }
+.page-head .container { position: relative; z-index: 1; }
+.page-head::after {
+  content: ""; position: absolute; right: -50px; top: -30px; width: 340px; height: 340px;
+  background: url("../assets/img/africa-hero.svg") no-repeat center / contain;
+  opacity: .12; pointer-events: none;
+}
+@media (max-width: 640px) { .page-head::after { width: 220px; height: 220px; right: -40px; } }
