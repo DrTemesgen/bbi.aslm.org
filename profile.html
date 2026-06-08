@@ -99,11 +99,13 @@
       }
 
       if (!id) { notFound(); return; }
-      if (window.BBIDir) {
-        BBIDir.get(id).then(render).catch(() => render(H.person(id)));
-      } else {
-        render(H.person(id));
-      }
+      // Load categories first so certifications resolve to their real names
+      // (including admin-added ones), then load and render the profile.
+      const catsReady = window.BBICats ? BBICats.load().catch(() => {}) : Promise.resolve();
+      catsReady
+        .then(() => (window.BBIDir ? BBIDir.get(id) : H.person(id)))
+        .then(render)
+        .catch(() => render(H.person(id)));
     });
   </script>
 </body>
