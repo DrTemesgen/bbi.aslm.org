@@ -8,6 +8,7 @@
 (function () {
   const DOC = 'content';
   let CONTENT = {};
+  let loaded = false;   // true only after content was successfully fetched
   let toolbar = null;
 
   function editables() { return document.querySelectorAll('[data-edit]'); }
@@ -23,7 +24,13 @@
     const A = window.BBIAuth;
     if (!A || !A.ready) return;
     if (!document.querySelector('[data-edit]')) return;
-    try { const d = await A.getSetting(DOC); if (d) CONTENT = d; } catch (e) {}
+    try {
+      const d = await A.getSetting(DOC);
+      if (d) CONTENT = d;
+      loaded = true;            // fetch succeeded (doc may legitimately be empty)
+    } catch (e) {
+      loaded = false;           // fetch FAILED — saving now would wipe other pages
+    }
     applyOverrides();
     A.onAuth((user, admin) => { if (admin) ensureToolbar(); });
   }
@@ -65,6 +72,10 @@
       $('cms-status').textContent = '';
     });
     $('cms-save').addEventListener('click', async () => {
+      if (!loaded) {
+        $('cms-status').textContent = 'Content didn’t load — reload the page before saving.';
+        return;
+      }
       editables().forEach((el) => { CONTENT[el.getAttribute('data-edit')] = el.innerHTML.trim(); });
       $('cms-status').textContent = 'Saving…';
       try {

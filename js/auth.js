@@ -239,12 +239,15 @@
   // ---- Editable site content (settings/{id}); public read, admin write ----
   api.getSetting = async function (id) {
     if (!ready) return null;
-    try { const d = await api.db.collection('settings').doc(id).get(); return d.exists ? d.data() : null; }
-    catch (e) { return null; }
+    // Returns the doc data, or null if it simply doesn't exist yet.
+    // A real fetch failure THROWS so callers can tell "empty" from "couldn't load".
+    const d = await api.db.collection('settings').doc(id).get();
+    return d.exists ? d.data() : null;
   };
   api.saveSetting = async function (id, data) {
     if (!ready || !api._admin) throw new Error('not-admin');
-    await api.db.collection('settings').doc(id).set(data);
+    // merge:true — only the supplied keys are written; never wipes other keys.
+    await api.db.collection('settings').doc(id).set(data, { merge: true });
   };
 
   window.BBIAuth = api;
