@@ -208,6 +208,34 @@
     await batch.commit();
   };
 
+  // ---- Professional directory (admin-managed) ----
+  api.listDirectory = async function () {
+    if (!ready) return [];
+    const snap = await api.db.collection('directory').get();
+    const arr = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    arr.sort((a, b) => ((a.order == null ? 999 : a.order) - (b.order == null ? 999 : b.order)) || String(a.name || '').localeCompare(String(b.name || '')));
+    return arr;
+  };
+  api.saveProfile = async function (prof) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const ref = prof.id ? api.db.collection('directory').doc(prof.id) : api.db.collection('directory').doc();
+    const data = Object.assign({}, prof, { id: ref.id });
+    await ref.set(data, { merge: true });
+    return ref.id;
+  };
+  api.deleteProfile = async function (id) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('directory').doc(id).delete();
+  };
+  api.seedDirectory = async function (defaults) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const batch = api.db.batch();
+    (defaults || []).forEach((p, i) => {
+      batch.set(api.db.collection('directory').doc(p.id), Object.assign({ order: i }, p));
+    });
+    await batch.commit();
+  };
+
   // ---- Editable site content (settings/{id}); public read, admin write ----
   api.getSetting = async function (id) {
     if (!ready) return null;

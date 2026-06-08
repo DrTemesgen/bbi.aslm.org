@@ -1,6 +1,6 @@
 /* BBI Africa PWA — service worker
    Cache-first for the app shell, network-first for everything else. */
-const CACHE = 'bbi-africa-v19';
+const CACHE = 'bbi-africa-v20';
 const SHELL = [
   './',
   './index.html',
@@ -29,6 +29,7 @@ const SHELL = [
   './js/map.js',
   './js/admin-shared.js',
   './js/categories.js',
+  './js/dir.js',
   './assets/img/africa-hero.svg',
   './manifest.webmanifest',
   './assets/icons/icon.svg'

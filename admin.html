@@ -37,6 +37,7 @@
           <button class="tab active" data-atab="apps">Applications</button>
           <button class="tab" data-atab="regs">Registrations <span id="pending-pill"></span></button>
           <button class="tab" data-atab="cats">Categories</button>
+          <button class="tab" data-atab="dir">Directory</button>
           <button class="tab" data-atab="ecc">ECC</button>
         </div>
 
@@ -70,6 +71,15 @@
           <div id="crows"></div>
         </section>
 
+        <section id="tab-dir" class="hidden">
+          <div class="toolbar">
+            <input type="search" id="dq" placeholder="Search profiles by name, organisation, country…" />
+            <span class="count-tag" id="dcount"></span>
+            <button class="btn btn-primary" id="new-profile" style="padding:8px 14px">+ Add profile</button>
+          </div>
+          <div id="drows"></div>
+        </section>
+
         <section id="tab-ecc" class="hidden">
           <p class="muted" style="text-align:left">Edit the Examination &amp; Certification Committee page — About text, Mandate, Leadership, Members and History. Changes appear on the public ECC page.</p>
           <div id="ecc-editor"></div>
@@ -95,6 +105,7 @@
   <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/categories.js"></script>
+  <script src="js/dir.js"></script>
   <script src="js/app.js"></script>
   <script src="js/admin-shared.js"></script>
   <script src="js/admin.js"></script>

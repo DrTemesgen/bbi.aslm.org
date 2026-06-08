@@ -38,10 +38,14 @@
         $('tab-apps').classList.toggle('hidden', which !== 'apps');
         $('tab-regs').classList.toggle('hidden', which !== 'regs');
         $('tab-cats').classList.toggle('hidden', which !== 'cats');
+        $('tab-dir').classList.toggle('hidden', which !== 'dir');
         $('tab-ecc').classList.toggle('hidden', which !== 'ecc');
         if (which === 'cats') loadCats();
+        if (which === 'dir') loadDir();
         if (which === 'ecc') loadEcc();
       }));
+      $('new-profile').addEventListener('click', () => openProfileDrawer(null));
+      $('dq').addEventListener('input', renderDir);
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
       $('new-account').addEventListener('click', openCreateDrawer);
       $('new-cat').addEventListener('click', () => openCatDrawer(null));
@@ -114,6 +118,120 @@
       if (!confirm('Delete this category? Applicants will no longer be able to choose it (existing applications keep their value).')) return;
       try { await A.deleteCategory(key); BBICats._cache = null; await loadCats(); }
       catch (e) { alert('Could not delete: ' + (e.message || e)); }
+    }
+
+    // ---- Directory editor ----
+    let DIR = [];
+    async function loadDir() {
+      try { await BBICats.load(); } catch (e) {}
+      try { DIR = await A.listDirectory(); } catch (e) { DIR = []; }
+      if (!DIR.length) {
+        try { await A.seedDirectory(BBIDir.defaults()); DIR = await A.listDirectory(); } catch (e) {}
+      }
+      renderDir();
+    }
+    function renderDir() {
+      const term = ($('dq').value || '').toLowerCase().trim();
+      const list = DIR.filter(p => !term || `${p.name} ${p.org} ${p.country} ${p.role}`.toLowerCase().includes(term));
+      $('dcount').textContent = `${list.length} of ${DIR.length}`;
+      $('drows').innerHTML = list.length ? `
+        <div class="table-wrap"><table class="adm-table">
+          <thead><tr><th>Name</th><th>Role / Org</th><th>Country</th><th>Certs</th><th></th></tr></thead>
+          <tbody>${list.map(dirRow).join('')}</tbody>
+        </table></div>` : `<div class="card center muted">No profiles.</div>`;
+      $('drows').querySelectorAll('[data-pedit]').forEach(b => b.addEventListener('click', () => openProfileDrawer(b.getAttribute('data-pedit'))));
+      $('drows').querySelectorAll('[data-pdel]').forEach(b => b.addEventListener('click', () => removeProfile(b.getAttribute('data-pdel'))));
+    }
+    function dirRow(p) {
+      const certs = (p.certs || []).map(c => esc(BBICats.get(c.t).abbr || c.t)).join(', ');
+      return `<tr>
+        <td><strong>${esc(p.name || '')}</strong>${p.mentor ? ' <span class="tag gold" style="font-size:.7rem">Mentor</span>' : ''}</td>
+        <td>${esc(p.role || '')}<div class="muted" style="font-size:.8rem">${esc(p.org || '')}</div></td>
+        <td>${esc(p.country || '')}</td>
+        <td class="muted" style="font-size:.82rem">${certs}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-outline" style="padding:6px 10px" data-pedit="${esc(p.id)}">Edit</button>
+          <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-pdel="${esc(p.id)}">Delete</button>
+        </td></tr>`;
+    }
+    async function removeProfile(id) {
+      const p = DIR.find(x => x.id === id);
+      if (!confirm(`Delete profile "${p ? p.name : ''}"? This cannot be undone.`)) return;
+      try { await A.deleteProfile(id); BBIDir._cache = null; await loadDir(); }
+      catch (e) { alert('Could not delete: ' + (e.message || e)); }
+    }
+    function certRowHtml(c, cats) {
+      const opts = cats.map(ct => `<option value="${esc(ct.key)}" ${c.t === ct.key ? 'selected' : ''}>${esc(ct.name)}</option>`).join('');
+      return `<div class="ecc-row">
+        <select data-certarea style="flex:2"><option value="">— area —</option>${opts}</select>
+        <input data-certyear type="number" placeholder="Year" value="${c.y || ''}" style="flex:1;max-width:110px" />
+        <button type="button" class="btn btn-outline ecc-x" data-certdel>×</button>
+      </div>`;
+    }
+    function openProfileDrawer(id) {
+      const p = id ? (DIR.find(x => x.id === id) || {}) : {};
+      const cats = BBICats._cache || BBICats.defaults();
+      const regionOpts = BBI.regions.map(r => `<option value="${r.key}" ${p.region === r.key ? 'selected' : ''}>${r.name}</option>`).join('');
+      const certRows = (p.certs || []).map(c => certRowHtml(c, cats)).join('');
+      $('drawer-body').innerHTML = `
+        <h2 style="margin-bottom:14px">${id ? 'Edit profile' : 'Add profile'}</h2>
+        <form id="p-form" class="form">
+          <label>Full name<input name="name" value="${escAttr(p.name || '')}" required /></label>
+          <div class="grid cols-2">
+            <label>Role<input name="role" value="${escAttr(p.role || '')}" /></label>
+            <label>Organisation<input name="org" value="${escAttr(p.org || '')}" /></label>
+          </div>
+          <div class="grid cols-2">
+            <label>Country<input name="country" value="${escAttr(p.country || '')}" /></label>
+            <label>Region<select name="region"><option value="">—</option>${regionOpts}</select></label>
+          </div>
+          <div class="grid cols-2">
+            <label>Level<input name="level" value="${escAttr(p.level || '')}" placeholder="e.g. Senior" /></label>
+            <label class="chk-row" style="align-items:center;margin-top:22px"><input type="checkbox" name="mentor" ${p.mentor ? 'checked' : ''} /> Available as mentor</label>
+          </div>
+          <label>LinkedIn URL<input name="linkedin" value="${escAttr(p.linkedin || '')}" /></label>
+          <label>Headshot photo URL<input name="photo" value="${escAttr(p.photo || '')}" /></label>
+          <label>Specialties (comma separated)<input name="specialties" value="${escAttr((p.specialties || []).join(', '))}" /></label>
+          <label>Spotlight citation <span class="muted" style="font-weight:400">(optional — shows as Biosafety Hero)</span><textarea name="hero" rows="2">${esc(p.hero || '')}</textarea></label>
+          <label>Biography<textarea name="bio" rows="3">${esc(p.bio || '')}</textarea></label>
+          <div>
+            <label style="margin-bottom:6px">Certifications</label>
+            <div id="cert-rows">${certRows}</div>
+            <button type="button" class="btn btn-outline" id="add-cert">+ Add certification</button>
+          </div>
+          <button class="btn btn-primary" type="submit">Save profile</button>
+          <div id="p-msg" class="notice hidden"></div>
+        </form>`;
+      showDrawer();
+      $('cert-rows').querySelectorAll('[data-certdel]').forEach(b => b.addEventListener('click', () => b.closest('.ecc-row').remove()));
+      $('add-cert').addEventListener('click', () => {
+        const wrap = document.createElement('div');
+        wrap.innerHTML = certRowHtml({}, cats);
+        const row = wrap.firstElementChild;
+        $('cert-rows').appendChild(row);
+        row.querySelector('[data-certdel]').addEventListener('click', () => row.remove());
+      });
+      $('p-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = e.target, m = $('p-msg');
+        const certs = [];
+        $('cert-rows').querySelectorAll('.ecc-row').forEach(r => {
+          const t = r.querySelector('[data-certarea]').value;
+          const y = parseInt(r.querySelector('[data-certyear]').value, 10);
+          if (t) certs.push({ t: t, y: isNaN(y) ? null : y });
+        });
+        const prof = {
+          id: id || undefined,
+          name: f.name.value, role: f.role.value, org: f.org.value, country: f.country.value,
+          region: f.region.value, level: f.level.value, mentor: f.mentor.checked,
+          linkedin: f.linkedin.value.trim(), photo: f.photo.value.trim(),
+          specialties: f.specialties.value.split(',').map(s => s.trim()).filter(Boolean),
+          hero: f.hero.value.trim(), bio: f.bio.value.trim(), certs: certs
+        };
+        if (p.order != null) prof.order = p.order;
+        try { await A.saveProfile(prof); BBIDir._cache = null; closeDrawer(); await loadDir(); }
+        catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+      });
     }
 
     // ---- ECC content editor ----

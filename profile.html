@@ -15,81 +15,95 @@
   <main id="profile-main"></main>
   <div id="app-footer"></div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/dir.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const H = BBI.helpers;
       const id = new URLSearchParams(location.search).get('id');
-      const p = id ? H.person(id) : null;
       const main = document.getElementById('profile-main');
 
-      if (!p) {
+      const notFound = () => {
         main.innerHTML = `<section class="page-head"><div class="container">
           <div class="breadcrumb"><a href="directory.html">Directory</a> / Not found</div>
           <h1>Profile not found</h1><p>We couldn’t find that professional.</p></div></section>
           <section class="section"><div class="container"><a class="btn btn-outline" href="directory.html">← Back to directory</a></div></section>`;
         document.title = 'Profile not found · BBI Africa';
-        return;
-      }
+      };
 
-      document.title = `${p.name} · BBI Africa`;
-      const color = H.avatarColor(p.name);
-      const li = p.linkedin || ('https://www.linkedin.com/search/results/all/?keywords=' + encodeURIComponent(p.name));
-      const avatarBig = p.photo
-        ? `<img src="${p.photo}" alt="${p.name}" style="width:74px;height:74px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.3)" />`
-        : `<div class="avatar" style="background:${color};width:74px;height:74px;font-size:1.5rem;border:3px solid rgba(255,255,255,.3)">${H.initials(p.name)}</div>`;
-      const certCards = p.certs.map(c => {
-        const t = H.certType(c.t);
-        return `<div class="card" style="border-left:5px solid ${t.color}">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-            <span class="tag" style="background:${t.color}1a;color:${t.color};font-size:.8rem">${t.abbr}</span>
-            <strong>${t.name}</strong>
-            <span class="muted" style="margin-left:auto;font-size:.85rem">Certified ${c.y}</span>
-          </div>
-          <p class="muted" style="margin:0;font-size:.9rem">${t.desc}</p>
-        </div>`;
-      }).join('');
+      const catOf = (key) => (window.BBICats ? BBICats.get(key) : H.certType(key));
 
-      main.innerHTML = `
-        <section class="page-head">
-          <div class="container">
-            <div class="breadcrumb"><a href="index.html">Home</a> / <a href="directory.html">Directory</a> / ${p.name}</div>
-            <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
-              ${avatarBig}
-              <div>
-                <h1 style="margin-bottom:4px">${p.name}</h1>
-                <p style="margin:0">${p.role} · ${p.org}</p>
-                <p style="margin:6px 0 0;color:#bfe0d3;font-size:.9rem">📍 ${p.country} · ${H.regionName(p.region)} · ${p.level}${p.mentor ? ' · 🧭 Available as mentor' : ''}</p>
+      function render(p) {
+        if (!p) { notFound(); return; }
+        document.title = `${p.name} · BBI Africa`;
+        const color = H.avatarColor(p.name);
+        const li = p.linkedin || ('https://www.linkedin.com/search/results/all/?keywords=' + encodeURIComponent(p.name));
+        const avatarBig = p.photo
+          ? `<img src="${p.photo}" alt="${p.name}" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.3)" />`
+          : `<div class="avatar" style="background:${color};width:90px;height:90px;font-size:1.8rem;border:3px solid rgba(255,255,255,.3)">${H.initials(p.name)}</div>`;
+        const certs = p.certs || [];
+        const specialties = p.specialties || [];
+        const certCards = certs.map(c => {
+          const t = catOf(c.t);
+          return `<div class="card" style="border-left:5px solid ${t.color}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span class="tag" style="background:${t.color}1a;color:${t.color};font-size:.8rem">${t.abbr}</span>
+              <strong>${t.name}</strong>
+              <span class="muted" style="margin-left:auto;font-size:.85rem">Certified ${c.y || ''}</span>
+            </div>
+            <p class="muted" style="margin:0;font-size:.9rem">${t.desc || ''}</p>
+          </div>`;
+        }).join('');
+
+        main.innerHTML = `
+          <section class="page-head">
+            <div class="container">
+              <div class="breadcrumb"><a href="index.html">Home</a> / <a href="directory.html">Directory</a> / ${p.name}</div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
+                ${avatarBig}
+                <div>
+                  <h1 style="margin-bottom:6px">${p.name}</h1>
+                  <p style="margin:0">${p.role || ''}${p.org ? ' · ' + p.org : ''}</p>
+                  <p style="margin:8px 0 0;color:#bfe0d3;font-size:.9rem">📍 ${p.country || ''} · ${H.regionName(p.region)}${p.level ? ' · ' + p.level : ''}${p.mentor ? ' · 🧭 Available as mentor' : ''}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="section">
-          <div class="container" style="max-width:860px">
-            ${p.hero ? `<div class="card" style="background:linear-gradient(160deg,var(--green-800),var(--green-600));color:#fff;margin-bottom:24px">
-              <span class="tag gold">⭐ Biosafety Hero</span>
-              <p style="margin:10px 0 0;font-size:1.05rem">“${p.hero}”</p></div>` : ''}
+          <section class="section">
+            <div class="container" style="max-width:860px">
+              ${p.hero ? `<div class="card" style="background:linear-gradient(160deg,var(--green-800),var(--green-600));color:#fff;margin-bottom:24px">
+                <span class="tag gold">⭐ Biosafety Hero</span>
+                <p style="margin:10px 0 0;font-size:1.05rem">“${p.hero}”</p></div>` : ''}
 
-            <h2>About</h2>
-            <p class="muted">${p.bio}</p>
+              ${p.bio ? `<h2>About</h2><p class="muted">${p.bio}</p>` : ''}
 
-            <h2 style="margin-top:28px">Certifications</h2>
-            <div class="grid" style="gap:12px">${certCards}</div>
+              ${certCards ? `<h2 style="margin-top:28px">Certifications</h2><div class="grid" style="gap:12px">${certCards}</div>` : ''}
 
-            <h2 style="margin-top:28px">Specialties</h2>
-            <div>${p.specialties.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+              ${specialties.length ? `<h2 style="margin-top:28px">Specialties</h2><div>${specialties.map(s => `<span class="tag">${s}</span>`).join('')}</div>` : ''}
 
-            <div class="grid cols-2" style="margin-top:30px;gap:12px">
-              <a class="btn btn-outline" href="${li}" target="_blank" rel="noopener">🔗 LinkedIn profile ↗</a>
-              ${p.mentor ? `<a class="btn btn-primary" href="mentorship.html">🧭 Request mentorship</a>` : ''}
-              <a class="btn btn-outline" href="directory.html">← Back to directory</a>
+              <div class="grid cols-2" style="margin-top:30px;gap:12px">
+                <a class="btn btn-outline" href="${li}" target="_blank" rel="noopener">🔗 LinkedIn profile ↗</a>
+                ${p.mentor ? `<a class="btn btn-primary" href="mentorship.html">🧭 Request mentorship</a>` : ''}
+                <a class="btn btn-outline" href="directory.html">← Back to directory</a>
+              </div>
             </div>
+          </section>`;
+      }
 
-            <div class="notice" style="margin-top:24px">👤 This is an illustrative sample profile. Replace with the official professional record in <code>js/data.js</code>.</div>
-          </div>
-        </section>`;
+      if (!id) { notFound(); return; }
+      if (window.BBIDir) {
+        BBIDir.get(id).then(render).catch(() => render(H.person(id)));
+      } else {
+        render(H.person(id));
+      }
     });
   </script>
 </body>

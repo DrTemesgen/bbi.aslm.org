@@ -66,6 +66,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Professional directory — readable by everyone, managed by admins.
+    match /directory/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Applications.
     match /applications/{id} {
       // An APPROVED applicant (or an admin) may create their own application.

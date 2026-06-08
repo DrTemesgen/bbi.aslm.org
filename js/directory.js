@@ -4,7 +4,7 @@
     const grid = document.getElementById('people-grid');
     if (!grid) return;
     const H = BBI.helpers;
-    const data = BBI.directory;
+    let data = BBI.directory;
 
     const q = document.getElementById('q');
     const regionSel = document.getElementById('f-region');
@@ -22,7 +22,7 @@
     }
 
     function badges(p) {
-      return p.certs.map(c => {
+      return (p.certs || []).map(c => {
         const t = cat(c.t);
         return `<span class="tag" title="${t.name} · ${c.y}" style="background:${t.color}1a;color:${t.color}">${t.abbr} ’${String(c.y).slice(2)}</span>`;
       }).join('');
@@ -35,9 +35,9 @@
       return `<a class="person fade-in" href="profile.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit">
         <div style="flex:1;min-width:0">
           <h3>${p.name}</h3>
-          <div class="role">${p.role} · ${p.org}</div>
+          <div class="role">${p.role || ''}${p.org ? ' · ' + p.org : ''}</div>
           <div>${badges(p)}${p.mentor ? '<span class="tag gold" title="Available as a mentor">🧭 Mentor</span>' : ''}</div>
-          <div class="flag">📍 ${p.country} · ${H.regionName(p.region)} · ${p.level}</div>
+          <div class="flag">📍 ${p.country || ''} · ${H.regionName(p.region)}${p.level ? ' · ' + p.level : ''}</div>
         </div>
         <span class="li-btn" data-li="${li}" title="View LinkedIn profile">${LI_SVG}</span>
       </a>`;
@@ -50,11 +50,11 @@
       const mentorsOnly = mentorChk.checked;
       const filtered = data.filter(p => {
         if (reg && p.region !== reg) return false;
-        if (ct && !p.certs.some(c => c.t === ct)) return false;
+        if (ct && !(p.certs || []).some(c => c.t === ct)) return false;
         if (mentorsOnly && !p.mentor) return false;
         if (term) {
-          const certNames = p.certs.map(c => cat(c.t).name).join(' ');
-          const hay = `${p.name} ${p.role} ${p.org} ${p.country} ${p.specialties.join(' ')} ${certNames}`.toLowerCase();
+          const certNames = (p.certs || []).map(c => cat(c.t).name).join(' ');
+          const hay = `${p.name} ${p.role || ''} ${p.org || ''} ${p.country || ''} ${(p.specialties || []).join(' ')} ${certNames}`.toLowerCase();
           if (!hay.includes(term)) return false;
         }
         return true;
@@ -72,5 +72,10 @@
     [q, regionSel, certSel].forEach(el => el.addEventListener('input', render));
     mentorChk.addEventListener('change', render);
     render();
+
+    // Load admin-managed directory (falls back to defaults)
+    if (window.BBIDir) {
+      BBIDir.load().then(d => { data = d; render(); });
+    }
   });
 })();
