@@ -174,7 +174,10 @@
   // ---- Self profile editing (any signed-in user; safe fields only) ----
   api.updateMyProfile = async function (data) {
     if (!ready || !api.user) throw new Error('not-signed-in');
-    const safe = { name: data.name || '', country: data.country || '', org: data.org || '' };
+    const safe = {
+      name: data.name || '', country: data.country || '', org: data.org || '',
+      linkedin: data.linkedin || '', photo: data.photo || '', bio: data.bio || ''
+    };
     await api.db.collection('users').doc(api.user.uid).set(
       Object.assign({}, safe, { updatedAt: firebase.firestore.FieldValue.serverTimestamp() }),
       { merge: true }

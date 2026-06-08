@@ -28,16 +28,23 @@
       }).join('');
     }
 
+    const LI_SVG = '<svg viewBox="0 0 24 24" width="20" height="20" fill="#0a66c2" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 18.34V10.5H5.67v7.84zM7 9.28a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9.06v-4.3c0-2.3-1.23-3.37-2.87-3.37a2.48 2.48 0 0 0-2.25 1.24v-1.06h-2.67v7.84h2.67v-4.15c0-1.1.2-2.16 1.56-2.16 1.34 0 1.36 1.25 1.36 2.23v4.08z"/></svg>';
+
     function card(p) {
       const color = H.avatarColor(p.name);
+      const li = p.linkedin || ('https://www.linkedin.com/search/results/all/?keywords=' + encodeURIComponent(p.name));
+      const avatar = p.photo
+        ? `<img class="avatar" src="${p.photo}" alt="" style="object-fit:cover" />`
+        : `<div class="avatar" style="background:${color}">${H.initials(p.name)}</div>`;
       return `<a class="person fade-in" href="profile.html?id=${encodeURIComponent(p.id)}" style="text-decoration:none;color:inherit">
-        <div class="avatar" style="background:${color}">${H.initials(p.name)}</div>
+        ${avatar}
         <div style="flex:1;min-width:0">
           <h3>${p.name}</h3>
           <div class="role">${p.role} · ${p.org}</div>
           <div>${badges(p)}${p.mentor ? '<span class="tag gold" title="Available as a mentor">🧭 Mentor</span>' : ''}</div>
           <div class="flag">📍 ${p.country} · ${H.regionName(p.region)} · ${p.level}</div>
         </div>
+        <span class="li-btn" data-li="${li}" title="View LinkedIn profile">${LI_SVG}</span>
       </a>`;
     }
 
@@ -61,6 +68,10 @@
       grid.innerHTML = filtered.length
         ? filtered.map(card).join('')
         : `<div class="card center muted" style="grid-column:1/-1">No professionals match your search. Try clearing filters.</div>`;
+      grid.querySelectorAll('.li-btn').forEach(b => b.addEventListener('click', (e) => {
+        e.preventDefault(); e.stopPropagation();
+        window.open(b.getAttribute('data-li'), '_blank', 'noopener');
+      }));
     }
 
     [q, regionSel, certSel].forEach(el => el.addEventListener('input', render));

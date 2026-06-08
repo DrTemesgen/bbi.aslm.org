@@ -239,6 +239,8 @@ p { margin: 0 0 1rem; }
   transition: transform .1s ease, box-shadow .2s ease;
 }
 a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,46,.12); text-decoration: none; }
+.li-btn { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: #0a66c214; align-self: center; cursor: pointer; transition: background .15s ease; }
+.li-btn:hover { background: #0a66c233; }
 .avatar {
   width: 52px; height: 52px; border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center;
   font-weight: 700; color: #fff; font-size: 1.05rem;

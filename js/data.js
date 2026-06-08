@@ -291,6 +291,37 @@ BBI.getInvolved = [
   { icon: '🌍', title: 'Partner with the BBI', text: 'Institutions and funders can collaborate to strengthen biosafety and biosecurity systems across Africa.', cta: 'Contact us', href: 'mailto:info@aslm.org' }
 ];
 
+// Examination & Certification Committee (ECC).
+// Leadership / members / history below are ILLUSTRATIVE SAMPLES — replace
+// with the official roster and milestones.
+BBI.ecc = {
+  about: 'The Examination and Certification Committee (ECC) is the independent body that safeguards the standards of the Regional Training and Certification Programme (RTCP-BBP). It reviews applications, oversees assessment, and awards and renews the professional certification of biosafety and biosecurity practitioners across Africa.',
+  mandate: [
+    { icon: '📐', title: 'Set the standard', text: 'Define and maintain the competency standards, proficiency matrices and assessment criteria for each certification area and level.' },
+    { icon: '🔍', title: 'Review applications', text: 'Evaluate Expressions of Interest and candidate evidence against a structured, weighted evaluation matrix.' },
+    { icon: '🎓', title: 'Award certification', text: 'Confirm competency and award certification, and oversee periodic renewal and continuing professional development.' },
+    { icon: '⚖️', title: 'Assure integrity', text: 'Protect the fairness, consistency and credibility of the programme, and consider clarifications and appeals.' }
+  ],
+  leadership: [
+    { name: 'Prof. [Chairperson]', role: 'Chairperson', org: 'Africa CDC', country: 'Continental' },
+    { name: 'Dr [Vice-Chair]', role: 'Vice-Chairperson', org: 'ASLM', country: 'Continental' },
+    { name: 'Dr [Secretary]', role: 'Secretary', org: 'BBI Secretariat', country: 'Continental' }
+  ],
+  members: [
+    { name: 'Dr [Member]', role: 'Biorisk Management expert', country: 'Western Africa' },
+    { name: 'Dr [Member]', role: 'Biocontainment Engineering expert', country: 'Southern Africa' },
+    { name: 'Dr [Member]', role: 'Biological Waste Management expert', country: 'Eastern Africa' },
+    { name: 'Dr [Member]', role: 'Biosafety Cabinets expert', country: 'Northern Africa' },
+    { name: 'Dr [Member]', role: 'Cyberbiosecurity & AI expert', country: 'Central Africa' }
+  ],
+  history: [
+    { yr: '2022', title: 'ECC established', text: 'The committee was constituted under the BBI to govern the new Regional Training and Certification Programme.' },
+    { yr: '2023', title: 'First standards adopted', text: 'Proficiency matrices and evaluation criteria endorsed for the core technical areas.' },
+    { yr: '2024', title: 'First cohorts certified', text: 'The ECC reviewed and certified the first cohorts of professionals across multiple regions.' },
+    { yr: '2025–2030', title: 'Scaling up', text: 'Expanded areas and national associations under BBI Phase III, with strengthened renewal and CPD oversight.' }
+  ]
+};
+
 BBI.helpers = {
   regionName(key) {
     const r = (BBI.regions || []).find(x => x.key === key);

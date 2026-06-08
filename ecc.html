@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Examination &amp; Certification Committee (ECC) · BBI Africa</title>
+  <meta name="description" content="The Examination and Certification Committee (ECC) — the body that safeguards standards and awards certification under the BBI training and certification programme." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+
+  <section class="page-head">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / ECC</div>
+      <h1>Examination &amp; Certification Committee</h1>
+      <p>The independent body that safeguards standards and awards professional certification under the BBI programme.</p>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="container" style="max-width:960px">
+      <div class="tabs" id="tabbar" style="flex-wrap:wrap;max-width:680px"></div>
+
+      <section class="ptab" data-tab="about">
+        <div class="section-head"><div class="eyebrow">About</div><h2>What the ECC is</h2></div>
+        <p class="muted" id="ecc-about"></p>
+        <div class="grid cols-3" style="margin-top:24px">
+          <div class="card"><div class="ico">🛡️</div><h3>Independent</h3><p class="muted" style="margin:0">Acts impartially to protect the credibility of the credential.</p></div>
+          <div class="card"><div class="ico">🌍</div><h3>Continental</h3><p class="muted" style="margin:0">Serves all African Union Member States under a common standard.</p></div>
+          <div class="card"><div class="ico">🤝</div><h3>Multisectoral</h3><p class="muted" style="margin:0">Brings together experts across the One Health spectrum.</p></div>
+        </div>
+      </section>
+
+      <section class="ptab hidden" data-tab="mandate">
+        <div class="section-head"><div class="eyebrow">Mandate</div><h2>What the ECC does</h2></div>
+        <div class="grid cols-2" id="ecc-mandate"></div>
+      </section>
+
+      <section class="ptab hidden" data-tab="leadership">
+        <div class="section-head"><div class="eyebrow">Leadership</div><h2>Who leads the committee</h2></div>
+        <div class="grid cols-3" id="ecc-leadership"></div>
+        <div class="notice" style="margin-top:20px">👤 Leadership names are placeholders — replace with the official committee in <code>js/data.js</code>.</div>
+      </section>
+
+      <section class="ptab hidden" data-tab="members">
+        <div class="section-head"><div class="eyebrow">Members</div><h2>Committee members</h2></div>
+        <div class="grid cols-2" id="ecc-members"></div>
+      </section>
+
+      <section class="ptab hidden" data-tab="history">
+        <div class="section-head"><div class="eyebrow">History</div><h2>How the ECC has evolved</h2></div>
+        <ul class="timeline" id="ecc-history"></ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const $ = (id) => document.getElementById(id);
+      const E = BBI.ecc, H = BBI.helpers;
+      const TABS = [
+        { key: 'about', label: 'About' },
+        { key: 'mandate', label: 'Mandate' },
+        { key: 'leadership', label: 'Leadership' },
+        { key: 'members', label: 'Members' },
+        { key: 'history', label: 'History' }
+      ];
+      $('tabbar').innerHTML = TABS.map((t, i) => `<button class="tab ${i === 0 ? 'active' : ''}" data-go="${t.key}">${t.label}</button>`).join('');
+      document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
+        document.querySelectorAll('[data-go]').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        const key = b.getAttribute('data-go');
+        document.querySelectorAll('.ptab').forEach(s => s.classList.toggle('hidden', s.getAttribute('data-tab') !== key));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }));
+
+      $('ecc-about').textContent = E.about;
+      $('ecc-mandate').innerHTML = E.mandate.map(m => `
+        <div class="card"><div class="ico">${m.icon}</div><h3>${m.title}</h3><p class="muted" style="margin:0">${m.text}</p></div>`).join('');
+
+      const personCard = (p) => {
+        const color = H.avatarColor(p.name);
+        return `<div class="card" style="display:flex;gap:14px;align-items:center">
+          <div class="avatar" style="background:${color}">${H.initials(p.name.replace(/[\[\]]/g, ''))}</div>
+          <div style="text-align:left"><h3 style="margin:0;font-size:1.02rem">${p.name}</h3>
+          <div class="muted" style="font-size:.86rem">${p.role}${p.org ? ' · ' + p.org : ''}</div>
+          <div class="muted" style="font-size:.8rem">${p.country || ''}</div></div></div>`;
+      };
+      $('ecc-leadership').innerHTML = E.leadership.map(personCard).join('');
+      $('ecc-members').innerHTML = E.members.map(personCard).join('');
+      $('ecc-history').innerHTML = E.history.map(h => `
+        <li><span class="yr">${h.yr}</span> — <strong>${h.title}</strong><div class="muted">${h.text}</div></li>`).join('');
+    });
+  </script>
+</body>
+</html>
