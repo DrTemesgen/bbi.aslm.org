@@ -292,9 +292,15 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 .chk-row input { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--green-700); flex: 0 0 auto; }
 
 /* ---------- Tabs ---------- */
-.tabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px; margin-bottom: 18px; }
-.tab { flex: 1; border: 0; background: transparent; padding: 9px 14px; border-radius: 999px; font: inherit; font-weight: 600; font-size: .9rem; color: var(--muted); cursor: pointer; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px; margin-bottom: 18px; }
+.tab { flex: 1 1 auto; border: 0; background: transparent; padding: 9px 14px; border-radius: 999px; font: inherit; font-weight: 600; font-size: .9rem; color: var(--muted); cursor: pointer; white-space: nowrap; }
 .tab.active { background: var(--green-700); color: #fff; }
+/* On narrow screens, let the tabs wrap onto multiple rows instead of
+   overflowing the screen (admin and other multi-tab pages). */
+@media (max-width: 640px) {
+  .tabs { border-radius: 16px; padding: 6px; }
+  .tab { flex: 1 1 auto; font-size: .85rem; padding: 8px 12px; }
+}
 
 /* ---------- Admin table ---------- */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
