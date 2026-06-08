@@ -340,6 +340,22 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 
 .hidden { display: none !important; }
 
+/* ---------- Inline content editor (admin) ---------- */
+.cms-bar {
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 300;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  background: #16241f; color: #fff; padding: 10px 14px; border-radius: 999px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.3); max-width: calc(100% - 24px);
+}
+.cms-bar .btn { padding: 8px 16px; }
+.cms-tag { background: var(--gold); color: #3a2c05; font-weight: 700; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; padding: 4px 10px; border-radius: 999px; }
+.cms-status { font-size: .85rem; color: #bfe0d3; }
+[data-edit].cms-editing {
+  outline: 2px dashed var(--gold); outline-offset: 3px; border-radius: 4px;
+  cursor: text; min-height: 1em; transition: outline-color .15s ease;
+}
+[data-edit].cms-editing:focus { outline-style: solid; outline-color: #f2c14e; background: rgba(224,169,46,.06); }
+
 /* ===========================================================
    Centered layout + Africa illustration
    =========================================================== */

@@ -36,9 +36,9 @@
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">What we do</div>
-        <h2>Six priority areas</h2>
-        <p class="muted">The BBI 2021–2025 Strategic Plan organises continental action around six priority areas — two enabling efforts and four operational priorities — that turn biosafety and biosecurity into a sustained, professional discipline.</p>
+        <div class="eyebrow" data-edit="home.pillars.eyebrow">What we do</div>
+        <h2 data-edit="home.pillars.title">Six priority areas</h2>
+        <p class="muted" data-edit="home.pillars.intro">The BBI 2021–2025 Strategic Plan organises continental action around six priority areas — two enabling efforts and four operational priorities — that turn biosafety and biosecurity into a sustained, professional discipline.</p>
       </div>
       <div class="grid cols-3" id="pillars"></div>
     </div>
@@ -48,15 +48,15 @@
     <div class="container">
       <div class="grid cols-2" style="align-items:center;gap:40px">
         <div>
-          <div class="eyebrow">The challenge</div>
-          <h2>One incident can cross borders in days</h2>
-          <p class="muted">“When a single biological incident, whether accidental or deliberate, can affect multiple countries in a matter of days, the necessity for a continent-wide, harmonised biosafety and biosecurity framework becomes undeniable.”</p>
-          <p class="muted" style="font-weight:600;color:var(--green-700)">— Dr Raji Tajudeen, Africa CDC</p>
+          <div class="eyebrow" data-edit="home.challenge.eyebrow">The challenge</div>
+          <h2 data-edit="home.challenge.title">One incident can cross borders in days</h2>
+          <p class="muted" data-edit="home.challenge.quote">“When a single biological incident, whether accidental or deliberate, can affect multiple countries in a matter of days, the necessity for a continent-wide, harmonised biosafety and biosecurity framework becomes undeniable.”</p>
+          <p class="muted" style="font-weight:600;color:var(--green-700)" data-edit="home.challenge.author">— Dr Raji Tajudeen, Africa CDC</p>
           <a class="btn btn-outline" href="about.html">Read about the initiative →</a>
         </div>
         <div class="grid" style="gap:14px">
-          <a class="card" href="framework.html" style="text-decoration:none;color:inherit"><div class="ico">⚖️</div><h3>Harmonised legal framework</h3><p class="muted" style="margin:0">The 2023 Regional BSBS Legal Framework, endorsed by the African Union, with six domains Member States can domesticate into national law. →</p></a>
-          <div class="card"><div class="ico">🤝</div><h3>One Health &amp; partner-backed</h3><p class="muted" style="margin:0">Spanning the human, animal, plant and environmental sectors, supported by global partners and AU Member States.</p></div>
+          <a class="card" href="framework.html" style="text-decoration:none;color:inherit"><div class="ico">⚖️</div><h3 data-edit="home.card1.title">Harmonised legal framework</h3><p class="muted" style="margin:0" data-edit="home.card1.text">The 2023 Regional BSBS Legal Framework, endorsed by the African Union, with six domains Member States can domesticate into national law. →</p></a>
+          <div class="card"><div class="ico">🤝</div><h3 data-edit="home.card2.title">One Health &amp; partner-backed</h3><p class="muted" style="margin:0" data-edit="home.card2.text">Spanning the human, animal, plant and environmental sectors, supported by global partners and AU Member States.</p></div>
         </div>
       </div>
     </div>
@@ -65,9 +65,9 @@
   <section class="section" id="spotlight-section" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">⭐ Biosafety Hero</div>
-        <h2>Professional spotlight</h2>
-        <p class="muted">Recognising professionals advancing biosafety and biosecurity across Africa.</p>
+        <div class="eyebrow" data-edit="home.spotlight.eyebrow">⭐ Biosafety Hero</div>
+        <h2 data-edit="home.spotlight.title">Professional spotlight</h2>
+        <p class="muted" data-edit="home.spotlight.intro">Recognising professionals advancing biosafety and biosecurity across Africa.</p>
       </div>
       <div id="spotlight"></div>
     </div>
@@ -76,8 +76,8 @@
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">Journey</div>
-        <h2>From launch to a new five-year strategy</h2>
+        <div class="eyebrow" data-edit="home.journey.eyebrow">Journey</div>
+        <h2 data-edit="home.journey.title">From launch to a new five-year strategy</h2>
       </div>
       <ul class="timeline" id="timeline"></ul>
     </div>
@@ -86,8 +86,8 @@
   <section class="section tight">
     <div class="container">
       <div class="cta">
-        <h2>Are you a certified biosafety professional?</h2>
-        <p>Explore the growing network of professionals advancing biosafety and biosecurity across the continent — or discover the training pathways that lead to certification.</p>
+        <h2 data-edit="home.cta.title">Are you a certified biosafety professional?</h2>
+        <p data-edit="home.cta.text">Explore the growing network of professionals advancing biosafety and biosecurity across the continent — or discover the training pathways that lead to certification.</p>
         <div class="hero-actions" style="justify-content:center">
           <a class="btn btn-primary" href="directory.html">Browse the directory</a>
           <a class="btn btn-ghost" href="training.html" style="background:rgba(255,255,255,.18)">See training programmes</a>
@@ -105,6 +105,7 @@
   <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/cms.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // ---- Editable home content (hero + stats) ----
