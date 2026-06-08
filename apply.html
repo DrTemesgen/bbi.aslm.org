@@ -116,31 +116,37 @@
   <script src="js/auth.js"></script>
   <script src="js/notify.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/categories.js"></script>
   <script src="js/app.js"></script>
   <script>
+    let CATS = [];
     document.addEventListener('DOMContentLoaded', () => {
       const A = window.BBIAuth, $ = (id) => document.getElementById(id);
 
-      // Program info
-      $('areas-grid').innerHTML = BBI.certTypes.map(c => `
-        <div class="card" style="border-top:4px solid ${c.color}">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-            <span class="tag" style="background:${c.color}1a;color:${c.color}">${c.abbr}</span>
-            <h3 style="margin:0;font-size:1.05rem">${c.name}</h3>
-          </div>
-          <p class="muted" style="margin:0 0 8px">${c.desc}</p>
-          <p style="margin:0;font-size:.85rem"><strong>Eligibility:</strong> <span class="muted">${BBI.eligibility[c.key] || ''}</span></p>
-        </div>`).join('');
+      // Static program info
       $('levels-grid').innerHTML = BBI.certLevels.map(l => `
         <div class="card"><h3 style="margin:0 0 4px">${l.name}</h3><p class="muted" style="margin:0;font-size:.9rem">${l.desc}</p></div>`).join('');
       $('pathways-grid').innerHTML = BBI.pathways.map(p => `
         <div class="card"><h3 style="margin:0 0 4px">${p.name}</h3><p class="muted" style="margin:0;font-size:.9rem">${p.desc}</p></div>`).join('');
       $('docs-list').innerHTML = BBI.requiredDocs.map(d => `<li>${d}</li>`).join('');
-
-      // Form selects
-      BBI.certTypes.forEach(c => $('f-area').add(new Option(c.name, c.key)));
       BBI.certLevels.forEach(l => $('f-level').add(new Option(l.name, l.key)));
       BBI.pathways.forEach(p => $('f-pathway').add(new Option(p.name, p.key)));
+
+      // Certification areas (admin-managed; falls back to defaults)
+      BBICats.load().then(cats => {
+        CATS = cats;
+        $('areas-grid').innerHTML = cats.map(c => `
+          <div class="card" style="border-top:4px solid ${c.color}">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span class="tag" style="background:${c.color}1a;color:${c.color}">${c.abbr}</span>
+              <h3 style="margin:0;font-size:1.05rem">${c.name}</h3>
+            </div>
+            <p class="muted" style="margin:0 0 8px">${c.desc || ''}</p>
+            <p style="margin:0;font-size:.85rem"><strong>Eligibility:</strong> <span class="muted">${c.eligibility || ''}</span></p>
+          </div>`).join('');
+        const sel = $('f-area'); sel.length = 0;
+        cats.forEach(c => sel.add(new Option(c.name, c.key)));
+      });
 
       if (!A || !A.ready) { $('not-config').classList.remove('hidden'); return; }
 
@@ -167,7 +173,7 @@
         const f = e.target;
         const data = {
           name: f.name.value, email: f.email.value, country: f.country.value, org: f.org.value,
-          area: f.area.value, areaName: BBI.helpers.certType(f.area.value).name,
+          area: f.area.value, areaName: (CATS.find(c => c.key === f.area.value) || {}).name || f.area.value,
           level: f.level.value, pathway: f.pathway.value,
           experience: Number(f.experience.value), qualification: f.qualification.value,
           background: f.background.value, capability: f.capability.value, documents: f.documents.value

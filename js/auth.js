@@ -171,5 +171,39 @@
     await api.db.collection('applications').doc(id).delete();
   };
 
+  // ---- Self profile editing (any signed-in user; safe fields only) ----
+  api.updateMyProfile = async function (data) {
+    if (!ready || !api.user) throw new Error('not-signed-in');
+    const safe = { name: data.name || '', country: data.country || '', org: data.org || '' };
+    await api.db.collection('users').doc(api.user.uid).set(
+      Object.assign({}, safe, { updatedAt: firebase.firestore.FieldValue.serverTimestamp() }),
+      { merge: true }
+    );
+    api.profile = Object.assign({}, api.profile, safe);
+  };
+
+  // ---- Certification categories (admin-managed) ----
+  api.listCategories = async function () {
+    if (!ready) return [];
+    const snap = await api.db.collection('categories').orderBy('order').get();
+    return snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+  };
+  api.saveCategory = async function (cat) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('categories').doc(cat.key).set(cat, { merge: true });
+  };
+  api.deleteCategory = async function (key) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('categories').doc(key).delete();
+  };
+  api.seedCategories = async function (defaults) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const batch = api.db.batch();
+    (defaults || []).forEach((c, i) => {
+      batch.set(api.db.collection('categories').doc(c.key), Object.assign({ order: i }, c));
+    });
+    await batch.commit();
+  };
+
   window.BBIAuth = api;
 })();

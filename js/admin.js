@@ -37,9 +37,81 @@
         const which = t.getAttribute('data-atab');
         $('tab-apps').classList.toggle('hidden', which !== 'apps');
         $('tab-regs').classList.toggle('hidden', which !== 'regs');
+        $('tab-cats').classList.toggle('hidden', which !== 'cats');
+        if (which === 'cats') loadCats();
       }));
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
       $('new-account').addEventListener('click', openCreateDrawer);
+      $('new-cat').addEventListener('click', () => openCatDrawer(null));
+    }
+
+    // ---- Categories management ----
+    let CATS = [];
+    async function loadCats() {
+      try {
+        CATS = await A.listCategories();
+        if (!CATS.length) {           // auto-seed from defaults on first use
+          await A.seedCategories(BBICats.defaults());
+          CATS = await A.listCategories();
+        }
+      } catch (e) { $('crows').innerHTML = `<div class="notice">Could not load categories: ${e.message || e}</div>`; return; }
+      renderCats();
+    }
+    function renderCats() {
+      $('crows').innerHTML = `
+        <div class="table-wrap"><table class="adm-table">
+          <thead><tr><th>Code</th><th>Name</th><th>Description</th><th></th></tr></thead>
+          <tbody>${CATS.map(c => `<tr>
+            <td><span class="tag" style="background:${esc(c.color || '#13654d')}1a;color:${esc(c.color || '#13654d')}">${esc(c.abbr || c.key)}</span></td>
+            <td><strong>${esc(c.name)}</strong></td>
+            <td class="muted" style="font-size:.85rem">${esc(c.desc || '')}</td>
+            <td style="white-space:nowrap">
+              <button class="btn btn-outline" style="padding:6px 10px" data-cedit="${esc(c.key)}">Edit</button>
+              <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-cdel="${esc(c.key)}">Delete</button>
+            </td></tr>`).join('')}</tbody>
+        </table></div>`;
+      $('crows').querySelectorAll('[data-cedit]').forEach(b => b.addEventListener('click', () => openCatDrawer(b.getAttribute('data-cedit'))));
+      $('crows').querySelectorAll('[data-cdel]').forEach(b => b.addEventListener('click', () => removeCat(b.getAttribute('data-cdel'))));
+    }
+    function openCatDrawer(key) {
+      const c = key ? CATS.find(x => x.key === key) : null;
+      $('drawer-body').innerHTML = `
+        <h2 style="margin-bottom:14px">${c ? 'Edit category' : 'New category'}</h2>
+        <form id="cat-form" class="form">
+          <div class="grid cols-2">
+            <label>Code / key${c ? ' (locked)' : ''}<input name="key" value="${c ? escAttr(c.key) : ''}" ${c ? 'readonly' : 'required'} placeholder="e.g. cba" /></label>
+            <label>Short label<input name="abbr" value="${c ? escAttr(c.abbr || '') : ''}" required placeholder="e.g. CBA" /></label>
+          </div>
+          <label>Name<input name="name" value="${c ? escAttr(c.name || '') : ''}" required /></label>
+          <label>Description<textarea name="desc" rows="2">${c ? esc(c.desc || '') : ''}</textarea></label>
+          <label>Eligibility<textarea name="eligibility" rows="2">${c ? esc(c.eligibility || '') : ''}</textarea></label>
+          <label>Colour<input name="color" type="color" value="${c ? escAttr(c.color || '#13654d') : '#13654d'}" style="height:44px;padding:4px" /></label>
+          <button class="btn btn-primary" type="submit">Save category</button>
+          <div id="cat-msg" class="notice hidden"></div>
+        </form>`;
+      showDrawer();
+      $('cat-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = e.target, m = $('cat-msg');
+        const keyVal = (c ? c.key : f.key.value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')).replace(/^-|-$/g, '');
+        if (!keyVal) { m.textContent = 'Please enter a code/key.'; m.style.background = '#fff8e8'; m.classList.remove('hidden'); return; }
+        const cat = {
+          key: keyVal, abbr: f.abbr.value, name: f.name.value, desc: f.desc.value,
+          eligibility: f.eligibility.value, color: f.color.value,
+          order: c ? (c.order != null ? c.order : CATS.length) : CATS.length
+        };
+        try {
+          await A.saveCategory(cat);
+          BBICats._cache = null;       // invalidate loader cache
+          closeDrawer();
+          await loadCats();
+        } catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+      });
+    }
+    async function removeCat(key) {
+      if (!confirm('Delete this category? Applicants will no longer be able to choose it (existing applications keep their value).')) return;
+      try { await A.deleteCategory(key); BBICats._cache = null; await loadCats(); }
+      catch (e) { alert('Could not delete: ' + (e.message || e)); }
     }
 
     function showDrawer() { $('drawer').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }

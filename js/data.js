@@ -19,21 +19,28 @@ BBI.regions = [
 // The four official technical areas of the Regional Training & Certification
 // Program for Biosafety & Biosecurity Professionals (RTCPBBP, Africa CDC BBI).
 BBI.certTypes = [
-  { key: 'brm', abbr: 'BRM', name: 'Biorisk Management', color: '#0f4f3c',
-    desc: 'Assessing and managing biological risk in laboratories and programmes.' },
-  { key: 'bce', abbr: 'BCE', name: 'Biocontainment Engineering', color: '#1f6feb',
-    desc: 'Design, commissioning and operation of containment laboratory engineering systems.' },
-  { key: 'bwm', abbr: 'BWM', name: 'Biological Waste Management', color: '#b4861e',
-    desc: 'Safe handling, treatment and disposal of biological and laboratory waste.' },
-  { key: 'bsc', abbr: 'BSC', name: 'Certification of Biological Safety Cabinets', color: '#1c7d61',
-    desc: 'Field certification, testing and safe use of biological safety cabinets.' }
+  { key: 'brm', abbr: 'BRM', name: 'Biorisk Management', color: '#0f4f3c', order: 0,
+    desc: 'Assessing and managing biological risk in laboratories and programmes.',
+    eligibility: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.' },
+  { key: 'bce', abbr: 'BCE', name: 'Biocontainment Engineering', color: '#1f6feb', order: 1,
+    desc: 'Design, commissioning and operation of containment laboratory engineering systems.',
+    eligibility: 'Engineering or Biomedical degree/diploma relevant to facility and containment systems.' },
+  { key: 'bwm', abbr: 'BWM', name: 'Biological Waste Management', color: '#b4861e', order: 2,
+    desc: 'Safe handling, treatment and disposal of biological and laboratory waste.',
+    eligibility: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.' },
+  { key: 'bsc', abbr: 'BSC', name: 'Certification of Biological Safety Cabinets', color: '#1c7d61', order: 3,
+    desc: 'Field certification, testing and safe use of biological safety cabinets.',
+    eligibility: 'Engineering/Biomedical degree, or a technical/vocational qualification relevant to safety-cabinet certification.' },
+  { key: 'cba', abbr: 'CBA', name: 'Cyberbiosecurity & AI', color: '#6d4aab', order: 4,
+    desc: 'Securing biological data, digital laboratory systems and AI tools against cyber and information threats.',
+    eligibility: 'Background in IT/cybersecurity, bioinformatics, data science or laboratory information systems, with relevant experience.' }
 ];
 
 // RTCP-BBP certification levels
 BBI.certLevels = [
   { key: 'I', name: 'Level I', desc: 'Foundational competency — entry practitioners building core skills in the discipline.' },
   { key: 'II', name: 'Level II', desc: 'Intermediate competency — practitioners applying skills independently in their setting.' },
-  { key: 'III', name: 'Level III', desc: 'Advanced competency — experts leading, training and advising others in the discipline.' }
+  { key: 'SME', name: 'SME (Subject Matter Expert)', desc: 'Recognised subject-matter expert who leads, trains and advises others in the discipline.' }
 ];
 
 // RTCP-BBP pathways
@@ -41,14 +48,6 @@ BBI.pathways = [
   { key: 'direct', name: 'Direct (Training) Pathway', desc: 'Complete the structured training courses and assessments leading to certification.' },
   { key: 'alternative', name: 'Alternative Pathway', desc: 'For experienced professionals — certify based on prior qualifications and demonstrated experience, assessed against the proficiency matrix.' }
 ];
-
-// Eligibility by certification area (summarised from the official EOI)
-BBI.eligibility = {
-  brm: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.',
-  bce: 'Engineering or Biomedical degree/diploma relevant to facility and containment systems.',
-  bwm: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.',
-  bsc: 'Engineering/Biomedical degree, or a technical/vocational qualification relevant to safety-cabinet certification.'
-};
 
 // Required application documents (Alternative Pathway EOI)
 BBI.requiredDocs = [

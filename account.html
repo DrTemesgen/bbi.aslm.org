@@ -17,7 +17,7 @@
     <div class="container">
       <div class="breadcrumb"><a href="index.html">Home</a> / My Account</div>
       <h1>My account</h1>
-      <p>Track your certification applications and their status.</p>
+      <p>Manage your profile and preferences, and track your certification applications.</p>
     </div>
   </section>
 
@@ -28,19 +28,18 @@
       <div id="signed-out" class="card center hidden">
         <div class="ico" style="margin:0 auto 12px">🔐</div>
         <h3>Please sign in</h3>
-        <p class="muted">Sign in with your phone number to see your applications.</p>
+        <p class="muted">Sign in with your email to manage your profile and applications.</p>
         <a class="btn btn-primary" href="login.html?next=account.html">Sign in / create account</a>
       </div>
 
       <div id="account" class="hidden">
         <div class="card" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:20px">
           <div class="avatar" style="background:var(--green-700)">👤</div>
-          <div style="flex:1;min-width:200px">
+          <div style="flex:1;min-width:200px;text-align:left">
             <h3 style="margin:0" id="acc-name"></h3>
             <div class="muted" id="acc-email" style="font-size:.9rem"></div>
             <div class="muted" style="font-size:.78rem">User ID: <code id="acc-uid"></code></div>
           </div>
-          <a class="btn btn-primary" href="apply.html" id="new-app">+ New application</a>
           <button class="btn btn-outline" id="signout">Sign out</button>
         </div>
 
@@ -50,13 +49,45 @@
         <div id="approved-banner" class="notice hidden" style="margin-bottom:16px;background:#e3f2ec;border-color:#bcdfcd">
           ✅ <strong>Your account is approved.</strong> You can submit and track applications.
         </div>
-
-        <div id="admin-link" class="notice hidden" style="background:#e6effd;border-color:#bcd4fb">
+        <div id="admin-link" class="notice hidden" style="background:#e6effd;border-color:#bcd4fb;margin-bottom:16px">
           🛡️ You have admin access. <a href="admin.html">Open the admin panel →</a>
         </div>
 
-        <h2 style="margin-top:10px">My applications</h2>
-        <div id="apps"></div>
+        <div class="tabs" style="max-width:540px;margin-inline:auto">
+          <button class="tab active" data-ptab="apps">My applications</button>
+          <button class="tab" data-ptab="profile">Profile</button>
+          <button class="tab" data-ptab="settings">Settings</button>
+        </div>
+
+        <section id="ptab-apps">
+          <a class="btn btn-primary" href="apply.html" id="new-app">+ New application</a>
+          <div id="apps" style="margin-top:16px"></div>
+        </section>
+
+        <section id="ptab-profile" class="hidden">
+          <form id="profile-form" class="form card" style="max-width:560px;margin-inline:auto;text-align:left">
+            <label>Full name<input name="name" required /></label>
+            <div class="grid cols-2">
+              <label>Country<input name="country" /></label>
+              <label>Organisation<input name="org" /></label>
+            </div>
+            <label>Email <span class="muted" style="font-weight:400">(contact support to change)</span><input id="pf-email" disabled /></label>
+            <button class="btn btn-primary" type="submit" id="pf-btn">Save profile</button>
+            <div id="pf-msg" class="notice hidden"></div>
+          </form>
+        </section>
+
+        <section id="ptab-settings" class="hidden">
+          <div class="card" style="max-width:560px;margin-inline:auto;text-align:left">
+            <h3 style="margin-top:0">Password</h3>
+            <p class="muted">We’ll email you a secure link to set a new password.</p>
+            <button class="btn btn-outline" id="reset-pw">Send password reset email</button>
+            <div id="pw-msg" class="notice hidden" style="margin-top:12px"></div>
+            <hr style="border:0;border-top:1px solid var(--line);margin:22px 0" />
+            <h3>Session</h3>
+            <button class="btn btn-outline" id="signout2">Sign out</button>
+          </div>
+        </section>
       </div>
     </div>
   </main>
@@ -81,7 +112,8 @@
         $('signed-out').classList.add('hidden');
         $('account').classList.remove('hidden');
         const approved = A.isApproved();
-        $('acc-name').textContent = (A.profile && A.profile.name) || 'My account';
+        const p = A.profile || {};
+        $('acc-name').textContent = p.name || 'My account';
         $('acc-email').textContent = user.email || '';
         $('acc-uid').textContent = user.uid;
         $('admin-link').classList.toggle('hidden', !admin);
@@ -89,13 +121,51 @@
         $('approved-banner').classList.toggle('hidden', !approved);
         $('new-app').classList.toggle('hidden', !approved);
 
+        // Prefill profile form
+        const pf = $('profile-form');
+        pf.name.value = p.name || '';
+        pf.country.value = p.country || '';
+        pf.org.value = p.org || '';
+        $('pf-email').value = user.email || '';
+
         const apps = await A.myApplications();
         $('apps').innerHTML = apps.length
           ? apps.map(BBI.renderAppCard).join('')
           : `<div class="card center muted">${approved ? 'No applications yet. <a href="apply.html">Start one →</a>' : 'You can apply once your account is approved.'}</div>`;
       });
 
-      $('signout').addEventListener('click', () => A.signOut().then(() => location.reload()));
+      // Tabs
+      document.querySelectorAll('[data-ptab]').forEach(t => t.addEventListener('click', () => {
+        document.querySelectorAll('[data-ptab]').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        const which = t.getAttribute('data-ptab');
+        ['apps', 'profile', 'settings'].forEach(k => $('ptab-' + k).classList.toggle('hidden', k !== which));
+      }));
+
+      // Save profile
+      $('profile-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = e.target, m = $('pf-msg'), b = $('pf-btn');
+        b.disabled = true; b.textContent = 'Saving…'; m.classList.add('hidden');
+        try {
+          await A.updateMyProfile({ name: f.name.value, country: f.country.value, org: f.org.value });
+          $('acc-name').textContent = f.name.value;
+          m.textContent = 'Profile saved.'; m.style.background = '#e3f2ec'; m.classList.remove('hidden');
+        } catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+        finally { b.disabled = false; b.textContent = 'Save profile'; }
+      });
+
+      // Reset password
+      $('reset-pw').addEventListener('click', async () => {
+        const m = $('pw-msg');
+        try { await A.resetPassword(A.user.email); m.textContent = 'Password reset email sent to ' + A.user.email + '.'; m.style.background = '#e3f2ec'; }
+        catch (err) { m.textContent = 'Could not send: ' + (err.message || err); m.style.background = '#fff8e8'; }
+        m.classList.remove('hidden');
+      });
+
+      const signOut = () => A.signOut().then(() => location.reload());
+      $('signout').addEventListener('click', signOut);
+      $('signout2').addEventListener('click', signOut);
     });
   </script>
 </body>
