@@ -303,6 +303,11 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 .adm-table td { padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; }
 .adm-table tr:hover td { background: #fafdfb; }
 
+/* ---------- ECC editor rows ---------- */
+.ecc-row { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; align-items: center; }
+.ecc-row input { flex: 1; min-width: 130px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+.ecc-x { padding: 6px 12px; color: #c0392b; flex: 0 0 auto; }
+
 /* ---------- Detail drawer ---------- */
 .drawer { position: fixed; inset: 0; z-index: 200; background: rgba(11,36,31,.45); display: flex; justify-content: flex-end; }
 .drawer-panel { width: min(520px, 100%); background: #fff; height: 100%; overflow-y: auto; padding: 26px; position: relative; box-shadow: -8px 0 30px rgba(0,0,0,.2); animation: slidein .2s ease; }

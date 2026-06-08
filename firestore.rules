@@ -60,6 +60,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Editable site content (e.g. the ECC page) — public read, admin write.
+    match /settings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Applications.
     match /applications/{id} {
       // An APPROVED applicant (or an admin) may create their own application.

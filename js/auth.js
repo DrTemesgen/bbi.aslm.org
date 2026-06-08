@@ -208,5 +208,16 @@
     await batch.commit();
   };
 
+  // ---- Editable site content (settings/{id}); public read, admin write ----
+  api.getSetting = async function (id) {
+    if (!ready) return null;
+    try { const d = await api.db.collection('settings').doc(id).get(); return d.exists ? d.data() : null; }
+    catch (e) { return null; }
+  };
+  api.saveSetting = async function (id, data) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('settings').doc(id).set(data);
+  };
+
   window.BBIAuth = api;
 })();

@@ -59,12 +59,37 @@
   </main>
 
   <div id="app-footer"></div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const $ = (id) => document.getElementById(id);
-      const E = BBI.ecc, H = BBI.helpers;
+      const H = BBI.helpers;
+      const A = window.BBIAuth;
+
+      // Load admin-edited ECC content; fall back to built-in defaults.
+      function start(E) { build(E); }
+      if (A && A.ready) {
+        A.getSetting('ecc').then(d => start(mergeEcc(d))).catch(() => start(BBI.ecc));
+      } else { start(BBI.ecc); }
+
+      function mergeEcc(d) {
+        if (!d) return BBI.ecc;
+        return {
+          about: d.about || BBI.ecc.about,
+          mandate: d.mandate && d.mandate.length ? d.mandate : BBI.ecc.mandate,
+          leadership: d.leadership && d.leadership.length ? d.leadership : BBI.ecc.leadership,
+          members: d.members && d.members.length ? d.members : BBI.ecc.members,
+          history: d.history && d.history.length ? d.history : BBI.ecc.history
+        };
+      }
+
+      function build(E) {
       const TABS = [
         { key: 'about', label: 'About' },
         { key: 'mandate', label: 'Mandate' },
@@ -97,6 +122,7 @@
       $('ecc-members').innerHTML = E.members.map(personCard).join('');
       $('ecc-history').innerHTML = E.history.map(h => `
         <li><span class="yr">${h.yr}</span> — <strong>${h.title}</strong><div class="muted">${h.text}</div></li>`).join('');
+      }
     });
   </script>
 </body>

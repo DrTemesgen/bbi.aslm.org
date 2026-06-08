@@ -38,7 +38,9 @@
         $('tab-apps').classList.toggle('hidden', which !== 'apps');
         $('tab-regs').classList.toggle('hidden', which !== 'regs');
         $('tab-cats').classList.toggle('hidden', which !== 'cats');
+        $('tab-ecc').classList.toggle('hidden', which !== 'ecc');
         if (which === 'cats') loadCats();
+        if (which === 'ecc') loadEcc();
       }));
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
       $('new-account').addEventListener('click', openCreateDrawer);
@@ -112,6 +114,70 @@
       if (!confirm('Delete this category? Applicants will no longer be able to choose it (existing applications keep their value).')) return;
       try { await A.deleteCategory(key); BBICats._cache = null; await loadCats(); }
       catch (e) { alert('Could not delete: ' + (e.message || e)); }
+    }
+
+    // ---- ECC content editor ----
+    let ECC = null;
+    const ECC_COLS = {
+      mandate: [{ f: 'icon', ph: 'Icon' }, { f: 'title', ph: 'Title' }, { f: 'text', ph: 'Description' }],
+      leadership: [{ f: 'name', ph: 'Name' }, { f: 'role', ph: 'Role' }, { f: 'org', ph: 'Organisation' }, { f: 'country', ph: 'Country / Region' }],
+      members: [{ f: 'name', ph: 'Name' }, { f: 'role', ph: 'Role / expertise' }, { f: 'country', ph: 'Country / Region' }],
+      history: [{ f: 'yr', ph: 'Year' }, { f: 'title', ph: 'Title' }, { f: 'text', ph: 'Description' }]
+    };
+    async function loadEcc() {
+      try { ECC = await A.getSetting('ecc'); } catch (e) { ECC = null; }
+      if (!ECC) ECC = JSON.parse(JSON.stringify(BBI.ecc));
+      ['mandate', 'leadership', 'members', 'history'].forEach(k => { ECC[k] = ECC[k] || []; });
+      renderEcc();
+    }
+    function eccSync() {
+      const ab = $('ecc-about'); if (ab) ECC.about = ab.value;
+      document.querySelectorAll('#ecc-editor [data-ecc]').forEach(inp => {
+        const p = inp.getAttribute('data-ecc').split('.');
+        if (ECC[p[0]] && ECC[p[0]][p[1]]) ECC[p[0]][p[1]][p[2]] = inp.value;
+      });
+    }
+    function eccList(list, label) {
+      const cols = ECC_COLS[list];
+      const rows = ECC[list].map((it, i) => `
+        <div class="ecc-row">
+          ${cols.map(c => `<input data-ecc="${list}.${i}.${c.f}" value="${escAttr(it[c.f] || '')}" placeholder="${c.ph}" />`).join('')}
+          <button type="button" class="btn btn-outline ecc-x" data-eccdel="${list}.${i}">×</button>
+        </div>`).join('');
+      return `<div class="card" style="text-align:left;margin-bottom:16px">
+        <h3 style="margin-top:0">${label}</h3>
+        <div>${rows || '<p class="muted">None yet.</p>'}</div>
+        <button type="button" class="btn btn-outline" data-eccadd="${list}">+ Add</button>
+      </div>`;
+    }
+    function renderEcc() {
+      $('ecc-editor').innerHTML = `
+        <div class="card" style="text-align:left;margin-bottom:16px">
+          <h3 style="margin-top:0">About</h3>
+          <textarea id="ecc-about" rows="4" style="width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px">${esc(ECC.about || '')}</textarea>
+        </div>
+        ${eccList('mandate', 'Mandate')}
+        ${eccList('leadership', 'Leadership')}
+        ${eccList('members', 'Members')}
+        ${eccList('history', 'History')}
+        <div style="text-align:left">
+          <button class="btn btn-primary" id="ecc-save">Save ECC content</button>
+          <a class="btn btn-outline" href="ecc.html" target="_blank" rel="noopener">Preview page ↗</a>
+          <span id="ecc-msg" class="muted" style="margin-left:10px"></span>
+        </div>`;
+      $('ecc-editor').querySelectorAll('[data-eccadd]').forEach(b => b.addEventListener('click', () => {
+        eccSync(); ECC[b.getAttribute('data-eccadd')].push({}); renderEcc();
+      }));
+      $('ecc-editor').querySelectorAll('[data-eccdel]').forEach(b => b.addEventListener('click', () => {
+        eccSync(); const p = b.getAttribute('data-eccdel').split('.'); ECC[p[0]].splice(p[1], 1); renderEcc();
+      }));
+      $('ecc-save').addEventListener('click', async () => {
+        eccSync();
+        const m = $('ecc-msg');
+        m.textContent = 'Saving…'; m.style.color = '';
+        try { await A.saveSetting('ecc', ECC); m.textContent = 'Saved ✓'; m.style.color = '#0f4f3c'; }
+        catch (e) { m.textContent = 'Could not save: ' + (e.message || e); m.style.color = '#c0392b'; }
+      });
     }
 
     function showDrawer() { $('drawer').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
