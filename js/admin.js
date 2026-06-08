@@ -39,7 +39,13 @@
         $('tab-regs').classList.toggle('hidden', which !== 'regs');
       }));
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
+      $('new-account').addEventListener('click', openCreateDrawer);
     }
+
+    function showDrawer() { $('drawer').classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+    function escAttr(s) { return esc(s).replace(/'/g, '&#39;'); }
+    async function refreshUsers() { try { USERS = await A.allUsers(); } catch (e) {} renderUsers(); }
+    async function refreshApps() { try { ALL = await A.allApplications(); } catch (e) {} render(); }
 
     function renderUsers() {
       const term = ($('uq').value || '').toLowerCase().trim();
@@ -60,23 +66,94 @@
         </table></div>` : `<div class="card center muted">No registrations match.</div>`;
       $('urows').querySelectorAll('[data-approve]').forEach(b => b.addEventListener('click', () => toggleApprove(b.getAttribute('data-approve'), true)));
       $('urows').querySelectorAll('[data-revoke]').forEach(b => b.addEventListener('click', () => toggleApprove(b.getAttribute('data-revoke'), false)));
+      $('urows').querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openUserDrawer(b.getAttribute('data-edit'))));
+      $('urows').querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => removeUser(b.getAttribute('data-del'))));
     }
 
     function userRow(u) {
       const badge = u.approved
         ? `<span class="tag" style="background:#0f4f3c1a;color:#0f4f3c">Approved</span>`
         : `<span class="tag gold">Pending</span>`;
-      const action = u.approved
-        ? `<button class="btn btn-outline" style="padding:6px 12px" data-revoke="${u.uid}">Revoke</button>`
-        : `<button class="btn btn-primary" style="padding:6px 12px" data-approve="${u.uid}">Approve</button>`;
+      const approveBtn = u.approved
+        ? `<button class="btn btn-outline" style="padding:6px 10px" data-revoke="${u.uid}">Revoke</button>`
+        : `<button class="btn btn-primary" style="padding:6px 10px" data-approve="${u.uid}">Approve</button>`;
       return `<tr>
         <td><strong>${esc(u.name || '—')}</strong></td>
         <td>${esc(u.email || '')}</td>
         <td>${esc(u.country || '')}<div class="muted" style="font-size:.8rem">${esc(u.org || '')}</div></td>
         <td>${BBI.fmtDate(u.createdAt)}</td>
         <td>${badge}</td>
-        <td>${action}</td>
+        <td style="white-space:nowrap">
+          ${approveBtn}
+          <button class="btn btn-outline" style="padding:6px 10px" data-edit="${u.uid}">Edit</button>
+          <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-del="${u.uid}">Delete</button>
+        </td>
       </tr>`;
+    }
+
+    function openUserDrawer(uid) {
+      const u = USERS.find(x => x.uid === uid); if (!u) return;
+      $('drawer-body').innerHTML = `
+        <h2 style="margin-bottom:2px">Edit applicant</h2>
+        <div class="muted" style="margin-bottom:16px">${esc(u.email || '')}</div>
+        <form id="u-form" class="form">
+          <label>Full name<input name="name" value="${escAttr(u.name || '')}" required /></label>
+          <label>Country<input name="country" value="${escAttr(u.country || '')}" /></label>
+          <label>Organisation<input name="org" value="${escAttr(u.org || '')}" /></label>
+          <label class="chk-row"><input type="checkbox" name="approved" ${u.approved ? 'checked' : ''} /> Approved (can submit applications)</label>
+          <button class="btn btn-primary" type="submit">Save changes</button>
+          <div id="u-msg" class="notice hidden"></div>
+        </form>`;
+      showDrawer();
+      $('u-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = e.target, m = $('u-msg');
+        try {
+          await A.updateUser(uid, { name: f.name.value, country: f.country.value, org: f.org.value, approved: f.approved.checked });
+          closeDrawer();
+          await refreshUsers();
+        } catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+      });
+    }
+
+    function openCreateDrawer() {
+      $('drawer-body').innerHTML = `
+        <h2 style="margin-bottom:2px">Create new account</h2>
+        <div class="muted" style="margin-bottom:16px">The person receives an email to set their own password.</div>
+        <form id="c-form" class="form">
+          <label>Email<input type="email" name="email" required /></label>
+          <label>Full name<input name="name" required /></label>
+          <label>Country<input name="country" /></label>
+          <label>Organisation<input name="org" /></label>
+          <label class="chk-row"><input type="checkbox" name="approved" checked /> Approve immediately</label>
+          <button class="btn btn-primary" type="submit" id="c-btn">Create account</button>
+          <div id="c-msg" class="notice hidden"></div>
+        </form>`;
+      showDrawer();
+      $('c-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = e.target, m = $('c-msg'), b = $('c-btn');
+        b.disabled = true; b.textContent = 'Creating…'; m.classList.add('hidden');
+        try {
+          await A.adminCreateUser({ email: f.email.value.trim(), name: f.name.value, country: f.country.value, org: f.org.value, approved: f.approved.checked });
+          closeDrawer();
+          await refreshUsers();
+        } catch (err) {
+          const c = (err && err.code) || '';
+          m.textContent = c.includes('email-already-in-use') ? 'That email already has an account.' : 'Could not create: ' + (err.message || err);
+          m.style.background = '#fff8e8'; m.classList.remove('hidden');
+        } finally { b.disabled = false; b.textContent = 'Create account'; }
+      });
+    }
+
+    async function removeUser(uid) {
+      const u = USERS.find(x => x.uid === uid);
+      if (!confirm(`Delete ${u ? (u.name || u.email) : 'this applicant'} and all their applications?\n\nThis removes their access here. (Their login can be fully deleted from the Firebase console.)`)) return;
+      try {
+        await A.deleteUser(uid);
+        await refreshUsers();
+        await refreshApps();
+      } catch (e) { alert('Could not delete: ' + (e.message || e)); }
     }
 
     async function toggleApprove(uid, approved) {
@@ -175,7 +252,17 @@
         ${a.documents ? `<div class="kv"><span>Document links</span><div>${linkify(a.documents)}</div></div>` : ''}
         ${field('Submitted', BBI.fmtDate(a.createdAt))}
         ${field('User ID', a.uid)}
+        <button class="btn btn-outline" id="del-app" style="margin-top:20px;color:#c0392b">🗑 Delete application</button>
       `;
+      $('del-app').addEventListener('click', async () => {
+        if (!confirm('Delete this application? This cannot be undone.')) return;
+        try {
+          await A.deleteApplication(a.id);
+          ALL = ALL.filter(x => x.id !== a.id);
+          closeDrawer();
+          render();
+        } catch (e) { alert('Could not delete: ' + (e.message || e)); }
+      });
       const sel = $('status-sel');
       sel.addEventListener('change', async () => {
         const m = $('save-msg');

@@ -34,11 +34,14 @@ service cloud.firestore {
 
     // User profiles (registrations). approved=false until an admin approves.
     match /users/{uid} {
-      // A user creates their own profile at registration, defaulting to not approved.
-      allow create: if signedIn()
-                    && request.auth.uid == uid
-                    && request.resource.data.approved == false
-                    && request.resource.data.role == 'applicant';
+      // A user creates their own profile at registration (defaulting to not
+      // approved); an admin may create a profile for anyone.
+      allow create: if isAdmin() || (
+                       signedIn()
+                       && request.auth.uid == uid
+                       && request.resource.data.approved == false
+                       && request.resource.data.role == 'applicant'
+                    );
       // Read your own profile, or any profile if admin.
       allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
       // Only admins change approval / roles.

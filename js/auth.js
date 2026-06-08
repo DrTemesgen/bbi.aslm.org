@@ -116,5 +116,60 @@
     });
   };
 
+  // Edit an applicant's profile fields.
+  api.updateUser = async function (uid, data) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('users').doc(uid).update(
+      Object.assign({}, data, { updatedAt: firebase.firestore.FieldValue.serverTimestamp() })
+    );
+  };
+
+  // Create a new account WITHOUT signing the admin out. Uses a secondary
+  // Firebase app, then emails the new user a link to set their password.
+  api.adminCreateUser = async function (profile) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const email = String(profile.email || '').trim();
+    if (!email) throw new Error('email-required');
+    let secApp;
+    try { secApp = firebase.app('secondary'); }
+    catch (e) { secApp = firebase.initializeApp(window.FIREBASE_CONFIG, 'secondary'); }
+    const secAuth = secApp.auth();
+    // random temp password (the user resets it via email)
+    const tmp = 'Bbi!' + Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+    const cred = await secAuth.createUserWithEmailAndPassword(email, tmp);
+    const newUid = cred.user.uid;
+    // Write the profile with the PRIMARY (admin) connection.
+    await api.db.collection('users').doc(newUid).set({
+      email: email,
+      name: profile.name || '',
+      country: profile.country || '',
+      org: profile.org || '',
+      role: 'applicant',
+      approved: profile.approved !== false,
+      createdByAdmin: true,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    try { await secAuth.sendPasswordResetEmail(email); } catch (e) {}
+    try { await secAuth.signOut(); } catch (e) {}
+    return newUid;
+  };
+
+  // Delete an applicant: removes their profile + applications.
+  // Note: the Firebase Auth login itself can only be removed from the
+  // Firebase console (or with the Admin SDK) — this revokes their access here.
+  api.deleteUser = async function (uid) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const snap = await api.db.collection('applications').where('uid', '==', uid).get();
+    const batch = api.db.batch();
+    snap.docs.forEach((d) => batch.delete(d.ref));
+    batch.delete(api.db.collection('users').doc(uid));
+    await batch.commit();
+  };
+
+  api.deleteApplication = async function (id) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('applications').doc(id).delete();
+  };
+
   window.BBIAuth = api;
 })();
