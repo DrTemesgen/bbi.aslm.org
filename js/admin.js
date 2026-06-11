@@ -198,7 +198,7 @@
             <label>Region<select name="region"><option value="">—</option>${regionOpts}</select></label>
           </div>
           <div class="grid cols-2">
-            <label>Level<input name="level" value="${escAttr(p.level || '')}" placeholder="e.g. Senior" /></label>
+            <label>Level<input name="level" value="${escAttr(p.level || '')}" placeholder="e.g. Level I, Level II, SME" /></label>
             <label class="chk-row" style="align-items:center;margin-top:22px"><input type="checkbox" name="mentor" ${p.mentor ? 'checked' : ''} /> Available as mentor</label>
           </div>
           <label>LinkedIn URL<input name="linkedin" value="${escAttr(p.linkedin || '')}" /></label>
