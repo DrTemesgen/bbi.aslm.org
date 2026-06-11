@@ -9,11 +9,21 @@
     const q = document.getElementById('q');
     const regionSel = document.getElementById('f-region');
     const certSel = document.getElementById('f-cert');
+    const levelSel = document.getElementById('f-level');
     const mentorChk = document.getElementById('f-mentor');
     const countEl = document.getElementById('result-count');
 
     // Populate filters — region now; certifications after categories load.
     BBI.regions.forEach(r => regionSel.add(new Option(r.name, r.key)));
+
+    // Levels are derived from the roster itself, so admin-added values appear automatically.
+    function populateLevels() {
+      const cur = levelSel.value;
+      const levels = H.sortedLevels(data);
+      levelSel.length = 1; // keep the "All levels" option
+      levels.forEach(l => levelSel.add(new Option(l, l)));
+      if (levels.includes(cur)) levelSel.value = cur;
+    }
     const cat = (key) => (window.BBICats ? BBICats.get(key) : H.certType(key));
     if (window.BBICats) {
       BBICats.load().then(cats => { cats.forEach(c => certSel.add(new Option(c.name, c.key))); render(); });
@@ -47,10 +57,12 @@
       const term = (q.value || '').toLowerCase().trim();
       const reg = regionSel.value;
       const ct = certSel.value;
+      const lvl = levelSel.value;
       const mentorsOnly = mentorChk.checked;
       const filtered = data.filter(p => {
         if (reg && p.region !== reg) return false;
         if (ct && !(p.certs || []).some(c => c.t === ct)) return false;
+        if (lvl && p.level !== lvl) return false;
         if (mentorsOnly && !p.mentor) return false;
         if (term) {
           const certNames = (p.certs || []).map(c => cat(c.t).name).join(' ');
@@ -69,13 +81,14 @@
       }));
     }
 
-    [q, regionSel, certSel].forEach(el => el.addEventListener('input', render));
+    [q, regionSel, certSel, levelSel].forEach(el => el.addEventListener('input', render));
     mentorChk.addEventListener('change', render);
+    populateLevels();
     render();
 
     // Load admin-managed directory (falls back to defaults)
     if (window.BBIDir) {
-      BBIDir.load().then(d => { data = d; render(); });
+      BBIDir.load().then(d => { data = d; populateLevels(); render(); });
     }
   });
 })();

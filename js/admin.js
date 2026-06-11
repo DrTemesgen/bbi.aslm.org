@@ -48,6 +48,7 @@
       }));
       $('new-profile').addEventListener('click', () => openProfileDrawer(null));
       $('dq').addEventListener('input', renderDir);
+      $('d-level').addEventListener('input', renderDir);
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
       $('new-account').addEventListener('click', openCreateDrawer);
       $('new-cat').addEventListener('click', () => openCatDrawer(null));
@@ -130,11 +131,20 @@
       if (!DIR.length) {
         try { await A.seedDirectory(BBIDir.defaults()); DIR = await A.listDirectory(); } catch (e) {}
       }
+      populateDirLevels();
       renderDir();
+    }
+    function populateDirLevels() {
+      const sel = $('d-level'), cur = sel.value;
+      const levels = BBI.helpers.sortedLevels(DIR);
+      sel.length = 1; // keep the "All levels" option
+      levels.forEach(l => sel.add(new Option(l, l)));
+      if (levels.includes(cur)) sel.value = cur;
     }
     function renderDir() {
       const term = ($('dq').value || '').toLowerCase().trim();
-      const list = DIR.filter(p => !term || `${p.name} ${p.org} ${p.country} ${p.role}`.toLowerCase().includes(term));
+      const lvl = $('d-level').value;
+      const list = DIR.filter(p => (!lvl || p.level === lvl) && (!term || `${p.name} ${p.org} ${p.country} ${p.role}`.toLowerCase().includes(term)));
       $('dcount').textContent = `${list.length} of ${DIR.length}`;
       $('drows').innerHTML = list.length ? `
         <div class="table-wrap"><table class="adm-table">

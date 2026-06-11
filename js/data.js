@@ -356,5 +356,14 @@ BBI.helpers = {
   },
   person(id) {
     return (BBI.directory || []).find(p => p.id === id) || null;
+  },
+  // Distinct level values from a roster, ordered by seniority; unknown (admin-added) levels sort alphabetically after.
+  sortedLevels(list) {
+    const ORDER = ['Associate', 'Senior', 'Lead', 'SME'];
+    return [...new Set((list || []).map(p => p.level).filter(Boolean))].sort((a, b) => {
+      const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+      if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+      return a.localeCompare(b);
+    });
   }
 };
