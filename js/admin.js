@@ -421,8 +421,25 @@
           <label class="chk-row"><input type="checkbox" name="approved" ${u.approved ? 'checked' : ''} /> Approved (can submit applications)</label>
           <button class="btn btn-primary" type="submit">Save changes</button>
           <div id="u-msg" class="notice hidden"></div>
-        </form>`;
+        </form>
+        <hr style="margin:20px 0;border:none;border-top:1px solid #e5e5e5" />
+        <h3 style="margin-bottom:4px">Password</h3>
+        <p class="muted" style="margin-bottom:10px">Passwords can't be viewed or set by admins. Email the user a secure link to choose a new one.</p>
+        <button class="btn btn-outline" type="button" id="u-reset-pw">Send password reset email</button>`;
       showDrawer();
+      $('u-reset-pw').addEventListener('click', async () => {
+        const m = $('u-msg'), btn = $('u-reset-pw');
+        btn.disabled = true;
+        try {
+          await A.resetPassword(u.email);
+          m.textContent = 'Password reset email sent to ' + (u.email || '') + '.';
+          m.style.background = '#e3f2ec'; m.classList.remove('hidden');
+        } catch (err) {
+          m.textContent = 'Could not send reset email: ' + (err.message || err);
+          m.style.background = '#fff8e8'; m.classList.remove('hidden');
+        }
+        btn.disabled = false;
+      });
       $('u-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const f = e.target, m = $('u-msg');
