@@ -300,7 +300,7 @@ BBI.getInvolved = [
   { icon: '🎓', title: 'Get certified', text: 'Apply to the regional training and certification programme and earn a recognised, portable credential.', cta: 'Apply now', href: 'apply.html' },
   { icon: '🧭', title: 'Find a mentor', text: 'Connect with experienced professionals through the mentorship programme to grow your career.', cta: 'Mentorship', href: 'mentorship.html' },
   { icon: '🤝', title: 'Join a National TWG', text: 'Contribute to your country’s biosafety and biosecurity technical working group or professional association.', cta: 'Express interest', href: '#join' },
-  { icon: '🌍', title: 'Partner with the BBI', text: 'Institutions and funders can collaborate to strengthen biosafety and biosecurity systems across Africa.', cta: 'Contact us', href: 'mailto:info@aslm.org' }
+  { icon: '🌍', title: 'Partner with the BBI', text: 'Institutions and funders can collaborate to strengthen biosafety and biosecurity systems across Africa.', cta: 'Contact us', href: 'mailto:academy@aslm.org' }
 ];
 
 // Examination & Certification Committee (ECC).

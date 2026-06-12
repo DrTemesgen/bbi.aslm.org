@@ -73,7 +73,7 @@
             <li><a href="https://africacdc.org" target="_blank" rel="noopener">Africa CDC</a></li>
             <li><a href="https://aslm.org" target="_blank" rel="noopener">ASLM</a></li>
             <li><a href="https://au.int" target="_blank" rel="noopener">African Union</a></li>
-            <li><a href="mailto:info@aslm.org">info@aslm.org</a></li>
+            <li><a href="mailto:academy@aslm.org">academy@aslm.org</a></li>
           </ul>
         </div>
       </div>

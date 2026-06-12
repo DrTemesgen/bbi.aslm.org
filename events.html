@@ -60,7 +60,7 @@
               <h3 style="margin:0 0 4px">${e.title}</h3>
               <div class="muted" style="font-size:.86rem;margin-bottom:8px">📍 ${e.loc}</div>
               <p class="muted" style="margin:0 0 12px">${e.desc}</p>
-              ${e.reg ? '<a class="btn btn-outline" href="mailto:info@aslm.org?subject=Registration%20interest%20-%20' + encodeURIComponent(e.title) + '">Register interest →</a>' : '<span class="muted" style="font-size:.85rem">Registration opening soon</span>'}
+              ${e.reg ? '<a class="btn btn-outline" href="mailto:academy@aslm.org?subject=Registration%20interest%20-%20' + encodeURIComponent(e.title) + '">Register interest →</a>' : '<span class="muted" style="font-size:.85rem">Registration opening soon</span>'}
             </div>
           </div>`).join('') || `<div class="card center muted" style="grid-column:1/-1">No events match.</div>`;
       }
