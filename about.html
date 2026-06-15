@@ -54,10 +54,10 @@
   <script>BBI.i18n.loadActive();</script>
   <script>
     (function () {
+      const slugify = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       const tile = (p) => {
-        const inner = p.logo
-          ? `<img class="partner-logo" src="${p.logo}" alt="${p.name}" loading="lazy" />`
-          : `<span class="partner-word">${p.short}</span>`;
+        const src = p.logo || ('assets/partners/' + slugify(p.short) + '.svg');
+        const inner = `<img class="partner-logo" src="${src}" alt="${p.name}" width="60" height="60" data-short="${p.short}" />`;
         const body = `${inner}<span class="partner-cap">${p.name}</span>`;
         return p.url
           ? `<a class="partner-tile" href="${p.url}" target="_blank" rel="noopener" title="${p.name}">${body}</a>`
@@ -68,6 +68,14 @@
       const fund = document.getElementById('partners-funder');
       if (lead) lead.innerHTML = ps.filter(p => p.group === 'lead').map(tile).join('');
       if (fund) fund.innerHTML = ps.filter(p => p.group === 'funder').map(tile).join('');
+      // Graceful fallback: if a badge image fails to load, show the wordmark.
+      document.querySelectorAll('.partner-tile img.partner-logo').forEach((img) => {
+        img.addEventListener('error', () => {
+          const s = document.createElement('span'); s.className = 'partner-word';
+          s.textContent = img.getAttribute('data-short') || '';
+          img.replaceWith(s);
+        });
+      });
     })();
   </script>
   <script src="js/cms.js"></script>
