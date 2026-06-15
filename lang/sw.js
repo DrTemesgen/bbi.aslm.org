@@ -903,23 +903,23 @@ BBI.i18n.dicts.sw = {
       }
     ],
     "ecc": {
-      "about": "Kamati ya Mitihani na Uthibitishaji (ECC) ni chombo huru kinacholinda viwango vya Programu ya Kanda ya Mafunzo na Uthibitishaji (RTCP-BBP). Inapitia maombi, inasimamia tathmini, na inatoa na kuhuisha uthibitishaji wa kitaaluma wa watendaji wa usalama na usalama-hifadhi wa kibaolojia kote Afrika.",
+      "about": "Kamati ya Mtihani na Uthibitishaji (ECC) ni chombo huru kinacholinda viwango vya Programu ya Kanda ya Mafunzo na Uthibitishaji kwa Wataalamu wa Usalama wa Kibiolojia na Ulinzi wa Kibiolojia (RTCP-BBP) — Eneo la Kipaumbele la 3 la BBI. Kwa kuongozwa na kanuni tatu — uratibu, usanifishaji na ubora — inasimamia tathmini inayozingatia umahiri katika ngazi tatu, inakagua maombi, na inatoa na kuhuisha uthibitishaji wa kitaaluma wa watendaji wa usalama wa kibiolojia na ulinzi wa kibiolojia kote Afrika. Uthibitishaji unatolewa kupitia Vituo vya Kanda vya Umahiri na unalisha Daftari la Umoja wa Afrika la Wataalamu wa Usalama wa Kibiolojia na Ulinzi wa Kibiolojia.",
       "mandate": [
         {
-          "title": "Kuweka kiwango",
-          "text": "Kufafanua na kudumisha viwango vya umahiri, majedwali ya ustadi na vigezo vya tathmini kwa kila eneo na daraja la uthibitishaji."
+          "title": "Kuratibu",
+          "text": "Kuratibu mafunzo na uthibitishaji katika Vituo vya Kanda vya Umahiri na taasisi washirika ili watendaji wafikie kiwango kimoja chenye upatanifu cha kibara."
         },
         {
-          "title": "Kupitia maombi",
-          "text": "Kutathmini Taarifa za Nia na ushahidi wa watahiniwa dhidi ya jedwali la tathmini lililopangwa na lenye uzito."
+          "title": "Kusanifisha",
+          "text": "Kufafanua na kudumisha viwango vya umahiri, matriki za ustadi na vigezo vya tathmini kwa kila eneo na ngazi ya uthibitishaji."
         },
         {
-          "title": "Kutoa uthibitishaji",
-          "text": "Kuthibitisha umahiri na kutoa uthibitishaji, na kusimamia uhuishaji wa mara kwa mara na maendeleo endelevu ya kitaaluma."
+          "title": "Kuhakikisha ubora",
+          "text": "Kutathmini Maonyesho ya Nia na ushahidi wa watahiniwa kwa kutumia matriki yenye muundo na uzito, na kulinda haki, uthabiti na uaminifu wa programu."
         },
         {
-          "title": "Kuhakikisha uadilifu",
-          "text": "Kulinda usawa, uthabiti na uaminifu wa programu, na kuzingatia ufafanuzi na rufaa."
+          "title": "Kuthibitisha na kudumisha",
+          "text": "Kuthibitisha umahiri na kutoa uthibitishaji, kusimamia uhuishaji na maendeleo endelevu ya kitaaluma, na kudumisha Daftari la Umoja wa Afrika la Wataalamu wa Usalama wa Kibiolojia na Ulinzi wa Kibiolojia."
         }
       ],
       "leadership": [
@@ -938,42 +938,50 @@ BBI.i18n.dicts.sw = {
       ],
       "members": [
         {
-          "role": "Mtaalamu wa Usimamizi wa Hatari ya Kibaolojia",
+          "role": "Mjumbe wa ECC · Mshauri Mwandamizi wa Kitaalamu (Usalama wa Kibiolojia na Ulinzi wa Kibiolojia; Maandalizi na Mwitikio wa Dharura)",
+          "country": "Kenya"
+        },
+        {
+          "role": "Mtaalamu wa Usimamizi wa Hatari za Kibiolojia",
           "country": "Afrika Magharibi"
         },
         {
-          "role": "Mtaalamu wa Uhandisi wa Uzuiaji wa Kibaolojia",
+          "role": "Mtaalamu wa Uhandisi wa Uzuiaji wa Kibiolojia",
           "country": "Afrika Kusini"
         },
         {
-          "role": "Mtaalamu wa Usimamizi wa Taka za Kibaolojia",
+          "role": "Mtaalamu wa Usimamizi wa Taka za Kibiolojia",
           "country": "Afrika Mashariki"
         },
         {
-          "role": "Mtaalamu wa Vibineti vya Usalama wa Kibaolojia",
+          "role": "Mtaalamu wa Makabati ya Usalama wa Kibiolojia",
           "country": "Afrika Kaskazini"
         },
         {
-          "role": "Mtaalamu wa Usalama-hifadhi wa Kibaolojia Mtandaoni na AI",
+          "role": "Mtaalamu wa Usalama wa Kibiolojia wa Mtandao na AI",
           "country": "Afrika ya Kati"
         }
       ],
       "history": [
         {
+          "yr": "2022",
           "title": "ECC yaanzishwa",
-          "text": "Kamati ilianzishwa chini ya BBI ili kusimamia Programu mpya ya Kanda ya Mafunzo na Uthibitishaji."
+          "text": "Kamati iliundwa chini ya BBI ili kusimamia Programu mpya ya Kanda ya Mafunzo na Uthibitishaji (RTCP-BBP)."
         },
         {
-          "title": "Viwango vya kwanza vyatumika",
-          "text": "Majedwali ya ustadi na vigezo vya tathmini viliidhinishwa kwa maeneo makuu ya kiufundi."
+          "yr": "2023",
+          "title": "Viwango vyapitishwa na Kituo cha kwanza cha Umahiri",
+          "text": "Matriki za ustadi na vigezo vya tathmini viliidhinishwa kwa maeneo makuu ya kiufundi; Kituo cha Kanda cha Umahiri cha Afrika Mashariki kilianzishwa katika National Public Health Laboratory (NPHL), Dar es Salaam, Tanzania."
         },
         {
-          "title": "Vikundi vya kwanza vyathibitishwa",
-          "text": "ECC ilipitia na kuthibitisha vikundi vya kwanza vya wataalamu katika kanda mbalimbali."
+          "yr": "2024",
+          "title": "Vikundi vya kwanza vyathibitishwa na Kituo cha Magharibi",
+          "text": "ECC inakagua na kuthibitisha vikundi vya kwanza vya wataalamu; Kituo cha Kanda cha Umahiri cha Afrika Magharibi kinafunguliwa katika Institut Pasteur de Dakar, Senegal."
         },
         {
+          "yr": "2025–2030",
           "title": "Kupanua",
-          "text": "Maeneo yaliyopanuliwa na vyama vya kitaifa chini ya BBI Awamu ya III, pamoja na usimamizi imara wa uhuishaji na CPD."
+          "text": "Vituo vitatu kati ya vitano vya Kanda vya Umahiri vinafanya kazi — ikiwemo Afrika Kusini (RDDC, NICD/NHLS, Johannesburg) — vikiwa na uthibitishaji unaozingatia umahiri katika ngazi tatu, Daftari la Umoja wa Afrika linalopanuka na usimamizi imara wa CPD."
         }
       ]
     },

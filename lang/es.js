@@ -903,23 +903,23 @@ BBI.i18n.dicts.es = {
       }
     ],
     "ecc": {
-      "about": "El Comité de Examen y Certificación (ECC) es el órgano independiente que salvaguarda las normas del Programa Regional de Formación y Certificación (RTCP-BBP). Revisa las solicitudes, supervisa la evaluación, y otorga y renueva la certificación profesional de los profesionales de bioseguridad y bioprotección en toda África.",
+      "about": "El Comité de Examen y Certificación (ECC) es el organismo independiente que salvaguarda los estándares del Programa Regional de Formación y Certificación para Profesionales de Bioseguridad y Bioprotección (RTCP-BBP) — Área Prioritaria 3 de la BBI. A través de tres principios rectores — coordinación, estandarización y calidad — supervisa la evaluación basada en competencias en tres niveles, revisa las solicitudes, y otorga y renueva la certificación profesional de los practicantes de bioseguridad y bioprotección en toda África. La certificación se imparte a través de los Centros Regionales de Excelencia y alimenta el Registro de Profesionales de Bioseguridad y Bioprotección de la AU.",
       "mandate": [
         {
-          "title": "Fijar la norma",
-          "text": "Definir y mantener las normas de competencia, las matrices de competencias y los criterios de evaluación de cada área y nivel de certificación."
+          "title": "Coordinar",
+          "text": "Coordinar la formación y la certificación entre los Centros Regionales de Excelencia y las instituciones asociadas para que los practicantes cumplan un único estándar continental armonizado."
         },
         {
-          "title": "Revisar las solicitudes",
-          "text": "Evaluar las expresiones de interés y la evidencia de los candidatos frente a una matriz de evaluación estructurada y ponderada."
+          "title": "Estandarizar",
+          "text": "Definir y mantener los estándares de competencia, las matrices de aptitud y los criterios de evaluación para cada área y nivel de certificación."
         },
         {
-          "title": "Otorgar la certificación",
-          "text": "Confirmar la competencia y otorgar la certificación, y supervisar la renovación periódica y el desarrollo profesional continuo."
+          "title": "Garantizar la calidad",
+          "text": "Evaluar las Expresiones de Interés y la evidencia de los candidatos frente a una matriz estructurada y ponderada, y proteger la equidad, la coherencia y la credibilidad del programa."
         },
         {
-          "title": "Garantizar la integridad",
-          "text": "Proteger la imparcialidad, la coherencia y la credibilidad del programa, y atender aclaraciones y apelaciones."
+          "title": "Certificar y mantener",
+          "text": "Confirmar la competencia y otorgar la certificación, supervisar la renovación y el desarrollo profesional continuo, y mantener el Registro de Profesionales de Bioseguridad y Bioprotección de la AU."
         }
       ],
       "leadership": [
@@ -938,20 +938,24 @@ BBI.i18n.dicts.es = {
       ],
       "members": [
         {
-          "role": "Experto/a en Gestión del Riesgo Biológico",
+          "role": "Miembro del ECC · Asesor Técnico Principal (Bioseguridad y Bioprotección; Preparación y Respuesta ante Emergencias)",
+          "country": "Kenia"
+        },
+        {
+          "role": "Experto/a en Gestión del Bioriesgo",
           "country": "África Occidental"
         },
         {
-          "role": "Experto/a en Ingeniería de Biocontención",
+          "role": "Experto/a en Ingeniería de Bioconfinamiento",
           "country": "África Austral"
         },
         {
-          "role": "Experto/a en Gestión de Desechos Biológicos",
+          "role": "Experto/a en Gestión de Residuos Biológicos",
           "country": "África Oriental"
         },
         {
-          "role": "Experto/a en Cabinas de Seguridad Biológica",
-          "country": "África Septentrional"
+          "role": "Experto/a en Cabinas de Bioseguridad",
+          "country": "África del Norte"
         },
         {
           "role": "Experto/a en Ciberbioprotección e IA",
@@ -960,20 +964,24 @@ BBI.i18n.dicts.es = {
       ],
       "history": [
         {
+          "yr": "2022",
           "title": "Constitución del ECC",
-          "text": "El comité se constituyó en el marco de la BBI para gobernar el nuevo Programa Regional de Formación y Certificación."
+          "text": "El comité se constituyó bajo la BBI para gobernar el nuevo Programa Regional de Formación y Certificación (RTCP-BBP)."
         },
         {
-          "title": "Adopción de las primeras normas",
-          "text": "Se respaldan las matrices de competencias y los criterios de evaluación para las áreas técnicas centrales."
+          "yr": "2023",
+          "title": "Estándares adoptados y primer Centro de Excelencia",
+          "text": "Se aprobaron las matrices de aptitud y los criterios de evaluación para las áreas técnicas centrales; el Centro Regional de Excelencia de África Oriental entra en funcionamiento en el National Public Health Laboratory (NPHL), Dar es-Salam, Tanzania."
         },
         {
-          "title": "Certificación de las primeras cohortes",
-          "text": "El ECC revisó y certificó a las primeras cohortes de profesionales en varias regiones."
+          "yr": "2024",
+          "title": "Primeras cohortes certificadas y Centro Occidental",
+          "text": "El ECC revisa y certifica las primeras cohortes de profesionales; el Centro Regional de Excelencia de África Occidental abre en el Institut Pasteur de Dakar, Senegal."
         },
         {
-          "title": "Escalamiento",
-          "text": "Áreas ampliadas y asociaciones nacionales en el marco de la Fase III de la BBI, con una supervisión reforzada de la renovación y el CPD."
+          "yr": "2025–2030",
+          "title": "Ampliación de escala",
+          "text": "Tres de los cinco Centros Regionales de Excelencia en funcionamiento — incluido el de África Austral (RDDC, NICD/NHLS, Johannesburgo) — con certificación basada en competencias en tres niveles, un Registro de la AU en expansión y una supervisión reforzada del CPD."
         }
       ]
     },

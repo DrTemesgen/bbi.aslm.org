@@ -903,23 +903,23 @@ BBI.i18n.dicts.pt = {
       }
     ],
     "ecc": {
-      "about": "O Comité de Exames e Certificação (ECC) é o órgão independente que salvaguarda os padrões do Programa Regional de Formação e Certificação (RTCP-BBP). Analisa as candidaturas, supervisiona a avaliação e atribui e renova a certificação profissional dos profissionais de biossegurança e biosseguridade em toda a África.",
+      "about": "A Comissão de Exames e Certificação (ECC) é o órgão independente que salvaguarda os padrões do Programa Regional de Formação e Certificação para Profissionais de Biossegurança e Biocustódia (RTCP-BBP) — Área Prioritária 3 da BBI. Atuando segundo três princípios orientadores — coordenação, padronização e qualidade —, supervisiona a avaliação baseada em competências em três níveis, analisa as candidaturas e concede e renova a certificação profissional dos profissionais de biossegurança e biocustódia em toda a África. A certificação é realizada através dos Centros Regionais de Excelência e alimenta o Registo da União Africana de Profissionais de Biossegurança e Biocustódia.",
       "mandate": [
         {
-          "title": "Definir o padrão",
+          "title": "Coordenar",
+          "text": "Coordenar a formação e a certificação entre os Centros Regionais de Excelência e as instituições parceiras, de modo que os profissionais cumpram um único padrão continental harmonizado."
+        },
+        {
+          "title": "Padronizar",
           "text": "Definir e manter os padrões de competência, as matrizes de proficiência e os critérios de avaliação para cada área e nível de certificação."
         },
         {
-          "title": "Analisar candidaturas",
-          "text": "Avaliar as Manifestações de Interesse e as evidências dos candidatos em função de uma matriz de avaliação estruturada e ponderada."
+          "title": "Garantir a qualidade",
+          "text": "Avaliar as Manifestações de Interesse e as evidências dos candidatos face a uma matriz estruturada e ponderada, e proteger a equidade, a consistência e a credibilidade do programa."
         },
         {
-          "title": "Atribuir a certificação",
-          "text": "Confirmar a competência e atribuir a certificação, e supervisionar a renovação periódica e o desenvolvimento profissional contínuo."
-        },
-        {
-          "title": "Garantir a integridade",
-          "text": "Proteger a equidade, a coerência e a credibilidade do programa, e ponderar esclarecimentos e recursos."
+          "title": "Certificar e manter",
+          "text": "Confirmar a competência e conceder a certificação, supervisionar a renovação e o desenvolvimento profissional contínuo, e manter o Registo da União Africana de Profissionais de Biossegurança e Biocustódia."
         }
       ],
       "leadership": [
@@ -938,7 +938,11 @@ BBI.i18n.dicts.pt = {
       ],
       "members": [
         {
-          "role": "Especialista em Gestão do Biorrisco",
+          "role": "Membro da ECC · Consultor Técnico Sénior (Biossegurança e Biocustódia; Preparação e Resposta a Emergências)",
+          "country": "Quénia"
+        },
+        {
+          "role": "Especialista em Gestão de Biorrisco",
           "country": "África Ocidental"
         },
         {
@@ -950,30 +954,34 @@ BBI.i18n.dicts.pt = {
           "country": "África Oriental"
         },
         {
-          "role": "Especialista em Cabines de Segurança Biológica",
+          "role": "Especialista em Câmaras de Segurança Biológica",
           "country": "África do Norte"
         },
         {
-          "role": "Especialista em Ciberbiosseguridade e IA",
+          "role": "Especialista em Ciberbiossegurança e IA",
           "country": "África Central"
         }
       ],
       "history": [
         {
-          "title": "ECC criado",
-          "text": "O comité foi constituído no âmbito da BBI para reger o novo Programa Regional de Formação e Certificação."
+          "yr": "2022",
+          "title": "ECC constituída",
+          "text": "A comissão foi constituída no âmbito da BBI para governar o novo Programa Regional de Formação e Certificação (RTCP-BBP)."
         },
         {
-          "title": "Primeiros padrões adotados",
-          "text": "Matrizes de proficiência e critérios de avaliação aprovados para as áreas técnicas essenciais."
+          "yr": "2023",
+          "title": "Padrões adotados e primeiro Centro de Excelência",
+          "text": "Matrizes de proficiência e critérios de avaliação aprovados para as áreas técnicas fundamentais; o Centro Regional de Excelência da África Oriental entra em funcionamento no National Public Health Laboratory (NPHL), em Dar es Salaam, Tanzânia."
         },
         {
-          "title": "Primeiras coortes certificadas",
-          "text": "O ECC analisou e certificou as primeiras coortes de profissionais em múltiplas regiões."
+          "yr": "2024",
+          "title": "Primeiras coortes certificadas e Centro Ocidental",
+          "text": "A ECC analisa e certifica as primeiras coortes de profissionais; o Centro Regional de Excelência da África Ocidental abre no Institut Pasteur de Dakar, Senegal."
         },
         {
-          "title": "Expansão",
-          "text": "Áreas alargadas e associações nacionais no âmbito da Fase III da BBI, com supervisão reforçada da renovação e do DPC."
+          "yr": "2025–2030",
+          "title": "Expansão em escala",
+          "text": "Três dos cinco Centros Regionais de Excelência em funcionamento — incluindo a África Austral (RDDC, NICD/NHLS, Joanesburgo) — com certificação baseada em competências em três níveis, um Registo da União Africana em expansão e uma supervisão reforçada do CPD."
         }
       ]
     },

@@ -304,15 +304,16 @@ BBI.getInvolved = [
 ];
 
 // Examination & Certification Committee (ECC).
-// Leadership / members / history below are ILLUSTRATIVE SAMPLES — replace
-// with the official roster and milestones.
+// Content reflects the ECC overview presented at the BCE training, Dar es Salaam,
+// 15–19 June 2026 (Noel Odhiambo, ECC Member). Leadership names remain
+// ILLUSTRATIVE SAMPLES pending the official roster.
 BBI.ecc = {
-  about: 'The Examination and Certification Committee (ECC) is the independent body that safeguards the standards of the Regional Training and Certification Programme (RTCP-BBP). It reviews applications, oversees assessment, and awards and renews the professional certification of biosafety and biosecurity practitioners across Africa.',
+  about: 'The Examination and Certification Committee (ECC) is the independent body that safeguards the standards of the Regional Training and Certification Programme for Biosafety and Biosecurity Professionals (RTCP-BBP) — Priority Area 3 of the BBI. Working through three guiding principles — coordination, standardization and quality — it oversees competency-based assessment across three levels, reviews applications, and awards and renews the professional certification of biosafety and biosecurity practitioners across Africa. Certification is delivered through Regional Centres of Excellence and feeds the African Union Register of Biosafety and Biosecurity Professionals.',
   mandate: [
-    { icon: '📐', title: 'Set the standard', text: 'Define and maintain the competency standards, proficiency matrices and assessment criteria for each certification area and level.' },
-    { icon: '🔍', title: 'Review applications', text: 'Evaluate Expressions of Interest and candidate evidence against a structured, weighted evaluation matrix.' },
-    { icon: '🎓', title: 'Award certification', text: 'Confirm competency and award certification, and oversee periodic renewal and continuing professional development.' },
-    { icon: '⚖️', title: 'Assure integrity', text: 'Protect the fairness, consistency and credibility of the programme, and consider clarifications and appeals.' }
+    { icon: '🔗', title: 'Coordinate', text: 'Coordinate training and certification across the Regional Centres of Excellence and partner institutions so practitioners meet one harmonised continental standard.' },
+    { icon: '📐', title: 'Standardize', text: 'Define and maintain the competency standards, proficiency matrices and assessment criteria for each certification area and level.' },
+    { icon: '✅', title: 'Assure quality', text: 'Evaluate Expressions of Interest and candidate evidence against a structured, weighted matrix, and protect the fairness, consistency and credibility of the programme.' },
+    { icon: '🎓', title: 'Certify & maintain', text: 'Confirm competency and award certification, oversee renewal and continuing professional development, and maintain the African Union Register of Biosafety and Biosecurity Professionals.' }
   ],
   leadership: [
     { name: 'Prof. [Chairperson]', role: 'Chairperson', org: 'Africa CDC', country: 'Continental' },
@@ -320,6 +321,7 @@ BBI.ecc = {
     { name: 'Dr [Secretary]', role: 'Secretary', org: 'BBI Secretariat', country: 'Continental' }
   ],
   members: [
+    { name: 'Noel Odhiambo', role: 'ECC Member · Senior Technical Adviser (Biosafety & Biosecurity; Emergency Preparedness & Response)', org: 'Amref Health Africa in Kenya', country: 'Kenya' },
     { name: 'Dr [Member]', role: 'Biorisk Management expert', country: 'Western Africa' },
     { name: 'Dr [Member]', role: 'Biocontainment Engineering expert', country: 'Southern Africa' },
     { name: 'Dr [Member]', role: 'Biological Waste Management expert', country: 'Eastern Africa' },
@@ -327,10 +329,10 @@ BBI.ecc = {
     { name: 'Dr [Member]', role: 'Cyberbiosecurity & AI expert', country: 'Central Africa' }
   ],
   history: [
-    { yr: '2022', title: 'ECC established', text: 'The committee was constituted under the BBI to govern the new Regional Training and Certification Programme.' },
-    { yr: '2023', title: 'First standards adopted', text: 'Proficiency matrices and evaluation criteria endorsed for the core technical areas.' },
-    { yr: '2024', title: 'First cohorts certified', text: 'The ECC reviewed and certified the first cohorts of professionals across multiple regions.' },
-    { yr: '2025–2030', title: 'Scaling up', text: 'Expanded areas and national associations under BBI Phase III, with strengthened renewal and CPD oversight.' }
+    { yr: '2022', title: 'ECC established', text: 'The committee was constituted under the BBI to govern the new Regional Training and Certification Programme (RTCP-BBP).' },
+    { yr: '2023', title: 'Standards adopted & first Centre of Excellence', text: 'Proficiency matrices and evaluation criteria endorsed for the core technical areas; the Eastern Africa Regional Centre of Excellence is operationalised at the National Public Health Laboratory (NPHL), Dar es Salaam, Tanzania.' },
+    { yr: '2024', title: 'First cohorts certified & Western Centre', text: 'The ECC reviews and certifies the first cohorts of professionals; the Western Africa Regional Centre of Excellence opens at Institut Pasteur de Dakar, Senegal.' },
+    { yr: '2025–2030', title: 'Scaling up', text: 'Three of five Regional Centres of Excellence operational — including Southern Africa (RDDC, NICD/NHLS, Johannesburg) — with competency-based certification across three levels, an expanding African Union Register and strengthened CPD oversight.' }
   ]
 };
 

@@ -903,32 +903,32 @@ BBI.i18n.dicts.fr = {
       }
     ],
     "ecc": {
-      "about": "Le Comité d'examen et de certification (ECC) est l'organe indépendant qui garantit les normes du programme régional de formation et de certification (RTCP-BBP). Il examine les candidatures, supervise l'évaluation, et décerne et renouvelle la certification professionnelle des praticiens de la sécurité et de la sûreté biologiques à travers l'Afrique.",
+      "about": "Le Comité d'Examen et de Certification (ECC) est l'organe indépendant qui garantit les normes du Programme Régional de Formation et de Certification des Professionnels de la Biosécurité et de la Biosûreté (RTCP-BBP) — Domaine prioritaire 3 de la BBI. À travers trois principes directeurs — coordination, standardisation et qualité —, il supervise l'évaluation des compétences sur trois niveaux, examine les candidatures, et délivre et renouvelle la certification professionnelle des praticiens de la biosécurité et de la biosûreté à travers l'Afrique. La certification est dispensée par l'intermédiaire des Centres Régionaux d'Excellence et alimente le Registre des Professionnels de la Biosécurité et de la Biosûreté de l'Union africaine.",
       "mandate": [
         {
-          "title": "Définir la norme",
-          "text": "Définir et maintenir les normes de compétences, les matrices de compétences et les critères d'évaluation pour chaque domaine et niveau de certification."
+          "title": "Coordonner",
+          "text": "Coordonner la formation et la certification entre les Centres Régionaux d'Excellence et les institutions partenaires afin que les praticiens répondent à une seule norme continentale harmonisée."
         },
         {
-          "title": "Examiner les candidatures",
-          "text": "Évaluer les manifestations d'intérêt et les preuves fournies par les candidats au regard d'une matrice d'évaluation structurée et pondérée."
+          "title": "Standardiser",
+          "text": "Définir et maintenir les normes de compétences, les matrices de maîtrise et les critères d'évaluation pour chaque domaine et niveau de certification."
         },
         {
-          "title": "Décerner la certification",
-          "text": "Confirmer la compétence et décerner la certification, et superviser le renouvellement périodique et le développement professionnel continu."
+          "title": "Assurer la qualité",
+          "text": "Évaluer les Manifestations d'Intérêt et les preuves des candidats au regard d'une matrice structurée et pondérée, et protéger l'équité, la cohérence et la crédibilité du programme."
         },
         {
-          "title": "Garantir l'intégrité",
-          "text": "Protéger l'équité, la cohérence et la crédibilité du programme, et examiner les demandes de clarification et les recours."
+          "title": "Certifier et maintenir",
+          "text": "Confirmer les compétences et délivrer la certification, superviser le renouvellement et le développement professionnel continu, et tenir le Registre des Professionnels de la Biosécurité et de la Biosûreté de l'Union africaine."
         }
       ],
       "leadership": [
         {
-          "role": "Président·e",
+          "role": "Président",
           "country": "Continental"
         },
         {
-          "role": "Vice-président·e",
+          "role": "Vice-Président",
           "country": "Continental"
         },
         {
@@ -938,23 +938,27 @@ BBI.i18n.dicts.fr = {
       ],
       "members": [
         {
-          "role": "Expert·e en gestion des risques biologiques",
+          "role": "Membre de l'ECC · Conseiller technique principal (Biosécurité et Biosûreté ; Préparation et Réponse aux Urgences)",
+          "country": "Kenya"
+        },
+        {
+          "role": "Expert en Gestion des Biorisques",
           "country": "Afrique de l'Ouest"
         },
         {
-          "role": "Expert·e en ingénierie du confinement biologique",
+          "role": "Expert en Ingénierie de Bioconfinement",
           "country": "Afrique australe"
         },
         {
-          "role": "Expert·e en gestion des déchets biologiques",
+          "role": "Expert en Gestion des Déchets Biologiques",
           "country": "Afrique de l'Est"
         },
         {
-          "role": "Expert·e en enceintes de sécurité biologique",
+          "role": "Expert en Postes de Sécurité Microbiologique",
           "country": "Afrique du Nord"
         },
         {
-          "role": "Expert·e en cyberbiosécurité et IA",
+          "role": "Expert en Cyberbiosûreté et IA",
           "country": "Afrique centrale"
         }
       ],
@@ -962,22 +966,22 @@ BBI.i18n.dicts.fr = {
         {
           "yr": "2022",
           "title": "Création de l'ECC",
-          "text": "Le comité a été constitué dans le cadre de la BBI pour piloter le nouveau programme régional de formation et de certification."
+          "text": "Le comité a été constitué au sein de la BBI pour gouverner le nouveau Programme Régional de Formation et de Certification (RTCP-BBP)."
         },
         {
           "yr": "2023",
-          "title": "Adoption des premières normes",
-          "text": "Les matrices de compétences et les critères d'évaluation sont approuvés pour les principaux domaines techniques."
+          "title": "Adoption des normes et premier Centre d'Excellence",
+          "text": "Les matrices de maîtrise et les critères d'évaluation ont été approuvés pour les principaux domaines techniques ; le Centre Régional d'Excellence d'Afrique de l'Est est rendu opérationnel au National Public Health Laboratory (NPHL), Dar es Salaam, Tanzanie."
         },
         {
           "yr": "2024",
-          "title": "Certification des premières cohortes",
-          "text": "L'ECC a examiné et certifié les premières cohortes de professionnels dans plusieurs régions."
+          "title": "Certification des premières cohortes et Centre de l'Ouest",
+          "text": "L'ECC examine et certifie les premières cohortes de professionnels ; le Centre Régional d'Excellence d'Afrique de l'Ouest ouvre à l'Institut Pasteur de Dakar, Sénégal."
         },
         {
           "yr": "2025–2030",
-          "title": "Montée en puissance",
-          "text": "Élargissement des domaines et des associations nationales dans le cadre de la Phase III de la BBI, avec un renforcement de la supervision du renouvellement et du DPC."
+          "title": "Montée en échelle",
+          "text": "Trois des cinq Centres Régionaux d'Excellence opérationnels — y compris l'Afrique australe (RDDC, NICD/NHLS, Johannesburg) — avec une certification fondée sur les compétences sur trois niveaux, un Registre de l'Union africaine en expansion et une supervision renforcée du CPD."
         }
       ]
     },
