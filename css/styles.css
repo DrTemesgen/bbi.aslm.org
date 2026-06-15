@@ -311,6 +311,20 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
   .tab { flex: 1 1 auto; font-size: .85rem; padding: 8px 12px; }
 }
 
+/* ---------- Admin tab bar ---------- */
+/* Fills the full content width on desktop (one even row, like the toolbar and
+   tables below it). On smaller screens it becomes a horizontally scrollable
+   strip so every tab stays on a single row and reachable by swiping, instead
+   of wrapping into uneven, hard-to-tap rows. */
+#admin-tabs { flex-wrap: nowrap; width: 100%; overflow-x: auto; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+#admin-tabs .tab { flex: 1 1 auto; text-align: center; }
+#admin-tabs::-webkit-scrollbar { height: 6px; }
+#admin-tabs::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; }
+@media (max-width: 900px) {
+  /* Stop stretching tabs to fill; let them keep their natural width and scroll. */
+  #admin-tabs .tab { flex: 0 0 auto; }
+}
+
 /* ---------- Admin table ---------- */
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .adm-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 720px; }
