@@ -32,12 +32,10 @@
       <p data-edit="about.strategy.p2" data-i18n="about.strategy.p2">The 2026–2030 strategy prioritises national technical working groups and professional associations, sustainable domestic funding to reduce external dependence, stronger national legal and regulatory frameworks, expanded laboratory biosafety capacity and pathogen control, and secure, ethical research and development practices.</p>
 
       <h2 style="margin-top:32px" data-edit="about.partners.title" data-i18n="about.partners.title">Partners &amp; supporters</h2>
-      <div class="grid cols-2" style="margin-top:14px">
-        <div class="card"><h3 data-i18n="about.partners.leadingTitle">Leading institutions</h3>
-          <p class="muted" style="margin:0" data-edit="about.partners.leading" data-i18n="about.partners.leading">Africa CDC · AU-PANVAC · AU-IBAR · African Union &amp; its Regional Collaborating Centres · African Society for Laboratory Medicine (ASLM) · G7-led Global Partnership (GP) and the Signature Initiative to Mitigate Biological Threats in Africa (SIMBA).</p></div>
-        <div class="card"><h3 data-i18n="about.partners.fundersTitle">Funders &amp; technical partners</h3>
-          <p class="muted" style="margin:0" data-edit="about.partners.funders" data-i18n="about.partners.funders">Global Affairs Canada Weapons Threat Reduction Program · World Bank · US CDC · US DTRA · Nuclear Threat Initiative · FAO · IFBA · VERTIC · WHO · WOAH (OIE) · BWC Implementation Support Unit (UNODA) · AU Member States.</p></div>
-      </div>
+      <h3 style="margin-top:18px" data-i18n="about.partners.leadingTitle">Leading institutions</h3>
+      <div id="partners-lead" class="partner-grid" style="margin-top:12px"></div>
+      <h3 style="margin-top:30px" data-i18n="about.partners.fundersTitle">Funders &amp; technical partners</h3>
+      <div id="partners-funder" class="partner-grid" style="margin-top:12px"></div>
 
       <div class="notice" style="margin-top:28px" data-i18n-html="about.notice">ℹ️ This application is an unofficial reference tool built for the BBI programme. Content is summarised from public Africa CDC and ASLM communications. For official information, visit <a href="https://aslm.org" target="_blank" rel="noopener">aslm.org</a> and <a href="https://africacdc.org" target="_blank" rel="noopener">africacdc.org</a>.</div>
     </div>
@@ -54,6 +52,24 @@
   <script src="js/i18n.js"></script>
   <script src="lang/en.js"></script>
   <script>BBI.i18n.loadActive();</script>
+  <script>
+    (function () {
+      const tile = (p) => {
+        const inner = p.logo
+          ? `<img class="partner-logo" src="${p.logo}" alt="${p.name}" loading="lazy" />`
+          : `<span class="partner-word">${p.short}</span>`;
+        const body = `${inner}<span class="partner-cap">${p.name}</span>`;
+        return p.url
+          ? `<a class="partner-tile" href="${p.url}" target="_blank" rel="noopener" title="${p.name}">${body}</a>`
+          : `<div class="partner-tile" title="${p.name}">${body}</div>`;
+      };
+      const ps = (window.BBI && BBI.partners) || [];
+      const lead = document.getElementById('partners-lead');
+      const fund = document.getElementById('partners-funder');
+      if (lead) lead.innerHTML = ps.filter(p => p.group === 'lead').map(tile).join('');
+      if (fund) fund.innerHTML = ps.filter(p => p.group === 'funder').map(tile).join('');
+    })();
+  </script>
   <script src="js/cms.js"></script>
 </body>
 </html>

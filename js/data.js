@@ -336,6 +336,34 @@ BBI.ecc = {
   ]
 };
 
+// Partners & supporters — shown as a logo wall on About.
+// `short` = wordmark shown until a real logo file is added; set `logo` to a
+// path under assets/partners/ (SVG/PNG) to show the official mark instead.
+// url '' = not linked (left blank where no confident official site).
+BBI.partners = [
+  // Leading institutions
+  { group: 'lead', short: 'Africa CDC', name: 'Africa Centres for Disease Control and Prevention', url: 'https://africacdc.org', logo: '' },
+  { group: 'lead', short: 'ASLM', name: 'African Society for Laboratory Medicine', url: 'https://aslm.org', logo: '' },
+  { group: 'lead', short: 'African Union', name: 'African Union & Regional Collaborating Centres', url: 'https://au.int', logo: '' },
+  { group: 'lead', short: 'AU-PANVAC', name: 'Pan African Veterinary Vaccine Centre', url: 'https://au.int', logo: '' },
+  { group: 'lead', short: 'AU-IBAR', name: 'AU Interafrican Bureau for Animal Resources', url: 'https://www.au-ibar.org', logo: '' },
+  { group: 'lead', short: 'GP', name: 'G7-led Global Partnership', url: '', logo: '' },
+  { group: 'lead', short: 'SIMBA', name: 'Signature Initiative to Mitigate Biological Threats in Africa', url: '', logo: '' },
+  // Funders & technical partners
+  { group: 'funder', short: 'Global Affairs Canada', name: 'Global Affairs Canada — Weapons Threat Reduction Program', url: 'https://www.international.gc.ca', logo: '' },
+  { group: 'funder', short: 'World Bank', name: 'World Bank', url: 'https://www.worldbank.org', logo: '' },
+  { group: 'funder', short: 'US CDC', name: 'U.S. Centers for Disease Control and Prevention', url: 'https://www.cdc.gov', logo: '' },
+  { group: 'funder', short: 'DTRA', name: 'U.S. Defense Threat Reduction Agency', url: 'https://www.dtra.mil', logo: '' },
+  { group: 'funder', short: 'NTI', name: 'Nuclear Threat Initiative', url: 'https://www.nti.org', logo: '' },
+  { group: 'funder', short: 'FAO', name: 'Food and Agriculture Organization', url: 'https://www.fao.org', logo: '' },
+  { group: 'funder', short: 'IFBA', name: 'International Federation of Biosafety Associations', url: 'https://internationalbiosafety.org', logo: '' },
+  { group: 'funder', short: 'VERTIC', name: 'Verification Research, Training and Information Centre', url: 'https://www.vertic.org', logo: '' },
+  { group: 'funder', short: 'WHO', name: 'World Health Organization', url: 'https://www.who.int', logo: '' },
+  { group: 'funder', short: 'WOAH', name: 'World Organisation for Animal Health (OIE)', url: 'https://www.woah.org', logo: '' },
+  { group: 'funder', short: 'UNODA', name: 'BWC Implementation Support Unit (UNODA)', url: 'https://disarmament.unoda.org/biological-weapons/', logo: '' },
+  { group: 'funder', short: 'AU Member States', name: 'African Union Member States', url: 'https://au.int', logo: '' }
+];
+
 BBI.helpers = {
   regionName(key) {
     const r = (BBI.regions || []).find(x => x.key === key);
