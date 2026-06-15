@@ -278,9 +278,17 @@
         </div>
         <div style="text-align:left">
           <button class="btn btn-primary" id="home-save">Save home content</button>
+          <button class="btn btn-outline" id="home-reset" type="button">↺ Load latest from code</button>
           <a class="btn btn-outline" href="index.html" target="_blank" rel="noopener">Preview ↗</a>
           <span id="home-msg" class="muted" style="margin-left:10px"></span>
         </div>`;
+      $('home-reset').addEventListener('click', () => {
+        HOME = JSON.parse(JSON.stringify(BBI.home));
+        HOME.stats = HOME.stats || [];
+        while (HOME.stats.length < 4) HOME.stats.push({ num: 0, suffix: '', label: '', sub: '' });
+        renderHomeEditor();
+        const m = $('home-msg'); m.textContent = 'Loaded the latest content from code — review, then Save to publish.'; m.style.color = '#0f4f3c';
+      });
       $('home-save').addEventListener('click', async () => {
         HOME.heroTitle = $('h-title').value;
         HOME.heroLead = $('h-lead').value;
@@ -342,6 +350,7 @@
         ${eccList('history', 'History')}
         <div style="text-align:left">
           <button class="btn btn-primary" id="ecc-save">Save ECC content</button>
+          <button class="btn btn-outline" id="ecc-reset" type="button">↺ Load latest from code</button>
           <a class="btn btn-outline" href="ecc.html" target="_blank" rel="noopener">Preview page ↗</a>
           <span id="ecc-msg" class="muted" style="margin-left:10px"></span>
         </div>`;
@@ -351,6 +360,12 @@
       $('ecc-editor').querySelectorAll('[data-eccdel]').forEach(b => b.addEventListener('click', () => {
         eccSync(); const p = b.getAttribute('data-eccdel').split('.'); ECC[p[0]].splice(p[1], 1); renderEcc();
       }));
+      $('ecc-reset').addEventListener('click', () => {
+        ECC = JSON.parse(JSON.stringify(BBI.ecc));
+        ['mandate', 'leadership', 'members', 'history'].forEach(k => { ECC[k] = ECC[k] || []; });
+        renderEcc();
+        const m = $('ecc-msg'); m.textContent = 'Loaded the latest content from code — review, then Save to publish.'; m.style.color = '#0f4f3c';
+      });
       $('ecc-save').addEventListener('click', async () => {
         eccSync();
         const m = $('ecc-msg');
