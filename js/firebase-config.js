@@ -50,3 +50,10 @@ window.BBI_ADMIN_EMAILS = [
 window.BBI_FIREBASE_READY =
   !!window.FIREBASE_CONFIG &&
   !String(window.FIREBASE_CONFIG.apiKey).startsWith("PASTE_");
+
+// BBI AI assistant backend (cPanel @ ebc.drtemesgen.com). When set, the chat
+// widget POSTs the user's message + retrieved BBI snippets here and shows the
+// conversational answer it returns. On ANY error (network/CORS/non-JSON) or an
+// empty answer, the widget silently falls back to on-device retrieval. See
+// backend/README.md for the deployment + key setup.
+window.BBI_AI_ENDPOINT = "https://ebc.drtemesgen.com/chat.php";
