@@ -108,17 +108,18 @@ p { margin: 0 0 1rem; }
   .menu-btn { display: block; }
   .nav {
     position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch;
-    background: var(--green-800); padding: 8px; gap: 2px; margin: 0;
+    background: var(--green-800); padding: 6px; gap: 1px; margin: 0;
     transform: translateY(-120%); transition: transform .25s ease; box-shadow: var(--shadow);
-    max-height: 80vh; overflow-y: auto;
+    max-height: 86vh; overflow-y: auto;
   }
   .nav.open { transform: translateY(0); }
-  .nav a { padding: 12px 14px; border-radius: 8px; }
+  .nav a { padding: 9px 12px; border-radius: 8px; text-align: left; }
   /* Flatten the "More" dropdown into the mobile list */
   .nav .more { display: flex; flex-direction: column; position: static; }
   .more-btn { display: none; }
-  .more-menu { position: static; display: flex; background: transparent; border: 0; box-shadow: none; padding: 0; min-width: 0; }
-  .nav-cta { margin: 8px 0 0; text-align: center; }
+  .more-menu { position: static; display: flex; flex-direction: column; background: transparent; border: 0; box-shadow: none; padding: 0; min-width: 0; gap: 1px; }
+  .more-menu a { padding: 9px 12px; }
+  .nav-cta { margin: 6px 0 0; text-align: left; }
 }
 
 /* ---------- Buttons ---------- */
@@ -439,10 +440,18 @@ input, select, textarea,
 .lang-opt:hover { background: rgba(255,255,255,.1); color: #fff; }
 .lang-opt.active { background: var(--gold); color: #3a2c05; font-weight: 700; }
 
-/* Keep the switcher reachable inside the mobile nav drawer */
+/* Mobile: the language switcher expands INLINE inside the nav drawer (not a
+   floating dropdown that lands off-screen), full-width and left-aligned. */
 @media (max-width: 880px) {
-  .lang-switch { margin: 8px 0 0; }
-  .lang-menu { inset-inline-start: 0; inset-inline-end: auto; }
+  .lang-switch { display: block; width: 100%; margin: 4px 0 0; }
+  .lang-btn { width: 100%; justify-content: flex-start; border-radius: 8px; padding: 9px 12px; font-size: .9rem; }
+  .lang-btn .lang-caret { margin-inline-start: auto; }
+  .lang-menu {
+    position: static; min-width: 0; width: 100%; margin-top: 1px;
+    background: transparent; border: 0; box-shadow: none; padding: 0;
+  }
+  .lang-switch.open .lang-menu { display: flex; flex-direction: column; gap: 1px; }
+  .lang-opt { padding: 9px 14px; text-align: left; }
 }
 
 /* ----- RTL (Arabic) ----- */
@@ -466,14 +475,16 @@ input, select, textarea,
 /* ===========================================================
    Partner logo wall (About page)
    =========================================================== */
-.partner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 14px; }
+.partner-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 .partner-tile {
+  flex: 0 1 168px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px;
   text-align: center; text-decoration: none; color: inherit;
   background: #fff; border: 1px solid var(--line); border-radius: 14px;
   padding: 22px 14px; min-height: 120px;
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
+@media (max-width: 520px) { .partner-tile { flex: 0 1 140px; } }
 a.partner-tile:hover, a.partner-tile:focus-visible {
   transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); text-decoration: none;
 }

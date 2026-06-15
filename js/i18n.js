@@ -250,6 +250,9 @@
       e.stopPropagation();
       var open = host.classList.toggle('open');
       btn.setAttribute('aria-expanded', String(open));
+      // On the mobile drawer the list expands inline near the bottom — bring it
+      // into view so all six languages are reachable without hunting.
+      if (open) { setTimeout(function () { try { (menu.lastElementChild || menu).scrollIntoView({ block: 'nearest' }); } catch (_) {} }, 10); }
     });
     menu.querySelectorAll('.lang-opt').forEach(function (b) {
       b.addEventListener('click', function () { I.set(b.getAttribute('data-lang')); });
