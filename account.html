@@ -169,9 +169,11 @@
         activity: () => BBI.t('account.reg.kind.activity', 'Activity')
       };
       const REG_STATUS_LABEL = {
+        pending: () => BBI.t('account.reg.status.pending', 'Pending approval'),
         registered: () => BBI.t('account.reg.status.registered', 'Registered'),
         confirmed: () => BBI.t('account.reg.status.confirmed', 'Confirmed'),
         waitlisted: () => BBI.t('account.reg.status.waitlisted', 'Waitlisted'),
+        rejected: () => BBI.t('account.reg.status.rejected', 'Not approved'),
         cancelled: () => BBI.t('account.reg.status.cancelled', 'Cancelled')
       };
       function regKindLabel(k) { return (KIND_LABEL[k] || (() => k || BBI.t('account.reg.kind.event', 'Event')))(); }

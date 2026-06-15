@@ -285,7 +285,7 @@
     if (!api.user) throw new Error('not-signed-in');
     const now = firebase.firestore.FieldValue.serverTimestamp();
     const payload = Object.assign({}, data, {
-      uid: api.user.uid, email: api.user.email || '', status: 'registered', createdAt: now,
+      uid: api.user.uid, email: api.user.email || '', status: 'pending', createdAt: now,
     });
     const ref = await api.db.collection('registrations').add(payload);
     return ref.id;

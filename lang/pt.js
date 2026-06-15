@@ -544,7 +544,13 @@ BBI.i18n.dicts.pt = {
     "ecc.strategy.strengths": "Pontos fortes",
     "ecc.strategy.weaknesses": "Pontos fracos",
     "ecc.strategy.opportunities": "Oportunidades",
-    "ecc.strategy.threats": "Ameaças"
+    "ecc.strategy.threats": "Ameaças",
+    "event.pending": "⏳ A sua inscrição aguarda aprovação",
+    "event.waitlisted": "⏳ Está na lista de espera",
+    "event.rejected": "Esta inscrição não foi aprovada.",
+    "event.registerNote": "A sua inscrição será analisada e aprovada pelos organizadores.",
+    "account.reg.status.pending": "Aguarda aprovação",
+    "account.reg.status.rejected": "Não aprovada"
   },
   "content": {
     "regions": {

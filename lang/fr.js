@@ -544,7 +544,13 @@ BBI.i18n.dicts.fr = {
     "ecc.strategy.strengths": "Forces",
     "ecc.strategy.weaknesses": "Faiblesses",
     "ecc.strategy.opportunities": "Opportunités",
-    "ecc.strategy.threats": "Menaces"
+    "ecc.strategy.threats": "Menaces",
+    "event.pending": "⏳ Votre inscription est en attente d'approbation",
+    "event.waitlisted": "⏳ Vous êtes sur la liste d'attente",
+    "event.rejected": "Cette inscription n'a pas été approuvée.",
+    "event.registerNote": "Votre inscription sera examinée et approuvée par les organisateurs.",
+    "account.reg.status.pending": "En attente d'approbation",
+    "account.reg.status.rejected": "Non approuvée"
   },
   "content": {
     "regions": {

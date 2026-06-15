@@ -544,7 +544,13 @@ BBI.i18n.dicts.es = {
     "ecc.strategy.strengths": "Fortalezas",
     "ecc.strategy.weaknesses": "Debilidades",
     "ecc.strategy.opportunities": "Oportunidades",
-    "ecc.strategy.threats": "Amenazas"
+    "ecc.strategy.threats": "Amenazas",
+    "event.pending": "⏳ Su inscripción está pendiente de aprobación",
+    "event.waitlisted": "⏳ Está en la lista de espera",
+    "event.rejected": "Esta inscripción no fue aprobada.",
+    "event.registerNote": "Su inscripción será revisada y aprobada por los organizadores.",
+    "account.reg.status.pending": "Pendiente de aprobación",
+    "account.reg.status.rejected": "No aprobada"
   },
   "content": {
     "regions": {

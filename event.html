@@ -61,15 +61,27 @@
           <a class="btn btn-primary" href="login.html?next=${encodeURIComponent('event.html?id=' + (id || ''))}">${tt('common.signInCreate', 'Sign in / create account')}</a>
         </div>`;
       }
-      function registeredHtml(already) {
-        return `<div class="card" style="background:#e3f2ec;border-color:#bcdfcd">
-          <p style="margin:0 0 12px"><strong>${already ? tt('event.already', 'You’re already registered for this event ✓') : tt('event.registeredOk', 'You’re registered ✓')}</strong></p>
+      function statusHtml(status) {
+        const s = (status || 'pending').toLowerCase();
+        let msg, bg = '#e3f2ec', bd = '#bcdfcd';
+        if (s === 'registered' || s === 'confirmed' || s === 'attended') {
+          msg = tt('event.registeredOk', 'You’re registered ✓');
+        } else if (s === 'waitlisted') {
+          msg = tt('event.waitlisted', '⏳ You’re on the waitlist'); bg = '#fff8e8'; bd = '#f0e2bf';
+        } else if (s === 'rejected' || s === 'declined') {
+          msg = tt('event.rejected', 'This registration was not approved.'); bg = '#fdece9'; bd = '#f3c9c2';
+        } else {
+          msg = tt('event.pending', '⏳ Your registration is pending approval'); bg = '#fff8e8'; bd = '#f0e2bf';
+        }
+        return `<div class="card" style="background:${bg};border-color:${bd}">
+          <p style="margin:0 0 12px"><strong>${msg}</strong></p>
           <a class="btn btn-outline" href="account.html">${tt('event.viewMyRegistrations', 'View my registrations →')}</a>
         </div>`;
       }
       function registerHtml() {
         return `<div class="card">
           <button class="btn btn-primary" id="reg-btn">${tt('event.registerBtn', 'Register')}</button>
+          <p class="muted" style="margin:10px 0 0;font-size:.85rem">${tt('event.registerNote', 'Your registration will be reviewed and approved by the organisers.')}</p>
           <div id="reg-msg" class="notice hidden" style="margin-top:12px"></div>
         </div>`;
       }
@@ -83,7 +95,8 @@
         if (!A || !A.ready || !user) { slot.innerHTML = signInHtml(); return; }
         try {
           const mine = await A.myRegistrations();
-          if (mine.some((r) => r.offeringId === id)) { slot.innerHTML = registeredHtml(true); return; }
+          const existing = mine.find((r) => r.offeringId === id);
+          if (existing) { slot.innerHTML = statusHtml(existing.status); return; }
         } catch (e) { /* fall through to register button */ }
         slot.innerHTML = registerHtml();
         wireRegister(o);
@@ -106,7 +119,7 @@
               category: o.category || o.type || '',
               loc: o.loc || ''
             });
-            document.getElementById('reg-card').innerHTML = registeredHtml(false);
+            document.getElementById('reg-card').innerHTML = statusHtml('pending');
           } catch (err) {
             btn.disabled = false;
             btn.textContent = original;

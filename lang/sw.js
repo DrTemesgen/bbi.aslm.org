@@ -544,7 +544,13 @@ BBI.i18n.dicts.sw = {
     "ecc.strategy.strengths": "Nguvu",
     "ecc.strategy.weaknesses": "Udhaifu",
     "ecc.strategy.opportunities": "Fursa",
-    "ecc.strategy.threats": "Vitisho"
+    "ecc.strategy.threats": "Vitisho",
+    "event.pending": "⏳ Usajili wako unasubiri idhini",
+    "event.waitlisted": "⏳ Uko kwenye orodha ya kusubiri",
+    "event.rejected": "Usajili huu haukuidhinishwa.",
+    "event.registerNote": "Usajili wako utakaguliwa na kuidhinishwa na waandaaji.",
+    "account.reg.status.pending": "Inasubiri idhini",
+    "account.reg.status.rejected": "Haikuidhinishwa"
   },
   "content": {
     "regions": {

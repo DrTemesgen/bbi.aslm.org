@@ -544,7 +544,13 @@ BBI.i18n.dicts.ar = {
     "ecc.strategy.strengths": "نقاط القوة",
     "ecc.strategy.weaknesses": "نقاط الضعف",
     "ecc.strategy.opportunities": "الفرص",
-    "ecc.strategy.threats": "التهديدات"
+    "ecc.strategy.threats": "التهديدات",
+    "event.pending": "⏳ تسجيلك قيد الموافقة",
+    "event.waitlisted": "⏳ أنت على قائمة الانتظار",
+    "event.rejected": "لم تتم الموافقة على هذا التسجيل.",
+    "event.registerNote": "ستتم مراجعة تسجيلك والموافقة عليه من قِبل المنظمين.",
+    "account.reg.status.pending": "قيد الموافقة",
+    "account.reg.status.rejected": "غير موافَق عليه"
   },
   "content": {
     "regions": {

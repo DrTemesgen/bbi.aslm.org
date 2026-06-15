@@ -300,7 +300,7 @@
       // populate the status filter once from the data + common statuses
       const sel = $('r-status');
       if (sel.options.length <= 1) {
-        const statuses = [...new Set(['registered', 'waitlisted', 'attended', 'cancelled'].concat(EREGS.map(r => r.status).filter(Boolean)))];
+        const statuses = [...new Set(['pending', 'registered', 'waitlisted', 'rejected', 'attended', 'cancelled'].concat(EREGS.map(r => r.status).filter(Boolean)))];
         statuses.forEach(s => sel.add(new Option(s.charAt(0).toUpperCase() + s.slice(1), s)));
       }
       renderEventRegs();
@@ -315,7 +315,8 @@
         if (st && r.status !== st) return false;
         if (term && !(`${regName(r)} ${r.email || ''} ${regTitle(r)}`.toLowerCase().includes(term))) return false;
         return true;
-      });
+      }).sort((a, b) => ((a.status === 'pending' ? 0 : 1) - (b.status === 'pending' ? 0 : 1))
+        || ((b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0)));
     }
     function renderEventRegs() {
       const list = filteredRegs();
@@ -325,11 +326,13 @@
           <thead><tr><th>Registrant</th><th>Email</th><th>Offering</th><th>Kind</th><th>Status</th><th>Date</th><th></th></tr></thead>
           <tbody>${list.map(regRow).join('')}</tbody>
         </table></div>` : `<div class="card center muted">No sign-ups match.</div>`;
-      $('rrows').querySelectorAll('[data-rstatus]').forEach(sel => sel.addEventListener('change', () => changeRegStatus(sel.getAttribute('data-rstatus'), sel.value)));
+      $('rrows').querySelectorAll('[data-rstatus]').forEach(sel => sel.addEventListener('change', () => changeRegStatus(sel.getAttribute('data-rstatus'), sel.value).then(renderEventRegs)));
+      $('rrows').querySelectorAll('[data-rappr]').forEach(b => b.addEventListener('click', () => changeRegStatus(b.getAttribute('data-rappr'), 'registered').then(renderEventRegs)));
+      $('rrows').querySelectorAll('[data-rrej]').forEach(b => b.addEventListener('click', () => changeRegStatus(b.getAttribute('data-rrej'), 'rejected').then(renderEventRegs)));
       $('rrows').querySelectorAll('[data-rdel]').forEach(b => b.addEventListener('click', () => removeReg(b.getAttribute('data-rdel'))));
     }
     function regRow(r) {
-      const statusOpts = [...new Set(['registered', 'waitlisted', 'attended', 'cancelled'].concat(r.status ? [r.status] : []))]
+      const statusOpts = [...new Set(['pending', 'registered', 'waitlisted', 'rejected', 'attended', 'cancelled'].concat(r.status ? [r.status] : []))]
         .map(s => `<option value="${esc(s)}" ${r.status === s ? 'selected' : ''}>${esc(s.charAt(0).toUpperCase() + s.slice(1))}</option>`).join('');
       return `<tr>
         <td><strong>${esc(regName(r))}</strong></td>
@@ -338,7 +341,10 @@
         <td>${esc(regKind(r))}</td>
         <td><select class="reg-status" data-rstatus="${esc(r.id)}" style="padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px">${statusOpts}</select></td>
         <td>${BBI.fmtDate(r.createdAt)}</td>
-        <td><button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-rdel="${esc(r.id)}">Delete</button></td>
+        <td style="white-space:nowrap">
+          ${r.status === 'pending' ? `<button class="btn btn-primary" style="padding:6px 10px" data-rappr="${esc(r.id)}">Approve</button> <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-rrej="${esc(r.id)}">Reject</button> ` : ''}
+          <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-rdel="${esc(r.id)}">Delete</button>
+        </td>
       </tr>`;
     }
     async function changeRegStatus(id, status) {
