@@ -1,0 +1,18 @@
+# BBI AI API — drop this in the subdomain docroot AS  .htaccess
+# (rename on the server:  mv deploy.htaccess .htaccess)
+#
+# Defense-in-depth only. The API key should live OUTSIDE every web root; this
+# file is a belt-and-suspenders deny in case a secret/backup ever lands here.
+# It contains ONLY access-control + Options directives — NO php_value / php_flag
+# lines, which would throw a 500 under PHP-FPM. Apache 2.4 syntax (cPanel).
+
+# Never list a directory.
+Options -Indexes
+
+# Block direct web access to any secret material or editor/backup leftovers.
+<FilesMatch "(?i)(^bbi-secret.*\.(php|txt|json|inc)$|\.(bak|save|swp|swo|orig|inc|log)$|~$)">
+    Require all denied
+</FilesMatch>
+
+# Block the protected secret directory used on open_basedir-restricted hosts.
+RedirectMatch 404 (?i)/\.bbi-secret(/.*)?$
