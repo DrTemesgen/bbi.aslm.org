@@ -179,14 +179,14 @@
       if (!confirm('Load the built-in sample events into the database? Existing events are kept; samples with the same id are overwritten.')) return;
       try {
         await A.seedOfferings(BBI.events.map(e => Object.assign({ kind: 'event' }, e)));
-        BBIOfferings._cache = null;
+        if (window.BBIOfferings) BBIOfferings._cache = null;
         await loadEvents();
       } catch (e) { alert('Could not load samples: ' + (e.message || e)); }
     }
     async function removeEvent(id) {
       const e = EVENTS.find(x => x.id === id);
       if (!confirm(`Delete event "${e ? e.title : ''}"? This cannot be undone.`)) return;
-      try { await A.deleteOffering(id); BBIOfferings._cache = null; await loadEvents(); }
+      try { await A.deleteOffering(id); if (window.BBIOfferings) BBIOfferings._cache = null; await loadEvents(); }
       catch (err) { alert('Could not delete: ' + (err.message || err)); }
     }
     function langStrip(group) {
@@ -287,7 +287,7 @@
           i18n: i18n
         };
         if (e.order != null) obj.order = e.order;
-        try { await A.saveOffering(obj); BBIOfferings._cache = null; closeDrawer(); await loadEvents(); }
+        try { await A.saveOffering(obj); if (window.BBIOfferings) BBIOfferings._cache = null; closeDrawer(); await loadEvents(); }
         catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
       });
     }
