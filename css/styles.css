@@ -340,6 +340,7 @@ a.person:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(11,61,
 @media (max-width:520px){ .footer .cols { grid-template-columns: 1fr; } }
 .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 7px; }
 .footer .copy { border-top: 1px solid rgba(255,255,255,.12); margin-top: 26px; padding-top: 18px; font-size: .82rem; color: #9cc0b2; }
+.footer .copy-a11y { margin-top: 6px; font-size: .68rem; line-height: 1.5; color: #6f978a; }
 .footer .partners { font-size: .8rem; color: #9cc0b2; }
 
 /* ---------- Page header (interior pages) ---------- */

@@ -502,7 +502,8 @@ BBI.i18n.dicts.fr = {
     "assistant.kb.contactX": "Contactez la BBI / l'Académie ASLM à academy@aslm.org.",
     "assistant.kb.dirT": "Annuaire professionnel et mentorat",
     "assistant.kb.dirX": "Parcourez les professionnels certifiés en biosécurité et sûreté biologiques et trouvez un mentor.",
-    "a11y.skip": "Aller au contenu principal"
+    "a11y.skip": "Aller au contenu principal",
+    "footer.a11y": "Conçu selon les WCAG 2.1 AA (ISO/IEC 40500) pour l'accessibilité et l'inclusion. Disponible en English, Français, العربية, Português, Español et Kiswahili."
   },
   "content": {
     "regions": {

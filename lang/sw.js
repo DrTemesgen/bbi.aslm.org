@@ -502,7 +502,8 @@ BBI.i18n.dicts.sw = {
     "assistant.kb.contactX": "Wasiliana na BBI / Akademia ya ASLM kupitia academy@aslm.org.",
     "assistant.kb.dirT": "Orodha ya wataalamu na ushauri",
     "assistant.kb.dirX": "Vinjari wataalamu walioidhinishwa wa usalama wa kibaolojia na upate mshauri.",
-    "a11y.skip": "Rukia hadi maudhui makuu"
+    "a11y.skip": "Rukia hadi maudhui makuu",
+    "footer.a11y": "Imejengwa kwa kufuata WCAG 2.1 AA (ISO/IEC 40500) kwa ufikivu na ujumuishaji. Inapatikana kwa English, Français, العربية, Português, Español na Kiswahili."
   },
   "content": {
     "regions": {

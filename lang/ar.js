@@ -502,7 +502,8 @@ BBI.i18n.dicts.ar = {
     "assistant.kb.contactX": "تواصل مع BBI / أكاديمية ASLM عبر academy@aslm.org.",
     "assistant.kb.dirT": "دليل المهنيين والإرشاد",
     "assistant.kb.dirX": "تصفّح المهنيين المعتمدين في السلامة البيولوجية والأمن البيولوجي وابحث عن مرشد.",
-    "a11y.skip": "تخطّ إلى المحتوى الرئيسي"
+    "a11y.skip": "تخطّ إلى المحتوى الرئيسي",
+    "footer.a11y": "مُصمَّم وفق WCAG 2.1 AA (ISO/IEC 40500) لإتاحة الوصول والشمول. متوفّر بِاللغات English وFrançais والعربية وPortuguês وEspañol وKiswahili."
   },
   "content": {
     "regions": {

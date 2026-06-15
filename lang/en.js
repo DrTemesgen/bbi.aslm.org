@@ -502,6 +502,7 @@ BBI.i18n.dicts.en = {
     "assistant.kb.contactX": "Contact the BBI / ASLM Academy at academy@aslm.org.",
     "assistant.kb.dirT": "Professional directory & mentorship",
     "assistant.kb.dirX": "Browse certified biosafety and biosecurity professionals, and find a mentor.",
-    "a11y.skip": "Skip to main content"
+    "a11y.skip": "Skip to main content",
+    "footer.a11y": "Built to WCAG 2.1 AA (ISO/IEC 40500) for accessibility & inclusivity. Available in English, Français, العربية, Português, Español and Kiswahili."
   }
 };

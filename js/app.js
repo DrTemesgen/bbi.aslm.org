@@ -80,6 +80,7 @@
         </div>
       </div>
       <div class="copy" data-i18n="footer.copy">© ${y} African Society for Laboratory Medicine (ASLM) &amp; Africa CDC · Biosafety &amp; Biosecurity Initiative. Unofficial reference application built for the BBI programme. Figures are indicative and based on public BBI communications.</div>
+      <div class="copy-a11y" data-i18n="footer.a11y">Built to WCAG 2.1 AA (ISO/IEC 40500) for accessibility &amp; inclusivity. Available in English, Français, العربية, Português, Español and Kiswahili.</div>
     </div></footer>`;
   }
 
