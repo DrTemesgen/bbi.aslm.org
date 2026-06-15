@@ -279,19 +279,19 @@ BBI.directory = [
 ];
 
 BBI.events = [
-  { d: '22', m: 'Jan', y: '2026', loc: 'Arusha, Tanzania', type: 'Conference', reg: true,
+  { id: 'global-voices-2026', d: '22', m: 'Jan', y: '2026', loc: 'Arusha, Tanzania', type: 'Conference', reg: true,
     title: 'Global Voices in Biosafety & Biosecurity', region: 'eastern',
     desc: 'Annual gathering celebrating diversity and sharing best practice in biosafety and biosecurity across Africa and beyond.' },
-  { d: '10', m: 'Mar', y: '2026', loc: 'Dakar, Senegal', type: 'Training', reg: true,
+  { id: 'biorisk-cert-dakar-2026', d: '10', m: 'Mar', y: '2026', loc: 'Dakar, Senegal', type: 'Training', reg: true,
     title: 'Regional Biorisk Management Certification Course', region: 'western',
     desc: 'Five-day intensive preparing candidates for the Biorisk Management certification examination.' },
-  { d: '05', m: 'May', y: '2026', loc: 'Cairo, Egypt', type: 'Workshop', reg: true,
+  { id: 'north-africa-legal-2026', d: '05', m: 'May', y: '2026', loc: 'Cairo, Egypt', type: 'Workshop', reg: true,
     title: 'North Africa Legal Framework Domestication Workshop', region: 'northern',
     desc: 'Regulators and policymakers work through enacting national legislation aligned to the AU framework.' },
-  { d: '18', m: 'Jul', y: '2026', loc: 'Johannesburg, South Africa', type: 'Training', reg: false,
+  { id: 'high-containment-jhb-2026', d: '18', m: 'Jul', y: '2026', loc: 'Johannesburg, South Africa', type: 'Training', reg: false,
     title: 'High-Containment Facilities Operations Course', region: 'southern',
     desc: 'Specialist training for biocontainment facility operators and engineers.' },
-  { d: '09', m: 'Sep', y: '2026', loc: 'Kigali, Rwanda', type: 'Summit', reg: false,
+  { id: 'continental-summit-kigali-2026', d: '09', m: 'Sep', y: '2026', loc: 'Kigali, Rwanda', type: 'Summit', reg: false,
     title: 'Continental Biosafety Leadership Summit', region: 'eastern',
     desc: 'TWG chairs and national focal points review progress on the 2026–2030 strategy.' }
 ];

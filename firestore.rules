@@ -72,6 +72,20 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Offerings (events / courses / activities) — public read, admin write.
+    match /offerings/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Registrations for events/courses/activities. A signed-in user creates
+    // their own; reads their own; admins read/manage all.
+    match /registrations/{id} {
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+
     // Applications.
     match /applications/{id} {
       // An APPROVED applicant (or an admin) may create their own application.

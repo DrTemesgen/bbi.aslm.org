@@ -27,8 +27,14 @@
     // Synchronous lookup against whatever is loaded (or defaults).
     get: function (key) {
       const list = this._cache || this.defaults();
-      return list.find((c) => c.key === key)
+      let cat = list.find((c) => c.key === key)
         || (window.BBI && BBI.helpers ? BBI.helpers.certType(key) : { key: key, abbr: key, name: key, color: '#13654d' });
+      // Localize to the active language: record i18n → in-code translated default → base.
+      if (window.BBI && BBI.i18n && BBI.i18n.localizeWith) {
+        const real = (window.BBI && Array.isArray(BBI.certTypes)) ? BBI.certTypes.find((c) => c.key === key) : null;
+        cat = BBI.i18n.localizeWith(cat, real, ['name', 'desc', 'eligibility']);
+      }
+      return cat;
     }
   };
 })();

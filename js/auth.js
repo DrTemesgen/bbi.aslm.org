@@ -250,5 +250,67 @@
     await api.db.collection('settings').doc(id).set(data, { merge: true });
   };
 
+  // ---- Offerings: events / courses / activities (admin-managed) ----
+  api.listOfferings = async function () {
+    if (!ready) return [];
+    const snap = await api.db.collection('offerings').get();
+    const arr = snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+    arr.sort((a, b) => ((a.order == null ? 999 : a.order) - (b.order == null ? 999 : b.order)));
+    return arr;
+  };
+  api.saveOffering = async function (o) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const ref = o.id ? api.db.collection('offerings').doc(o.id) : api.db.collection('offerings').doc();
+    const data = Object.assign({}, o, { id: ref.id, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+    await ref.set(data, { merge: true });
+    return ref.id;
+  };
+  api.deleteOffering = async function (id) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('offerings').doc(id).delete();
+  };
+  api.seedOfferings = async function (list) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const batch = api.db.batch();
+    (list || []).forEach((o, i) => {
+      const ref = o.id ? api.db.collection('offerings').doc(o.id) : api.db.collection('offerings').doc();
+      batch.set(ref, Object.assign({ order: i }, o, { id: ref.id }));
+    });
+    await batch.commit();
+  };
+
+  // ---- Registrations (events / courses / activities) ----
+  api.submitRegistration = async function (data) {
+    if (!ready) throw new Error('not-configured');
+    if (!api.user) throw new Error('not-signed-in');
+    const now = firebase.firestore.FieldValue.serverTimestamp();
+    const payload = Object.assign({}, data, {
+      uid: api.user.uid, email: api.user.email || '', status: 'registered', createdAt: now,
+    });
+    const ref = await api.db.collection('registrations').add(payload);
+    return ref.id;
+  };
+  api.myRegistrations = async function () {
+    if (!ready || !api.user) return [];
+    const snap = await api.db.collection('registrations').where('uid', '==', api.user.uid).get();
+    return snap.docs.map((d) => Object.assign({ id: d.id }, d.data()))
+      .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+  };
+  api.allRegistrations = async function () {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    const snap = await api.db.collection('registrations').orderBy('createdAt', 'desc').get();
+    return snap.docs.map((d) => Object.assign({ id: d.id }, d.data()));
+  };
+  api.setRegStatus = async function (id, status) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('registrations').doc(id).update({
+      status, updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+  };
+  api.deleteRegistration = async function (id) {
+    if (!ready || !api._admin) throw new Error('not-admin');
+    await api.db.collection('registrations').doc(id).delete();
+  };
+
   window.BBIAuth = api;
 })();

@@ -160,6 +160,36 @@
     return {};
   };
 
+  // ---- localize a Firestore record (base fields + per-language i18n map) ----
+  // e.g. { title:'..', desc:'..', i18n:{ fr:{title,desc}, ar:{...} } } -> active-lang copy.
+  // Falls back to the base (English) field when a translation is missing.
+  I.localize = function (rec, fields) {
+    if (!rec || typeof rec !== 'object') return rec;
+    var lang = I.current();
+    if (lang === 'en' || !rec.i18n || !rec.i18n[lang]) return rec;
+    var tr = rec.i18n[lang];
+    var out = {}; for (var k in rec) { if (rec.hasOwnProperty(k)) out[k] = rec[k]; }
+    (fields || Object.keys(tr)).forEach(function (f) { if (tr[f] != null && tr[f] !== '') out[f] = tr[f]; });
+    return out;
+  };
+
+  // ---- localize an admin record, with an in-code translated fallback ----
+  // Prefer the record's own i18n[lang]; else the in-code default (BBI.* is
+  // already content-translated via the dictionaries); else the record's base.
+  // Lets Firestore-seeded English samples still render translated.
+  I.localizeWith = function (rec, inCode, fields) {
+    if (!rec) return rec;
+    var lang = I.current();
+    if (lang === 'en') return rec;
+    var tr = rec.i18n && rec.i18n[lang];
+    var out = {}; for (var k in rec) { if (rec.hasOwnProperty(k)) out[k] = rec[k]; }
+    (fields || []).forEach(function (f) {
+      if (tr && tr[f] != null && tr[f] !== '') out[f] = tr[f];
+      else if (inCode && inCode[f] != null && inCode[f] !== '') out[f] = inCode[f];
+    });
+    return out;
+  };
+
   // ---- DOM translation ----
   // data-i18n="key"            → element.textContent
   // data-i18n-html="key"       → element.innerHTML (for copy containing markup)
