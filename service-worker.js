@@ -1,12 +1,13 @@
 /* BBI Africa PWA — service worker
    Cache-first for the app shell, network-first for everything else. */
-const CACHE = 'bbi-africa-v30';
+const CACHE = 'bbi-africa-v31';
 const SHELL = [
   './',
   './index.html',
   './dashboard.html',
   './directory.html',
   './profile.html',
+  './event.html',
   './framework.html',
   './training.html',
   './mentorship.html',
