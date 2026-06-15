@@ -1,6 +1,4 @@
-/* BBI Africa — French (fr) dictionary
-   Auto-generated from the translation workflow (glossary-researched + adversarially reviewed).
-   Mirrors lang/en.js keys; missing keys fall back to English at runtime. */
+/* BBI Africa — French (fr) dictionary */
 window.BBI = window.BBI || {};
 BBI.i18n = BBI.i18n || {}; BBI.i18n.dicts = BBI.i18n.dicts || {};
 BBI.i18n.dicts.fr = {
@@ -491,7 +489,19 @@ BBI.i18n.dicts.fr = {
     "training.stats.certified": "Professionnels certifiés",
     "training.stats.delivered": "Formations dispensées",
     "training.stats.regions": "Régions couvertes",
-    "training.step": "Étape"
+    "training.step": "Étape",
+    "assistant.title": "Assistant BBI",
+    "assistant.placeholder": "Posez une question sur la biosécurité, les cours, les événements…",
+    "assistant.send": "Envoyer",
+    "assistant.greeting": "Bonjour ! Posez-moi vos questions sur la BBI — domaines de biosécurité, formations, événements, comment postuler.",
+    "assistant.learnMore": "En savoir plus →",
+    "assistant.noMatch": "Je n'ai pas trouvé cela dans le contenu de la BBI. Essayez les sections principales :",
+    "assistant.kb.applyT": "Comment postuler / certification",
+    "assistant.kb.applyX": "Postulez au programme de certification RTCP-BBP — choisissez votre domaine, votre niveau et votre parcours, puis soumettez une manifestation d'intérêt.",
+    "assistant.kb.contactT": "Contact",
+    "assistant.kb.contactX": "Contactez la BBI / l'Académie ASLM à academy@aslm.org.",
+    "assistant.kb.dirT": "Annuaire professionnel et mentorat",
+    "assistant.kb.dirX": "Parcourez les professionnels certifiés en biosécurité et sûreté biologiques et trouvez un mentor."
   },
   "content": {
     "regions": {

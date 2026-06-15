@@ -135,6 +135,12 @@
   document.addEventListener('DOMContentLoaded', () => {
     mount();
     countUp();
+    // Load the AI assistant widget on every page (after i18n + data are ready).
+    if (!document.getElementById('bbi-assist-js')) {
+      const s = document.createElement('script');
+      s.id = 'bbi-assist-js'; s.src = 'js/assistant.js'; s.defer = true;
+      document.body.appendChild(s);
+    }
   });
 
   if ('serviceWorker' in navigator) {

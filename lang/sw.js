@@ -1,6 +1,4 @@
-/* BBI Africa — Swahili (sw) dictionary
-   Auto-generated from the translation workflow (glossary-researched + adversarially reviewed).
-   Mirrors lang/en.js keys; missing keys fall back to English at runtime. */
+/* BBI Africa — Swahili (sw) dictionary */
 window.BBI = window.BBI || {};
 BBI.i18n = BBI.i18n || {}; BBI.i18n.dicts = BBI.i18n.dicts || {};
 BBI.i18n.dicts.sw = {
@@ -491,7 +489,19 @@ BBI.i18n.dicts.sw = {
     "training.stats.certified": "Wataalamu waliothibitishwa",
     "training.stats.delivered": "Mafunzo yaliyotolewa",
     "training.stats.regions": "Kanda zilizofikiwa",
-    "training.step": "Hatua"
+    "training.step": "Hatua",
+    "assistant.title": "Msaidizi wa BBI",
+    "assistant.placeholder": "Uliza kuhusu usalama wa kibaolojia, kozi, matukio…",
+    "assistant.send": "Tuma",
+    "assistant.greeting": "Habari! Niulize kuhusu BBI — maeneo ya usalama wa kibaolojia, mafunzo, matukio, na jinsi ya kuomba.",
+    "assistant.learnMore": "Jifunze zaidi →",
+    "assistant.noMatch": "Sikupata hilo katika maudhui ya BBI. Jaribu sehemu kuu:",
+    "assistant.kb.applyT": "Jinsi ya kuomba / uthibitishaji",
+    "assistant.kb.applyX": "Omba programu ya uthibitishaji ya RTCP-BBP — chagua eneo, ngazi na njia yako, kisha uwasilishe taarifa ya nia.",
+    "assistant.kb.contactT": "Wasiliana",
+    "assistant.kb.contactX": "Wasiliana na BBI / Akademia ya ASLM kupitia academy@aslm.org.",
+    "assistant.kb.dirT": "Orodha ya wataalamu na ushauri",
+    "assistant.kb.dirX": "Vinjari wataalamu walioidhinishwa wa usalama wa kibaolojia na upate mshauri."
   },
   "content": {
     "regions": {

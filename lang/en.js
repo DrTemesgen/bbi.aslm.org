@@ -1,12 +1,8 @@
-/* BBI Africa — English (en) dictionary : CANONICAL SOURCE
-   Auto-assembled from per-page extraction + hand-authored chrome keys.
-   Every other language mirrors these SAME keys; any missing key falls back here.
-   The BBI.* data layer (js/data.js) is English by default, so en needs no content block. */
+/* BBI Africa — English (en) dictionary */
 window.BBI = window.BBI || {};
 BBI.i18n = BBI.i18n || {}; BBI.i18n.dicts = BBI.i18n.dicts || {};
 BBI.i18n.dicts.en = {
-  ui: {
-    /* ---- nav ---- */
+  "ui": {
     "nav.about": "About",
     "nav.account": "My Account",
     "nav.apply": "Apply",
@@ -23,12 +19,8 @@ BBI.i18n.dicts.en = {
     "nav.programme": "Programme",
     "nav.resources": "Resources",
     "nav.training": "Training",
-
-    /* ---- brand ---- */
     "brand.name": "Biosafety & Biosecurity Initiative",
     "brand.org": "Africa CDC · ASLM",
-
-    /* ---- footer ---- */
     "footer.au": "African Union",
     "footer.blurb1": "A continental programme strengthening biosafety and biosecurity systems across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.",
     "footer.blurb2": "Supported by Canada's Weapons Threat Reduction Program, the World Bank, US CDC, US DTRA, NTI, WHO, WAHO, WOAH and AU Member States.",
@@ -36,8 +28,6 @@ BBI.i18n.dicts.en = {
     "footer.explore": "Explore",
     "footer.partners": "Partners",
     "footer.programme": "Programme",
-
-    /* ---- common ---- */
     "common.allCategories": "All categories",
     "common.allCertifications": "All certifications",
     "common.allLevels": "All levels",
@@ -57,8 +47,6 @@ BBI.i18n.dicts.en = {
     "common.tagHero": "⭐ Biosafety Hero",
     "common.tagMentor": "🧭 Mentor",
     "common.viewProfile": "View profile →",
-
-    /* ---- month ---- */
     "month.apr": "Apr",
     "month.aug": "Aug",
     "month.dec": "Dec",
@@ -71,8 +59,6 @@ BBI.i18n.dicts.en = {
     "month.nov": "Nov",
     "month.oct": "Oct",
     "month.sep": "Sep",
-
-    /* ---- index ---- */
     "index.card1.text": "The 2023 Regional BSBS Legal Framework, endorsed by the African Union, with six domains Member States can domesticate into national law. →",
     "index.card1.title": "Harmonised legal framework",
     "index.card2.text": "Spanning the human, animal, plant and environmental sectors, supported by global partners and AU Member States.",
@@ -100,8 +86,6 @@ BBI.i18n.dicts.en = {
     "index.spotlight.eyebrow": "⭐ Biosafety Hero",
     "index.spotlight.intro": "Recognising professionals advancing biosafety and biosecurity across Africa.",
     "index.spotlight.title": "Professional spotlight",
-
-    /* ---- about ---- */
     "about.body.p1": "The <strong>Regional Biosafety and Biosecurity Initiative (BBI)</strong> was launched by the <strong>Africa Centres for Disease Control and Prevention (Africa CDC)</strong> — together with the <strong>Pan African Veterinary Vaccine Centre (AU-PANVAC)</strong> and the <strong>AU Interafrican Bureau for Animal Resources (AU-IBAR)</strong> — in collaboration with African Union Member States and their Regional Collaborating Centres. Supported by the <strong>African Society for Laboratory Medicine (ASLM)</strong> and Global Affairs Canada, it aims to strengthen the biosafety and biosecurity systems of all 55 AU Member States using a <strong>One Health</strong> approach across the human, animal, plant and environmental sectors.",
     "about.body.p2": "The initiative responds to the reality that biological incidents — whether accidental or deliberate — can cross borders within days. It is anchored in international obligations including the <strong>International Health Regulations (IHR 2005)</strong>, the <strong>Biological Weapons Convention</strong>, and <strong>UN Security Council Resolution 1540</strong>.",
     "about.head.subtitle": "A continental programme to prevent, detect and respond to biological threats.",
@@ -117,8 +101,6 @@ BBI.i18n.dicts.en = {
     "about.strategy.p1": "In 2025, Africa CDC and ASLM completed a five-year review of the BBI, charting a new continental strategy. Key achievements included operationalising five regional multisectoral technical working groups, securing an African Union–endorsed legal framework, and certifying more than 400 professionals through the regional training and certification programme.",
     "about.strategy.p2": "The 2026–2030 strategy prioritises national technical working groups and professional associations, sustainable domestic funding to reduce external dependence, stronger national legal and regulatory frameworks, expanded laboratory biosafety capacity and pathogen control, and secure, ethical research and development practices.",
     "about.strategy.title": "The five-year review & 2026–2030 strategy",
-
-    /* ---- account ---- */
     "account.apps.empty": "No applications yet. <a href=\"apply.html\">Start one →</a>",
     "account.apps.notApproved": "You can apply once your account is approved.",
     "account.banner.admin": "You have admin access. <a href=\"admin.html\">Open the admin panel →</a>",
@@ -159,8 +141,6 @@ BBI.i18n.dicts.en = {
     "account.tabs.profile": "Profile",
     "account.tabs.settings": "Settings",
     "account.userId": "User ID:",
-
-    /* ---- admin ---- */
     "admin.apps.allAreas": "All areas",
     "admin.apps.allStatuses": "All statuses",
     "admin.apps.exportCsv": "⤓ Export CSV",
@@ -189,8 +169,6 @@ BBI.i18n.dicts.en = {
     "admin.tab.categories": "Categories",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Registrations",
-
-    /* ---- apply ---- */
     "apply.areas.desc": "Certification is offered in four technical areas, each at three levels of competency, via two pathways.",
     "apply.areas.eyebrow": "Certification areas",
     "apply.areas.title": "Choose your area & level",
@@ -234,8 +212,6 @@ BBI.i18n.dicts.en = {
     "apply.success.cta": "View my applications →",
     "apply.success.desc": "Thank you. You can track its status any time from your account.",
     "apply.success.title": "Application submitted",
-
-    /* ---- dashboard ---- */
     "dashboard.donutEngaged": "countries<br>engaged",
     "dashboard.head.intro": "A live view of biosafety and biosecurity capacity-building across Africa’s five regions.",
     "dashboard.prog.p1": "Strategic focus at Africa CDC",
@@ -266,8 +242,6 @@ BBI.i18n.dicts.en = {
     "dashboard.status.title": "Engagement status",
     "dashboard.tracker.desc": "Engaged Member States, sorted by status.",
     "dashboard.tracker.title": "Country tracker",
-
-    /* ---- directory ---- */
     "directory.count": "{n} of {total} professionals",
     "directory.empty": "No professionals match your search. Try clearing filters.",
     "directory.head.intro": "Connect with biosafety and biosecurity professionals and trainers across Africa’s regional networks.",
@@ -283,8 +257,6 @@ BBI.i18n.dicts.en = {
     "directory.toolbar.regionAria": "Filter by region",
     "directory.toolbar.searchAria": "Search professionals",
     "directory.toolbar.searchPlaceholder": "Search by name, organisation, country or specialty…",
-
-    /* ---- ecc ---- */
     "ecc.about.card1.text": "Acts impartially to protect the credibility of the credential.",
     "ecc.about.card1.title": "Independent",
     "ecc.about.card2.text": "Serves all African Union Member States under a common standard.",
@@ -306,8 +278,6 @@ BBI.i18n.dicts.en = {
     "ecc.members.title": "Committee members",
     "ecc.meta.desc": "The Examination and Certification Committee (ECC) — the body that safeguards standards and awards certification under the BBI training and certification programme.",
     "ecc.meta.title": "Examination & Certification Committee (ECC) · BBI Africa",
-
-    /* ---- events ---- */
     "events.count": "events",
     "events.empty": "No events match.",
     "events.filter.region": "Filter by region",
@@ -318,8 +288,6 @@ BBI.i18n.dicts.en = {
     "events.meta.title": "Events & Conferences · BBI Africa",
     "events.regSoon": "Registration opening soon",
     "events.registerInterest": "Register interest →",
-
-    /* ---- framework ---- */
     "framework.crumb": "Legal Framework",
     "framework.domains.eyebrow": "Structure",
     "framework.domains.intro": "Member States with existing legislation can use these domains as a benchmark; those without can adopt them to build national law.",
@@ -341,8 +309,6 @@ BBI.i18n.dicts.en = {
     "framework.meta.desc": "The Regional Biosafety and Biosecurity Legal Framework for AU Member States (2023) and its six domains.",
     "framework.meta.title": "Legal Framework · BBI Africa",
     "framework.notice": "📄 The full official document is included in this app under <code>resources/</code>. Source: Africa CDC, AU-PANVAC and AU-IBAR — <em>Regional Biosafety and Biosecurity Legal Framework for the AU Member States</em>, March 2023.",
-
-    /* ---- getInvolved ---- */
     "getInvolved.form.contribute": "How would you like to contribute?",
     "getInvolved.form.country": "Country",
     "getInvolved.form.email": "Email",
@@ -363,8 +329,6 @@ BBI.i18n.dicts.en = {
     "getInvolved.sector.humanHealth": "Human health",
     "getInvolved.sector.plantAgriculture": "Plant / agriculture",
     "getInvolved.sector.regulatoryPolicy": "Regulatory / policy",
-
-    /* ---- login ---- */
     "login.crumb": "Sign in",
     "login.err.emailInUse": "That email is already registered — try signing in instead.",
     "login.err.generic": "Something went wrong: ",
@@ -396,8 +360,6 @@ BBI.i18n.dicts.en = {
     "login.signedIn.title": "You’re signed in",
     "login.tab.register": "Create account",
     "login.tab.signin": "Sign in",
-
-    /* ---- mentorship ---- */
     "mentorship.benefits.careerText": "Prepare for certification and step into leadership in your national programme.",
     "mentorship.benefits.careerTitle": "Grow your career",
     "mentorship.benefits.guidanceText": "One-to-one support from certified professionals on regional and global biosafety and biosecurity issues.",
@@ -424,16 +386,12 @@ BBI.i18n.dicts.en = {
     "mentorship.mentors.title": "Available mentors",
     "mentorship.meta.desc": "The BBI mentorship programme connects emerging professionals with experienced biosafety and biosecurity mentors across Africa.",
     "mentorship.meta.title": "Mentorship · BBI Africa",
-
-    /* ---- news ---- */
     "news.count": "updates",
     "news.filter.region": "Filter by region",
     "news.head.intro": "Missions, regional trainings and strategy milestones from across the continent.",
     "news.head.title": "News & events",
     "news.meta.desc": "Latest missions, trainings and strategy milestones from the Biosafety and Biosecurity Initiative.",
     "news.meta.title": "News & Events · BBI Africa",
-
-    /* ---- profile ---- */
     "profile.about.title": "About",
     "profile.actions.linkedin": "🔗 LinkedIn profile ↗",
     "profile.actions.mentor": "🧭 Request mentorship",
@@ -447,8 +405,6 @@ BBI.i18n.dicts.en = {
     "profile.notFound.text": "We couldn’t find that professional.",
     "profile.notFound.title": "Profile not found",
     "profile.specialties.title": "Specialties",
-
-    /* ---- program ---- */
     "program.apply.assessHeading": "How applications are assessed",
     "program.apply.assessText": "Submissions are reviewed by the <strong>Examination & Certification Committee (ECC)</strong> against a structured evaluation matrix with weighted scoring, based on agreed standards. The committee may request clarifications and makes the final certification decision.",
     "program.apply.ctaText": "Create an account and submit your Expression of Interest online.",
@@ -500,8 +456,6 @@ BBI.i18n.dicts.en = {
     "program.tab.assessment": "Assessment",
     "program.tab.levels": "Levels & pathways",
     "program.tab.overview": "Overview",
-
-    /* ---- resources ---- */
     "resources.count": "resources",
     "resources.crumb": "Knowledge Hub",
     "resources.empty": "No resources match.",
@@ -513,8 +467,6 @@ BBI.i18n.dicts.en = {
     "resources.toolbar.catAria": "Filter by category",
     "resources.toolbar.searchAria": "Search resources",
     "resources.toolbar.searchPlaceholder": "Search resources…",
-
-    /* ---- training ---- */
     "training.courses.eyebrow": "Programmes",
     "training.courses.intro": "A blended portfolio spanning biorisk management, high-containment operations, waste management, equipment maintenance and policy.",
     "training.courses.title": "Courses & certification pathways",
@@ -537,6 +489,18 @@ BBI.i18n.dicts.en = {
     "training.stats.certified": "Professionals certified",
     "training.stats.delivered": "Trainings delivered",
     "training.stats.regions": "Regions covered",
-    "training.step": "Step"
+    "training.step": "Step",
+    "assistant.title": "BBI assistant",
+    "assistant.placeholder": "Ask about biosafety, courses, events…",
+    "assistant.send": "Send",
+    "assistant.greeting": "Hi! Ask me about the BBI — biosafety areas, training, events, how to apply.",
+    "assistant.learnMore": "Learn more →",
+    "assistant.noMatch": "I could not find that in the BBI content. Try the main sections:",
+    "assistant.kb.applyT": "How to apply / certification",
+    "assistant.kb.applyX": "Apply for the RTCP-BBP certification programme — choose your area, level and pathway, then submit an Expression of Interest.",
+    "assistant.kb.contactT": "Contact",
+    "assistant.kb.contactX": "Contact the BBI / ASLM Academy at academy@aslm.org.",
+    "assistant.kb.dirT": "Professional directory & mentorship",
+    "assistant.kb.dirX": "Browse certified biosafety and biosecurity professionals, and find a mentor."
   }
 };

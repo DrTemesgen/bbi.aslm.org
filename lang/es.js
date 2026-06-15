@@ -1,6 +1,4 @@
-/* BBI Africa — Spanish (es) dictionary
-   Auto-generated from the translation workflow (glossary-researched + adversarially reviewed).
-   Mirrors lang/en.js keys; missing keys fall back to English at runtime. */
+/* BBI Africa — Spanish (es) dictionary */
 window.BBI = window.BBI || {};
 BBI.i18n = BBI.i18n || {}; BBI.i18n.dicts = BBI.i18n.dicts || {};
 BBI.i18n.dicts.es = {
@@ -491,7 +489,19 @@ BBI.i18n.dicts.es = {
     "training.stats.certified": "Profesionales certificados",
     "training.stats.delivered": "Formaciones impartidas",
     "training.stats.regions": "Regiones cubiertas",
-    "training.step": "Paso"
+    "training.step": "Paso",
+    "assistant.title": "Asistente BBI",
+    "assistant.placeholder": "Pregunte sobre bioseguridad, cursos, eventos…",
+    "assistant.send": "Enviar",
+    "assistant.greeting": "¡Hola! Pregúnteme sobre la BBI — áreas de bioseguridad, formación, eventos y cómo postularse.",
+    "assistant.learnMore": "Más información →",
+    "assistant.noMatch": "No encontré eso en el contenido de la BBI. Pruebe las secciones principales:",
+    "assistant.kb.applyT": "Cómo postularse / certificación",
+    "assistant.kb.applyX": "Postúlese al programa de certificación RTCP-BBP — elija su área, nivel y vía, y envíe una Manifestación de Interés.",
+    "assistant.kb.contactT": "Contacto",
+    "assistant.kb.contactX": "Contacte con la BBI / Academia ASLM en academy@aslm.org.",
+    "assistant.kb.dirT": "Directorio profesional y mentoría",
+    "assistant.kb.dirX": "Explore los profesionales certificados en bioseguridad y encuentre un mentor."
   },
   "content": {
     "regions": {

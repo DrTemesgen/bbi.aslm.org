@@ -1,6 +1,4 @@
-/* BBI Africa — Arabic (ar) dictionary
-   Auto-generated from the translation workflow (glossary-researched + adversarially reviewed).
-   Mirrors lang/en.js keys; missing keys fall back to English at runtime. */
+/* BBI Africa — Arabic (ar) dictionary */
 window.BBI = window.BBI || {};
 BBI.i18n = BBI.i18n || {}; BBI.i18n.dicts = BBI.i18n.dicts || {};
 BBI.i18n.dicts.ar = {
@@ -491,7 +489,19 @@ BBI.i18n.dicts.ar = {
     "training.stats.certified": "المهنيون المعتمدون",
     "training.stats.delivered": "التدريبات المنفَّذة",
     "training.stats.regions": "الأقاليم المشمولة",
-    "training.step": "الخطوة"
+    "training.step": "الخطوة",
+    "assistant.title": "مساعد BBI",
+    "assistant.placeholder": "اسأل عن السلامة البيولوجية والدورات والفعاليات…",
+    "assistant.send": "إرسال",
+    "assistant.greeting": "مرحباً! اسألني عن مبادرة BBI — مجالات السلامة البيولوجية والتدريب والفعاليات وكيفية التقديم.",
+    "assistant.learnMore": "اعرف المزيد →",
+    "assistant.noMatch": "لم أجد ذلك في محتوى BBI. جرّب الأقسام الرئيسية:",
+    "assistant.kb.applyT": "كيفية التقديم / الاعتماد",
+    "assistant.kb.applyX": "قدّم إلى برنامج الاعتماد RTCP-BBP — اختر مجالك ومستواك ومسارك، ثم قدّم رسالة إبداء اهتمام.",
+    "assistant.kb.contactT": "اتصل بنا",
+    "assistant.kb.contactX": "تواصل مع BBI / أكاديمية ASLM عبر academy@aslm.org.",
+    "assistant.kb.dirT": "دليل المهنيين والإرشاد",
+    "assistant.kb.dirX": "تصفّح المهنيين المعتمدين في السلامة البيولوجية والأمن البيولوجي وابحث عن مرشد."
   },
   "content": {
     "regions": {
