@@ -501,7 +501,8 @@ BBI.i18n.dicts.sw = {
     "assistant.kb.contactT": "Wasiliana",
     "assistant.kb.contactX": "Wasiliana na BBI / Akademia ya ASLM kupitia academy@aslm.org.",
     "assistant.kb.dirT": "Orodha ya wataalamu na ushauri",
-    "assistant.kb.dirX": "Vinjari wataalamu walioidhinishwa wa usalama wa kibaolojia na upate mshauri."
+    "assistant.kb.dirX": "Vinjari wataalamu walioidhinishwa wa usalama wa kibaolojia na upate mshauri.",
+    "a11y.skip": "Rukia hadi maudhui makuu"
   },
   "content": {
     "regions": {

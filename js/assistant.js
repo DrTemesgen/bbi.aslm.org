@@ -115,17 +115,19 @@
   function build() {
     injectStyles();
     var fab = el('button', 'bbi-fab'); fab.setAttribute('aria-label', T('assistant.title', 'BBI assistant')); fab.textContent = '💬';
+    fab.setAttribute('aria-haspopup', 'dialog'); fab.setAttribute('aria-expanded', 'false');
     panel = el('div', 'bbi-chat');
+    panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', T('assistant.title', 'BBI assistant'));
     panel.appendChild(el('header', null, '<span aria-hidden="true">🤖</span><span>' + escapeHtml(T('assistant.title', 'BBI assistant')) + '</span><button class="x" aria-label="' + escapeHtml(T('common.close', 'Close')) + '">×</button>'));
-    msgs = el('div', 'bbi-msgs'); panel.appendChild(msgs);
+    msgs = el('div', 'bbi-msgs'); msgs.setAttribute('role', 'log'); msgs.setAttribute('aria-live', 'polite'); panel.appendChild(msgs);
     var inWrap = el('div', 'bbi-in');
     input = el('input'); input.type = 'text'; input.placeholder = T('assistant.placeholder', 'Ask about biosafety, courses, events…');
     var send = el('button', null, T('assistant.send', 'Send'));
     inWrap.appendChild(input); inWrap.appendChild(send); panel.appendChild(inWrap);
     document.body.appendChild(fab); document.body.appendChild(panel);
 
-    function open() { panel.classList.add('open'); if (!msgs.childElementCount) addMsg('a', escapeHtml(T('assistant.greeting', 'Hi! Ask me about the BBI — biosafety areas, training, events, how to apply.'))); input.focus(); }
-    function close() { panel.classList.remove('open'); }
+    function open() { panel.classList.add('open'); fab.setAttribute('aria-expanded', 'true'); if (!msgs.childElementCount) addMsg('a', escapeHtml(T('assistant.greeting', 'Hi! Ask me about the BBI — biosafety areas, training, events, how to apply.'))); input.focus(); }
+    function close() { panel.classList.remove('open'); fab.setAttribute('aria-expanded', 'false'); fab.focus(); }
     fab.addEventListener('click', function () { panel.classList.contains('open') ? close() : open(); });
     panel.querySelector('.x').addEventListener('click', close);
     function ask() { var q = input.value.trim(); if (!q) return; addMsg('u', escapeHtml(q)); input.value = ''; answer(q); }

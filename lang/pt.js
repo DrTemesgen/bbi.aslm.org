@@ -501,7 +501,8 @@ BBI.i18n.dicts.pt = {
     "assistant.kb.contactT": "Contacto",
     "assistant.kb.contactX": "Contacte a BBI / Academia ASLM em academy@aslm.org.",
     "assistant.kb.dirT": "Diretório profissional e mentoria",
-    "assistant.kb.dirX": "Navegue pelos profissionais certificados em biossegurança e biocustódia e encontre um mentor."
+    "assistant.kb.dirX": "Navegue pelos profissionais certificados em biossegurança e biocustódia e encontre um mentor.",
+    "a11y.skip": "Saltar para o conteúdo principal"
   },
   "content": {
     "regions": {

@@ -501,6 +501,7 @@ BBI.i18n.dicts.en = {
     "assistant.kb.contactT": "Contact",
     "assistant.kb.contactX": "Contact the BBI / ASLM Academy at academy@aslm.org.",
     "assistant.kb.dirT": "Professional directory & mentorship",
-    "assistant.kb.dirX": "Browse certified biosafety and biosecurity professionals, and find a mentor."
+    "assistant.kb.dirX": "Browse certified biosafety and biosecurity professionals, and find a mentor.",
+    "a11y.skip": "Skip to main content"
   }
 };

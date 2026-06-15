@@ -32,7 +32,7 @@
   </svg>`;
 
   function header() {
-    const link = p => `<a href="${p.href}" class="${p.href === current ? 'active' : ''}" data-i18n="${p.key}">${p.label}</a>`;
+    const link = p => `<a href="${p.href}" class="${p.href === current ? 'active' : ''}"${p.href === current ? ' aria-current="page"' : ''} data-i18n="${p.key}">${p.label}</a>`;
     const primaryLinks = PRIMARY.map(link).join('');
     const moreLinks = MORE.map(link).join('');
     const moreActive = MORE.some(p => p.href === current) ? ' active' : '';
@@ -116,9 +116,11 @@
 
   // Animated count-up for elements with [data-count]
   function countUp() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('[data-count]').forEach(el => {
       const target = parseFloat(el.getAttribute('data-count'));
       const suffix = el.getAttribute('data-suffix') || '';
+      if (reduce) { el.textContent = target.toLocaleString() + suffix; return; }
       const dur = 1100; let start = null;
       function step(ts) {
         if (!start) start = ts;
@@ -135,6 +137,15 @@
   document.addEventListener('DOMContentLoaded', () => {
     mount();
     countUp();
+    // Accessibility: skip link + focusable main landmark (WCAG 2.4.1).
+    const main = document.querySelector('main') || document.querySelector('.page-head') || document.querySelector('.hero') || document.querySelector('section');
+    if (main && !main.id) { main.id = 'bbi-main'; main.setAttribute('tabindex', '-1'); }
+    if (main && !document.querySelector('.skip-link')) {
+      const sk = document.createElement('a');
+      sk.className = 'skip-link'; sk.href = '#' + main.id;
+      sk.textContent = (window.BBI && BBI.t) ? BBI.t('a11y.skip', 'Skip to main content') : 'Skip to main content';
+      document.body.insertBefore(sk, document.body.firstChild);
+    }
     // Load the AI assistant widget on every page (after i18n + data are ready).
     if (!document.getElementById('bbi-assist-js')) {
       const s = document.createElement('script');

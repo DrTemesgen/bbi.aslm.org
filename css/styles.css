@@ -461,3 +461,35 @@ input, select, textarea,
 [dir="rtl"] .bar-row .v { text-align: left; }
 [dir="rtl"] .page-head::after { right: auto; left: -50px; }
 @media (max-width: 640px) { [dir="rtl"] .page-head::after { right: auto; left: -40px; } }
+
+/* ===========================================================
+   Accessibility — WCAG 2.1 AA / ISO-IEC 40500
+   =========================================================== */
+/* Skip link (2.4.1 Bypass Blocks) — visible only on focus */
+.skip-link {
+  position: absolute; inset-inline-start: 0; top: 0; z-index: 400;
+  transform: translateY(-120%); transition: transform .15s ease;
+  background: var(--gold); color: #3a2c05; font-weight: 700;
+  padding: 10px 16px; border-radius: 0 0 8px 0; text-decoration: none;
+}
+.skip-link:focus { transform: translateY(0); outline: 3px solid #3a2c05; outline-offset: -3px; }
+
+/* Visible keyboard focus everywhere (2.4.7 Focus Visible) */
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+.appbar :focus-visible, .footer :focus-visible, .page-head :focus-visible, .hero :focus-visible { outline-color: #fff; }
+[tabindex="-1"]:focus { outline: none; }
+
+/* Screen-reader-only utility */
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Respect reduced-motion preference (2.3.3 / motion) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
