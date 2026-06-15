@@ -55,6 +55,13 @@
         <div class="section-head"><div class="eyebrow" data-i18n="ecc.history.eyebrow">History</div><h2 data-i18n="ecc.history.title">How the ECC has evolved</h2></div>
         <ul class="timeline" id="ecc-history"></ul>
       </section>
+
+      <section class="ptab hidden" data-tab="strategy">
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.strategy.eyebrow">Strategy</div><h2 data-i18n="ecc.strategy.title">2026–2030 emerging priorities</h2></div>
+        <div class="grid cols-2" id="ecc-strategy"></div>
+        <h3 style="margin-top:32px" data-i18n="ecc.strategy.swotTitle">Situation analysis</h3>
+        <div class="grid cols-2" id="ecc-swot" style="margin-top:12px"></div>
+      </section>
     </div>
   </main>
 
@@ -93,7 +100,8 @@
           mandate: d.mandate && d.mandate.length ? d.mandate : BBI.ecc.mandate,
           leadership: d.leadership && d.leadership.length ? d.leadership : BBI.ecc.leadership,
           members: d.members && d.members.length ? d.members : BBI.ecc.members,
-          history: d.history && d.history.length ? d.history : BBI.ecc.history
+          history: d.history && d.history.length ? d.history : BBI.ecc.history,
+          strategy: (d && d.strategy) ? d.strategy : BBI.ecc.strategy
         };
       }
 
@@ -104,7 +112,8 @@
         { key: 'mandate', label: tt('ecc.mandate.eyebrow', 'Mandate') },
         { key: 'leadership', label: tt('ecc.leadership.eyebrow', 'Leadership') },
         { key: 'members', label: tt('ecc.members.eyebrow', 'Members') },
-        { key: 'history', label: tt('ecc.history.eyebrow', 'History') }
+        { key: 'history', label: tt('ecc.history.eyebrow', 'History') },
+        { key: 'strategy', label: tt('ecc.strategy.eyebrow', 'Strategy') }
       ];
       $('tabbar').innerHTML = TABS.map((t, i) => `<button class="tab ${i === 0 ? 'active' : ''}" data-go="${t.key}">${t.label}</button>`).join('');
       document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
@@ -131,6 +140,15 @@
       $('ecc-members').innerHTML = E.members.map(personCard).join('');
       $('ecc-history').innerHTML = E.history.map(h => `
         <li><span class="yr">${h.yr}</span> — <strong>${h.title}</strong><div class="muted">${h.text}</div></li>`).join('');
+
+      const S = E.strategy || {};
+      $('ecc-strategy').innerHTML = (S.priorities || []).map((p, i) => `
+        <div class="card"><div class="pillar"><span class="n">${tt('ecc.strategy.priorityN', 'Priority')} ${i + 1}</span>
+        <h3>${p.title}</h3><p class="muted" style="margin:0"><strong>${tt('ecc.strategy.objective', 'Objective:')}</strong> ${p.objective}</p></div></div>`).join('');
+      const sw = S.swot || {};
+      const QUAD = [['strengths', 'ecc.strategy.strengths', 'Strengths'], ['weaknesses', 'ecc.strategy.weaknesses', 'Weaknesses'], ['opportunities', 'ecc.strategy.opportunities', 'Opportunities'], ['threats', 'ecc.strategy.threats', 'Threats']];
+      $('ecc-swot').innerHTML = QUAD.map(([k, kk, def]) => `
+        <div class="card"><h3>${tt(kk, def)}</h3><ul style="margin:0;padding-inline-start:18px;text-align:start">${(sw[k] || []).map(s => `<li class="muted">${s}</li>`).join('')}</ul></div>`).join('');
       }
     });
   </script>

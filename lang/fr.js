@@ -535,7 +535,16 @@ BBI.i18n.dicts.fr = {
     "event.registration.title": "Inscription",
     "event.signInToRegister": "Connectez-vous pour vous inscrire",
     "event.viewMyRegistrations": "Voir mes inscriptions →",
-    "events.viewRegister": "Voir et s’inscrire →"
+    "events.viewRegister": "Voir et s’inscrire →",
+    "ecc.strategy.eyebrow": "Stratégie",
+    "ecc.strategy.title": "Priorités émergentes 2026–2030",
+    "ecc.strategy.swotTitle": "Analyse de la situation",
+    "ecc.strategy.priorityN": "Priorité",
+    "ecc.strategy.objective": "Objectif :",
+    "ecc.strategy.strengths": "Forces",
+    "ecc.strategy.weaknesses": "Faiblesses",
+    "ecc.strategy.opportunities": "Opportunités",
+    "ecc.strategy.threats": "Menaces"
   },
   "content": {
     "regions": {
@@ -1027,7 +1036,60 @@ BBI.i18n.dicts.fr = {
           "title": "Montée en échelle",
           "text": "Trois des cinq Centres Régionaux d'Excellence opérationnels — y compris l'Afrique australe (RDDC, NICD/NHLS, Johannesburg) — avec une certification fondée sur les compétences sur trois niveaux, un Registre de l'Union africaine en expansion et une supervision renforcée du CPD."
         }
-      ]
+      ],
+      "strategy": {
+        "swot": {
+          "strengths": [
+            "Programme de formation accepté par les États membres de l'AU",
+            "Centres régionaux d'excellence disponibles pour accueillir les formations",
+            "Voie alternative reconnaissant d'autres programmes de formation équivalents"
+          ],
+          "weaknesses": [
+            "Nomination de candidats inadaptés par les États membres",
+            "Nombre limité d'experts de domaine (Subject Matter Experts) dans l'ensemble des cinq régions et langues de l'AU",
+            "Programme pas encore accrédité à la norme ISO 17024",
+            "Faibles taux de réussite au Niveau I"
+          ],
+          "opportunities": [
+            "Financement provenant des partenaires de développement",
+            "Volonté des candidats privés et des acteurs privés de payer pour la formation"
+          ],
+          "threats": [
+            "Changements politiques et instabilité",
+            "Instabilité économique"
+          ]
+        },
+        "priorities": [
+          {
+            "title": "Coordination avec les partenaires clés",
+            "objective": "Assurer une mise en œuvre bien coordonnée du RTCP-BBP entre Africa CDC, ASLM, les Centres régionaux d'excellence et les États membres au moyen de réunions de coordination régulières."
+          },
+          {
+            "title": "Établir et rendre opérationnels les Centres régionaux d'excellence",
+            "objective": "Disposer de Centres régionaux d'excellence pour la biosécurité et la biosûreté (RCoEBB) pleinement fonctionnels pour les cinq régions de l'Union africaine."
+          },
+          {
+            "title": "Réviser et mettre à jour le RTCP-BBP",
+            "objective": "Maintenir le programme aligné sur les exigences internationales actuelles et futures en matière de BSBS — en l'étendant à la cyberbiosûreté, à l'AI appliquée à la BSBS et à l'évaluation des risques."
+          },
+          {
+            "title": "Accréditation ISO 17024",
+            "objective": "Accréditer le Programme régional de formation et de certification des professionnels de la biosécurité et de la biosûreté à la norme ISO/IEC 17024 d'ici 2027."
+          },
+          {
+            "title": "Améliorer les performances des candidats",
+            "objective": "Atteindre un taux de réussite minimal de 60% à tous les examens de certification de Niveau I, dans chaque domaine de spécialisation."
+          },
+          {
+            "title": "Élargir le vivier d'Af-RSME",
+            "objective": "Développer le Registre africain des experts de domaine (Af-RSME) afin de représenter toutes les régions et langues de l'AU."
+          },
+          {
+            "title": "Mobilisation des ressources et durabilité",
+            "objective": "Bâtir un RTCP autonome d'ici 2030, incluant des modèles de candidats privés et de partenariats public-privé."
+          }
+        ]
+      }
     },
     "directory": {
       "amara-okonkwo": {

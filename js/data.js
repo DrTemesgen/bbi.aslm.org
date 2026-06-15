@@ -340,6 +340,41 @@ BBI.ecc = {
 // `short` = wordmark shown until a real logo file is added; set `logo` to a
 // path under assets/partners/ (SVG/PNG) to show the official mark instead.
 // url '' = not linked (left blank where no confident official site).
+// ECC 2026–2030 strategy (from Noel Odhiambo's Dar es Salaam presentation):
+// a situation analysis (SWOT) + seven emerging priorities.
+BBI.ecc.strategy = {
+  swot: {
+    strengths: [
+      'Training programme accepted by AU Member States',
+      'Regional Centres of Excellence available to host trainings',
+      'Alternative pathway that recognises other equivalent training programmes'
+    ],
+    weaknesses: [
+      'Nominations of unsuitable candidates by Member States',
+      'Limited number of Subject Matter Experts across all five AU regions and languages',
+      'Programme not yet accredited to ISO 17024',
+      'Low Level I pass rates'
+    ],
+    opportunities: [
+      'Funding from development partners',
+      'Willingness of private candidates and private players to pay for training'
+    ],
+    threats: [
+      'Political changes and instability',
+      'Economic instability'
+    ]
+  },
+  priorities: [
+    { title: 'Coordination with key partners', objective: 'Ensure well-coordinated implementation of the RTCP-BBP among Africa CDC, ASLM, the Regional Centres of Excellence and Member States through regular coordination meetings.' },
+    { title: 'Establish & operationalise the Regional Centres of Excellence', objective: 'Have fully functional Regional Centres of Excellence for Biosafety & Biosecurity (RCoEBB) for all five African Union regions.' },
+    { title: 'Review & update the RTCP-BBP', objective: 'Keep the programme aligned with current and future international BSBS requirements — expanding into Cyberbiosecurity, AI in BSBS and risk assessment.' },
+    { title: 'ISO 17024 accreditation', objective: 'Accredit the Regional Training and Certification Programme for Biosafety & Biosecurity Professionals to ISO/IEC 17024 by 2027.' },
+    { title: 'Improve candidate performance', objective: 'Achieve a minimum 60% pass rate at all Level I certification examinations across every area of specialisation.' },
+    { title: 'Expand the pool of Af-RSMEs', objective: 'Grow the African Roster of Subject Matter Experts (Af-RSME) to represent all AU regions and languages.' },
+    { title: 'Resource mobilisation & sustainability', objective: 'Build a self-sustaining RTCP by 2030, including private-candidate and public–private partnership models.' }
+  ]
+};
+
 BBI.partners = [
   // Leading institutions
   { group: 'lead', short: 'Africa CDC', name: 'Africa Centres for Disease Control and Prevention', url: 'https://africacdc.org', logo: '' },

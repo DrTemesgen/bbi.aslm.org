@@ -535,6 +535,15 @@ BBI.i18n.dicts.en = {
     "event.registration.title": "Registration",
     "event.signInToRegister": "Sign in to register",
     "event.viewMyRegistrations": "View my registrations →",
-    "events.viewRegister": "View & register →"
+    "events.viewRegister": "View & register →",
+    "ecc.strategy.eyebrow": "Strategy",
+    "ecc.strategy.title": "2026–2030 emerging priorities",
+    "ecc.strategy.swotTitle": "Situation analysis",
+    "ecc.strategy.priorityN": "Priority",
+    "ecc.strategy.objective": "Objective:",
+    "ecc.strategy.strengths": "Strengths",
+    "ecc.strategy.weaknesses": "Weaknesses",
+    "ecc.strategy.opportunities": "Opportunities",
+    "ecc.strategy.threats": "Threats"
   }
 };

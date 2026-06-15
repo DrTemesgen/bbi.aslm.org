@@ -535,7 +535,16 @@ BBI.i18n.dicts.es = {
     "event.registration.title": "Inscripción",
     "event.signInToRegister": "Inicia sesión para inscribirte",
     "event.viewMyRegistrations": "Ver mis inscripciones →",
-    "events.viewRegister": "Ver e inscribirse →"
+    "events.viewRegister": "Ver e inscribirse →",
+    "ecc.strategy.eyebrow": "Estrategia",
+    "ecc.strategy.title": "Prioridades emergentes 2026–2030",
+    "ecc.strategy.swotTitle": "Análisis de situación",
+    "ecc.strategy.priorityN": "Prioridad",
+    "ecc.strategy.objective": "Objetivo:",
+    "ecc.strategy.strengths": "Fortalezas",
+    "ecc.strategy.weaknesses": "Debilidades",
+    "ecc.strategy.opportunities": "Oportunidades",
+    "ecc.strategy.threats": "Amenazas"
   },
   "content": {
     "regions": {
@@ -1027,7 +1036,60 @@ BBI.i18n.dicts.es = {
           "title": "Ampliación de escala",
           "text": "Tres de los cinco Centros Regionales de Excelencia en funcionamiento — incluido el de África Austral (RDDC, NICD/NHLS, Johannesburgo) — con certificación basada en competencias en tres niveles, un Registro de la AU en expansión y una supervisión reforzada del CPD."
         }
-      ]
+      ],
+      "strategy": {
+        "swot": {
+          "strengths": [
+            "Programa de capacitación aceptado por los Estados miembros de la AU",
+            "Centros Regionales de Excelencia disponibles para albergar las capacitaciones",
+            "Vía alternativa que reconoce otros programas de capacitación equivalentes"
+          ],
+          "weaknesses": [
+            "Nominaciones de candidatos no idóneos por parte de los Estados miembros",
+            "Número limitado de Expertos en la Materia (Subject Matter Experts) en las cinco regiones e idiomas de la AU",
+            "Programa aún no acreditado conforme a la norma ISO/IEC 17024",
+            "Bajas tasas de aprobación en el Nivel I"
+          ],
+          "opportunities": [
+            "Financiamiento de socios para el desarrollo",
+            "Disposición de candidatos privados y actores privados a pagar por la capacitación"
+          ],
+          "threats": [
+            "Cambios políticos e inestabilidad",
+            "Inestabilidad económica"
+          ]
+        },
+        "priorities": [
+          {
+            "title": "Coordinación con socios clave",
+            "objective": "Garantizar una implementación bien coordinada del RTCP-BBP entre Africa CDC, ASLM, los Centros Regionales de Excelencia y los Estados miembros mediante reuniones periódicas de coordinación."
+          },
+          {
+            "title": "Establecer y poner en funcionamiento los Centros Regionales de Excelencia",
+            "objective": "Contar con Centros Regionales de Excelencia para la Bioseguridad y la Bioprotección (RCoEBB) plenamente operativos para las cinco regiones de la Unión Africana."
+          },
+          {
+            "title": "Revisar y actualizar el RTCP-BBP",
+            "objective": "Mantener el programa alineado con los requisitos internacionales actuales y futuros de BSBS, ampliándolo hacia la ciberbioprotección, la AI en BSBS y la evaluación de riesgos."
+          },
+          {
+            "title": "Acreditación conforme a la norma ISO 17024",
+            "objective": "Acreditar el Programa Regional de Capacitación y Certificación para Profesionales de Bioseguridad y Bioprotección conforme a la norma ISO/IEC 17024 para 2027."
+          },
+          {
+            "title": "Mejorar el desempeño de los candidatos",
+            "objective": "Alcanzar una tasa de aprobación mínima del 60% en todos los exámenes de certificación de Nivel I en cada área de especialización."
+          },
+          {
+            "title": "Ampliar el grupo de Af-RSME",
+            "objective": "Ampliar el Registro Africano de Expertos en la Materia (Af-RSME) para representar a todas las regiones e idiomas de la AU."
+          },
+          {
+            "title": "Movilización de recursos y sostenibilidad",
+            "objective": "Construir un RTCP autosostenible para 2030, incluyendo modelos de candidatos privados y de alianzas público-privadas."
+          }
+        ]
+      }
     },
     "directory": {
       "amara-okonkwo": {

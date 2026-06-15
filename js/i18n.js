@@ -133,6 +133,15 @@
       if (c.ecc.leadership) arr(B.ecc.leadership, c.ecc.leadership, ['role', 'country']);
       if (c.ecc.members) arr(B.ecc.members, c.ecc.members, ['role', 'country']);
       if (c.ecc.history) arr(B.ecc.history, c.ecc.history, ['title', 'text']);
+      if (c.ecc.strategy && B.ecc.strategy) {
+        if (c.ecc.strategy.priorities) arr(B.ecc.strategy.priorities, c.ecc.strategy.priorities, ['title', 'objective']);
+        if (c.ecc.strategy.swot && B.ecc.strategy.swot) {
+          ['strengths', 'weaknesses', 'opportunities', 'threats'].forEach(function (q) {
+            var s = c.ecc.strategy.swot[q], t = B.ecc.strategy.swot[q];
+            if (Array.isArray(s) && Array.isArray(t)) { for (var i = 0; i < t.length && i < s.length; i++) { if (s[i] != null) t[i] = s[i]; } }
+          });
+        }
+      }
     }
     if (c.directory && B.directory) {
       for (var d = 0; d < B.directory.length; d++) {

@@ -535,7 +535,16 @@ BBI.i18n.dicts.sw = {
     "event.registration.title": "Usajili",
     "event.signInToRegister": "Ingia ili kujisajili",
     "event.viewMyRegistrations": "Tazama usajili wangu →",
-    "events.viewRegister": "Tazama na ujisajili →"
+    "events.viewRegister": "Tazama na ujisajili →",
+    "ecc.strategy.eyebrow": "Mkakati",
+    "ecc.strategy.title": "Vipaumbele vinavyoibuka vya 2026–2030",
+    "ecc.strategy.swotTitle": "Uchambuzi wa hali",
+    "ecc.strategy.priorityN": "Kipaumbele",
+    "ecc.strategy.objective": "Lengo:",
+    "ecc.strategy.strengths": "Nguvu",
+    "ecc.strategy.weaknesses": "Udhaifu",
+    "ecc.strategy.opportunities": "Fursa",
+    "ecc.strategy.threats": "Vitisho"
   },
   "content": {
     "regions": {
@@ -1027,7 +1036,60 @@ BBI.i18n.dicts.sw = {
           "title": "Kupanua",
           "text": "Vituo vitatu kati ya vitano vya Kanda vya Umahiri vinafanya kazi — ikiwemo Afrika Kusini (RDDC, NICD/NHLS, Johannesburg) — vikiwa na uthibitishaji unaozingatia umahiri katika ngazi tatu, Daftari la Umoja wa Afrika linalopanuka na usimamizi imara wa CPD."
         }
-      ]
+      ],
+      "strategy": {
+        "swot": {
+          "strengths": [
+            "Mpango wa mafunzo umekubaliwa na Nchi Wanachama wa AU",
+            "Vituo vya Kikanda vya Umahiri vinapatikana kwa kuandaa mafunzo",
+            "Njia mbadala inayotambua mipango mingine ya mafunzo yenye ulinganifu sawa"
+          ],
+          "weaknesses": [
+            "Uteuzi wa watahiniwa wasiofaa unaofanywa na Nchi Wanachama",
+            "Idadi ndogo ya Wataalamu wa Fani (Subject Matter Experts) katika kanda zote tano za AU na lugha zote",
+            "Mpango bado haujapata ithibati ya ISO/IEC 17024",
+            "Viwango vya chini vya kufaulu kwa Level I"
+          ],
+          "opportunities": [
+            "Ufadhili kutoka kwa washirika wa maendeleo",
+            "Utayari wa watahiniwa binafsi na wadau binafsi kulipia mafunzo"
+          ],
+          "threats": [
+            "Mabadiliko ya kisiasa na kukosekana kwa utulivu",
+            "Kukosekana kwa utulivu wa kiuchumi"
+          ]
+        },
+        "priorities": [
+          {
+            "title": "Uratibu na washirika wakuu",
+            "objective": "Kuhakikisha utekelezaji ulioratibiwa vyema wa RTCP-BBP miongoni mwa Africa CDC, ASLM, Vituo vya Kikanda vya Umahiri na Nchi Wanachama kupitia mikutano ya mara kwa mara ya uratibu."
+          },
+          {
+            "title": "Kuanzisha na kuendesha Vituo vya Kikanda vya Umahiri",
+            "objective": "Kuwa na Vituo vya Kikanda vya Umahiri kwa Usalama wa Kibaolojia na Usalama wa Kibiosekuriti (RCoEBB) vinavyofanya kazi kikamilifu kwa kanda zote tano za Muungano wa Afrika."
+          },
+          {
+            "title": "Kupitia na kusasisha RTCP-BBP",
+            "objective": "Kuweka mpango ukilingana na mahitaji ya sasa na ya baadaye ya kimataifa ya BSBS — kupanuka hadi Cyberbiosecurity, AI katika BSBS na tathmini ya hatari."
+          },
+          {
+            "title": "Ithibati ya ISO 17024",
+            "objective": "Kupata ithibati ya Mpango wa Kikanda wa Mafunzo na Vyeti kwa Wataalamu wa Usalama wa Kibaolojia na Usalama wa Kibiosekuriti kwa ISO/IEC 17024 ifikapo 2027."
+          },
+          {
+            "title": "Kuboresha utendaji wa watahiniwa",
+            "objective": "Kufikia kiwango cha chini cha kufaulu cha 60% katika mitihani yote ya udhibitishaji wa Level I katika kila eneo la utaalamu."
+          },
+          {
+            "title": "Kupanua kundi la Af-RSMEs",
+            "objective": "Kukuza Orodha ya Kiafrika ya Wataalamu wa Fani (Af-RSME) ili kuwakilisha kanda zote za AU na lugha zote."
+          },
+          {
+            "title": "Uhamasishaji wa rasilimali na uendelevu",
+            "objective": "Kujenga RTCP inayojiendesha yenyewe ifikapo 2030, ikijumuisha mifumo ya watahiniwa binafsi na ushirikiano wa sekta ya umma na binafsi."
+          }
+        ]
+      }
     },
     "directory": {
       "amara-okonkwo": {

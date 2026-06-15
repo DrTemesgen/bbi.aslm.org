@@ -535,7 +535,16 @@ BBI.i18n.dicts.pt = {
     "event.registration.title": "Inscrição",
     "event.signInToRegister": "Inicie sessão para se inscrever",
     "event.viewMyRegistrations": "Ver as minhas inscrições →",
-    "events.viewRegister": "Ver e inscrever →"
+    "events.viewRegister": "Ver e inscrever →",
+    "ecc.strategy.eyebrow": "Estratégia",
+    "ecc.strategy.title": "Prioridades emergentes para 2026–2030",
+    "ecc.strategy.swotTitle": "Análise da situação",
+    "ecc.strategy.priorityN": "Prioridade",
+    "ecc.strategy.objective": "Objetivo:",
+    "ecc.strategy.strengths": "Pontos fortes",
+    "ecc.strategy.weaknesses": "Pontos fracos",
+    "ecc.strategy.opportunities": "Oportunidades",
+    "ecc.strategy.threats": "Ameaças"
   },
   "content": {
     "regions": {
@@ -1027,7 +1036,60 @@ BBI.i18n.dicts.pt = {
           "title": "Expansão em escala",
           "text": "Três dos cinco Centros Regionais de Excelência em funcionamento — incluindo a África Austral (RDDC, NICD/NHLS, Joanesburgo) — com certificação baseada em competências em três níveis, um Registo da União Africana em expansão e uma supervisão reforçada do CPD."
         }
-      ]
+      ],
+      "strategy": {
+        "swot": {
+          "strengths": [
+            "Programa de formação aceite pelos Estados-Membros da AU",
+            "Centros Regionais de Excelência disponíveis para acolher formações",
+            "Via alternativa que reconhece outros programas de formação equivalentes"
+          ],
+          "weaknesses": [
+            "Nomeação de candidatos inadequados pelos Estados-Membros",
+            "Número limitado de Subject Matter Experts em todas as cinco regiões e línguas da AU",
+            "Programa ainda não acreditado segundo a norma ISO/IEC 17024",
+            "Baixas taxas de aprovação no Nível I"
+          ],
+          "opportunities": [
+            "Financiamento de parceiros de desenvolvimento",
+            "Disponibilidade de candidatos privados e de intervenientes privados para pagar pela formação"
+          ],
+          "threats": [
+            "Mudanças e instabilidade políticas",
+            "Instabilidade económica"
+          ]
+        },
+        "priorities": [
+          {
+            "title": "Coordenação com parceiros-chave",
+            "objective": "Assegurar uma implementação bem coordenada do RTCP-BBP entre a Africa CDC, a ASLM, os Centros Regionais de Excelência e os Estados-Membros, através de reuniões de coordenação regulares."
+          },
+          {
+            "title": "Estabelecer e operacionalizar os Centros Regionais de Excelência",
+            "objective": "Dispor de Centros Regionais de Excelência para Biossegurança e Biocustódia (RCoEBB) plenamente funcionais em todas as cinco regiões da União Africana."
+          },
+          {
+            "title": "Rever e atualizar o RTCP-BBP",
+            "objective": "Manter o programa alinhado com os requisitos internacionais de BSBS atuais e futuros — expandindo-se para a Ciberbiocustódia, a AI na BSBS e a avaliação de riscos."
+          },
+          {
+            "title": "Acreditação ISO/IEC 17024",
+            "objective": "Acreditar o Programa Regional de Formação e Certificação de Profissionais de Biossegurança e Biocustódia segundo a norma ISO/IEC 17024 até 2027."
+          },
+          {
+            "title": "Melhorar o desempenho dos candidatos",
+            "objective": "Alcançar uma taxa de aprovação mínima de 60% em todos os exames de certificação de Nível I em todas as áreas de especialização."
+          },
+          {
+            "title": "Alargar o conjunto de Af-RSMEs",
+            "objective": "Aumentar o Roster Africano de Subject Matter Experts (Af-RSME) para representar todas as regiões e línguas da AU."
+          },
+          {
+            "title": "Mobilização de recursos e sustentabilidade",
+            "objective": "Construir um RTCP autossustentável até 2030, incluindo modelos de candidatos privados e de parcerias público-privadas."
+          }
+        ]
+      }
     },
     "directory": {
       "amara-okonkwo": {
