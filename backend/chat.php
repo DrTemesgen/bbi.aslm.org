@@ -16,7 +16,15 @@
 $ALLOWED_ORIGIN = 'https://bbi.aslm.org';            // tighten to your domain
 $API_URL = 'https://api.deepseek.com/chat/completions';
 $MODEL   = 'deepseek-chat';
-$API_KEY = getenv('DEEPSEEK_API_KEY');                // never hard-code
+
+// The DeepSeek key is read SERVER-SIDE ONLY. NEVER hard-code it here, never
+// commit it to git, never send it to anyone. Two ways to supply it:
+//   A) an environment variable DEEPSEEK_API_KEY, or
+//   B) a secret file OUTSIDE the web root that returns the key, e.g.
+//      /home/<your-cpanel-user>/bbi-secret.php   ->   <?php return 'sk-...';
+$SECRET_FILE = '';   // set to the absolute path of bbi-secret.php (Option B)
+$API_KEY = getenv('DEEPSEEK_API_KEY');
+if (!$API_KEY && $SECRET_FILE && is_file($SECRET_FILE)) { $k = @require $SECRET_FILE; if (is_string($k)) $API_KEY = trim($k); }
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . $ALLOWED_ORIGIN);

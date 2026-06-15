@@ -18,6 +18,10 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Secrets — never commit the real AI key (only the .sample template is tracked)
+bbi-secret.php
+backend/bbi-secret.php
+
 # Build / packaging output
 *.apk
 *.aab
