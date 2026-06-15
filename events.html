@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Events &amp; Conferences · BBI Africa</title>
-  <meta name="description" content="Upcoming biosafety and biosecurity conferences, trainings and workshops across Africa." />
+  <title data-i18n="events.meta.title">Events &amp; Conferences · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=events.meta.desc" content="Upcoming biosafety and biosecurity conferences, trainings and workshops across Africa." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,17 +15,17 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Events</div>
-      <h1>Events &amp; conferences</h1>
-      <p>Upcoming conferences, regional trainings and workshops advancing biosafety and biosecurity across Africa.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.events">Events</span></div>
+      <h1 data-i18n="events.head.title">Events &amp; conferences</h1>
+      <p data-i18n="events.head.intro">Upcoming conferences, regional trainings and workshops advancing biosafety and biosecurity across Africa.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container">
       <div class="toolbar">
-        <select id="etype" aria-label="Filter by type"><option value="">All types</option></select>
-        <select id="eregion" aria-label="Filter by region"><option value="">All regions</option></select>
+        <select id="etype" aria-label="Filter by type" data-i18n-attr="aria-label=events.filter.type"><option value="" data-i18n="common.allTypes">All types</option></select>
+        <select id="eregion" aria-label="Filter by region" data-i18n-attr="aria-label=events.filter.region"><option value="" data-i18n="common.allRegions">All regions</option></select>
         <span class="count-tag" id="ecount"></span>
       </div>
       <div class="grid cols-2" id="events-grid"></div>
@@ -35,6 +35,9 @@
   <div id="app-footer"></div>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const H = BBI.helpers;
@@ -48,21 +51,21 @@
       function render() {
         const t = etype.value, reg = eregion.value;
         const items = BBI.events.filter(e => (!t || e.type === t) && (!reg || e.region === reg));
-        ecount.textContent = `${items.length} events`;
+        ecount.textContent = `${items.length} ${BBI.t('events.count', 'events')}`;
         grid.innerHTML = items.map(e => `
           <div class="card" style="display:flex;gap:16px">
             <div class="date" style="background:var(--green-100);border-radius:10px;text-align:center;padding:12px 10px;align-self:start;min-width:64px">
               <b style="display:block;font-size:1.5rem;color:var(--green-800);line-height:1">${e.d}</b>
-              <span style="font-size:.72rem;color:var(--muted);text-transform:uppercase">${e.m} ${e.y}</span>
+              <span style="font-size:.72rem;color:var(--muted);text-transform:uppercase">${BBI.i18n.month(e.m)} ${e.y}</span>
             </div>
             <div style="flex:1">
               <div style="margin-bottom:6px"><span class="tag gold">${e.type}</span> <span class="tag">${H.regionName(e.region)}</span></div>
               <h3 style="margin:0 0 4px">${e.title}</h3>
               <div class="muted" style="font-size:.86rem;margin-bottom:8px">📍 ${e.loc}</div>
               <p class="muted" style="margin:0 0 12px">${e.desc}</p>
-              ${e.reg ? '<a class="btn btn-outline" href="mailto:academy@aslm.org?subject=Registration%20interest%20-%20' + encodeURIComponent(e.title) + '">Register interest →</a>' : '<span class="muted" style="font-size:.85rem">Registration opening soon</span>'}
+              ${e.reg ? '<a class="btn btn-outline" href="mailto:academy@aslm.org?subject=Registration%20interest%20-%20' + encodeURIComponent(e.title) + '">' + BBI.t('events.registerInterest', 'Register interest →') + '</a>' : '<span class="muted" style="font-size:.85rem">' + BBI.t('events.regSoon', 'Registration opening soon') + '</span>'}
             </div>
-          </div>`).join('') || `<div class="card center muted" style="grid-column:1/-1">No events match.</div>`;
+          </div>`).join('') || `<div class="card center muted" style="grid-column:1/-1">${BBI.t('events.empty', 'No events match.')}</div>`;
       }
       [etype, eregion].forEach(el => el.addEventListener('input', render));
       render();

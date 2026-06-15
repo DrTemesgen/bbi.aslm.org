@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Examination &amp; Certification Committee (ECC) · BBI Africa</title>
-  <meta name="description" content="The Examination and Certification Committee (ECC) — the body that safeguards standards and awards certification under the BBI training and certification programme." />
+  <title data-i18n="ecc.meta.title">Examination &amp; Certification Committee (ECC) · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=ecc.meta.desc" content="The Examination and Certification Committee (ECC) — the body that safeguards standards and awards certification under the BBI training and certification programme." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,9 +15,9 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / ECC</div>
-      <h1>Examination &amp; Certification Committee</h1>
-      <p>The independent body that safeguards standards and awards professional certification under the BBI programme.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.ecc">ECC</span></div>
+      <h1 data-i18n="ecc.head.title">Examination &amp; Certification Committee</h1>
+      <p data-i18n="ecc.head.subtitle">The independent body that safeguards standards and awards professional certification under the BBI programme.</p>
     </div>
   </section>
 
@@ -26,33 +26,33 @@
       <div class="tabs" id="tabbar" style="flex-wrap:wrap;max-width:680px"></div>
 
       <section class="ptab" data-tab="about">
-        <div class="section-head"><div class="eyebrow">About</div><h2>What the ECC is</h2></div>
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.about.eyebrow">About</div><h2 data-i18n="ecc.about.title">What the ECC is</h2></div>
         <p class="muted" id="ecc-about"></p>
         <div class="grid cols-3" style="margin-top:24px">
-          <div class="card"><div class="ico">🛡️</div><h3>Independent</h3><p class="muted" style="margin:0">Acts impartially to protect the credibility of the credential.</p></div>
-          <div class="card"><div class="ico">🌍</div><h3>Continental</h3><p class="muted" style="margin:0">Serves all African Union Member States under a common standard.</p></div>
-          <div class="card"><div class="ico">🤝</div><h3>Multisectoral</h3><p class="muted" style="margin:0">Brings together experts across the One Health spectrum.</p></div>
+          <div class="card"><div class="ico">🛡️</div><h3 data-i18n="ecc.about.card1.title">Independent</h3><p class="muted" style="margin:0" data-i18n="ecc.about.card1.text">Acts impartially to protect the credibility of the credential.</p></div>
+          <div class="card"><div class="ico">🌍</div><h3 data-i18n="ecc.about.card2.title">Continental</h3><p class="muted" style="margin:0" data-i18n="ecc.about.card2.text">Serves all African Union Member States under a common standard.</p></div>
+          <div class="card"><div class="ico">🤝</div><h3 data-i18n="ecc.about.card3.title">Multisectoral</h3><p class="muted" style="margin:0" data-i18n="ecc.about.card3.text">Brings together experts across the One Health spectrum.</p></div>
         </div>
       </section>
 
       <section class="ptab hidden" data-tab="mandate">
-        <div class="section-head"><div class="eyebrow">Mandate</div><h2>What the ECC does</h2></div>
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.mandate.eyebrow">Mandate</div><h2 data-i18n="ecc.mandate.title">What the ECC does</h2></div>
         <div class="grid cols-2" id="ecc-mandate"></div>
       </section>
 
       <section class="ptab hidden" data-tab="leadership">
-        <div class="section-head"><div class="eyebrow">Leadership</div><h2>Who leads the committee</h2></div>
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.leadership.eyebrow">Leadership</div><h2 data-i18n="ecc.leadership.title">Who leads the committee</h2></div>
         <div class="grid cols-3" id="ecc-leadership"></div>
-        <div class="notice" style="margin-top:20px">👤 Leadership names are placeholders — replace with the official committee in <code>js/data.js</code>.</div>
+        <div class="notice" style="margin-top:20px" data-i18n-html="ecc.leadership.notice">👤 Leadership names are placeholders — replace with the official committee in <code>js/data.js</code>.</div>
       </section>
 
       <section class="ptab hidden" data-tab="members">
-        <div class="section-head"><div class="eyebrow">Members</div><h2>Committee members</h2></div>
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.members.eyebrow">Members</div><h2 data-i18n="ecc.members.title">Committee members</h2></div>
         <div class="grid cols-2" id="ecc-members"></div>
       </section>
 
       <section class="ptab hidden" data-tab="history">
-        <div class="section-head"><div class="eyebrow">History</div><h2>How the ECC has evolved</h2></div>
+        <div class="section-head"><div class="eyebrow" data-i18n="ecc.history.eyebrow">History</div><h2 data-i18n="ecc.history.title">How the ECC has evolved</h2></div>
         <ul class="timeline" id="ecc-history"></ul>
       </section>
     </div>
@@ -66,6 +66,9 @@
   <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const $ = (id) => document.getElementById(id);
@@ -75,7 +78,10 @@
       // Load admin-edited ECC content; fall back to built-in defaults.
       function start(E) { build(E); }
       if (A && A.ready) {
-        A.getSetting('ecc').then(d => start(mergeEcc(d))).catch(() => start(BBI.ecc));
+        A.getSetting('ecc').then(d => {
+          const ov = (window.BBI && BBI.i18n) ? BBI.i18n.activeOverride(d) : d;
+          start(mergeEcc(ov));
+        }).catch(() => start(BBI.ecc));
       } else { start(BBI.ecc); }
 
       function mergeEcc(d) {
@@ -90,12 +96,13 @@
       }
 
       function build(E) {
+      const tt = (k, d) => (window.BBI && BBI.t ? BBI.t(k, d) : d);
       const TABS = [
-        { key: 'about', label: 'About' },
-        { key: 'mandate', label: 'Mandate' },
-        { key: 'leadership', label: 'Leadership' },
-        { key: 'members', label: 'Members' },
-        { key: 'history', label: 'History' }
+        { key: 'about', label: tt('ecc.about.eyebrow', 'About') },
+        { key: 'mandate', label: tt('ecc.mandate.eyebrow', 'Mandate') },
+        { key: 'leadership', label: tt('ecc.leadership.eyebrow', 'Leadership') },
+        { key: 'members', label: tt('ecc.members.eyebrow', 'Members') },
+        { key: 'history', label: tt('ecc.history.eyebrow', 'History') }
       ];
       $('tabbar').innerHTML = TABS.map((t, i) => `<button class="tab ${i === 0 ? 'active' : ''}" data-go="${t.key}">${t.label}</button>`).join('');
       document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {

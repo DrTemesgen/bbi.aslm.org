@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Admin · BBI Africa</title>
+  <title data-i18n="admin.meta.title">Admin · BBI Africa</title>
   <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
@@ -15,80 +15,80 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="account.html">My Account</a> / Admin</div>
-      <h1>🛡️ Admin — applications</h1>
-      <p>Review and manage Expression of Interest submissions.</p>
+      <div class="breadcrumb"><a href="account.html" data-i18n="nav.account">My Account</a> / <span data-i18n="admin.crumb">Admin</span></div>
+      <h1 data-i18n="admin.head.title">🛡️ Admin — applications</h1>
+      <p data-i18n="admin.head.intro">Review and manage Expression of Interest submissions.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container">
-      <div id="not-config" class="notice hidden">🔧 The backend is being set up. Add your Firebase config to enable the admin panel.</div>
+      <div id="not-config" class="notice hidden" data-i18n="admin.notConfig">🔧 The backend is being set up. Add your Firebase config to enable the admin panel.</div>
       <div id="no-access" class="card center hidden">
         <div class="ico" style="margin:0 auto 12px">⛔</div>
-        <h3>Admin access required</h3>
-        <p class="muted">This area is restricted to programme administrators.</p>
-        <a class="btn btn-primary" href="login.html?next=admin.html">Sign in</a>
-        <a class="btn btn-outline" href="index.html">Back to home</a>
+        <h3 data-i18n="admin.noAccess.title">Admin access required</h3>
+        <p class="muted" data-i18n="admin.noAccess.text">This area is restricted to programme administrators.</p>
+        <a class="btn btn-primary" href="login.html?next=admin.html" data-i18n="admin.noAccess.signIn">Sign in</a>
+        <a class="btn btn-outline" href="index.html" data-i18n="common.backHome">Back to home</a>
       </div>
 
       <div id="panel" class="hidden">
         <div class="tabs" style="max-width:560px">
-          <button class="tab active" data-atab="apps">Applications</button>
-          <button class="tab" data-atab="regs">Registrations <span id="pending-pill"></span></button>
-          <button class="tab" data-atab="cats">Categories</button>
-          <button class="tab" data-atab="dir">Directory</button>
-          <button class="tab" data-atab="ecc">ECC</button>
-          <button class="tab" data-atab="home">Home</button>
+          <button class="tab active" data-atab="apps" data-i18n="admin.tab.applications">Applications</button>
+          <button class="tab" data-atab="regs"><span data-i18n="admin.tab.registrations">Registrations</span> <span id="pending-pill"></span></button>
+          <button class="tab" data-atab="cats" data-i18n="admin.tab.categories">Categories</button>
+          <button class="tab" data-atab="dir" data-i18n="nav.directory">Directory</button>
+          <button class="tab" data-atab="ecc" data-i18n="admin.tab.ecc">ECC</button>
+          <button class="tab" data-atab="home" data-i18n="common.home">Home</button>
         </div>
 
         <section id="tab-apps">
           <div class="grid cols-4" id="stats" style="margin-bottom:22px"></div>
           <div class="toolbar">
-            <input type="search" id="q" placeholder="Search name, organisation, country, email…" />
-            <select id="f-status"><option value="">All statuses</option></select>
-            <select id="f-area"><option value="">All areas</option></select>
+            <input type="search" id="q" data-i18n-attr="placeholder=admin.apps.searchPh" placeholder="Search name, organisation, country, email…" />
+            <select id="f-status"><option value="" data-i18n="admin.apps.allStatuses">All statuses</option></select>
+            <select id="f-area"><option value="" data-i18n="admin.apps.allAreas">All areas</option></select>
             <span class="count-tag" id="count"></span>
-            <button class="btn btn-outline" id="export" style="padding:8px 14px">⤓ Export CSV</button>
+            <button class="btn btn-outline" id="export" style="padding:8px 14px" data-i18n="admin.apps.exportCsv">⤓ Export CSV</button>
           </div>
           <div id="rows"></div>
         </section>
 
         <section id="tab-regs" class="hidden">
           <div class="toolbar">
-            <input type="search" id="uq" placeholder="Search registrations by name, email, country…" />
-            <select id="f-appr"><option value="">All accounts</option><option value="pending">Pending only</option><option value="approved">Approved only</option></select>
+            <input type="search" id="uq" data-i18n-attr="placeholder=admin.regs.searchPh" placeholder="Search registrations by name, email, country…" />
+            <select id="f-appr"><option value="" data-i18n="admin.regs.allAccounts">All accounts</option><option value="pending" data-i18n="admin.regs.pendingOnly">Pending only</option><option value="approved" data-i18n="admin.regs.approvedOnly">Approved only</option></select>
             <span class="count-tag" id="ucount"></span>
-            <button class="btn btn-primary" id="new-account" style="padding:8px 14px">+ New account</button>
+            <button class="btn btn-primary" id="new-account" style="padding:8px 14px" data-i18n="admin.regs.newAccount">+ New account</button>
           </div>
           <div id="urows"></div>
         </section>
 
         <section id="tab-cats" class="hidden">
           <div class="toolbar">
-            <span style="flex:1;text-align:left" class="muted">Certification areas applicants can apply for. Changes appear on the Apply page.</span>
-            <button class="btn btn-primary" id="new-cat" style="padding:8px 14px">+ New category</button>
+            <span style="flex:1;text-align:left" class="muted" data-i18n="admin.cats.hint">Certification areas applicants can apply for. Changes appear on the Apply page.</span>
+            <button class="btn btn-primary" id="new-cat" style="padding:8px 14px" data-i18n="admin.cats.newCategory">+ New category</button>
           </div>
           <div id="crows"></div>
         </section>
 
         <section id="tab-dir" class="hidden">
           <div class="toolbar">
-            <input type="search" id="dq" placeholder="Search profiles by name, organisation, country…" />
-            <select id="d-level" aria-label="Filter by level"><option value="">All levels</option></select>
+            <input type="search" id="dq" data-i18n-attr="placeholder=admin.dir.searchPh" placeholder="Search profiles by name, organisation, country…" />
+            <select id="d-level" aria-label="Filter by level" data-i18n-attr="aria-label=admin.dir.filterLevel"><option value="" data-i18n="common.allLevels">All levels</option></select>
             <span class="count-tag" id="dcount"></span>
-            <button class="btn btn-primary" id="new-profile" style="padding:8px 14px">+ Add profile</button>
+            <button class="btn btn-primary" id="new-profile" style="padding:8px 14px" data-i18n="admin.dir.addProfile">+ Add profile</button>
           </div>
           <div id="drows"></div>
         </section>
 
         <section id="tab-ecc" class="hidden">
-          <p class="muted" style="text-align:left">Edit the Examination &amp; Certification Committee page — About text, Mandate, Leadership, Members and History. Changes appear on the public ECC page.</p>
+          <p class="muted" style="text-align:left" data-i18n="admin.ecc.hint">Edit the Examination &amp; Certification Committee page — About text, Mandate, Leadership, Members and History. Changes appear on the public ECC page.</p>
           <div id="ecc-editor"></div>
         </section>
 
         <section id="tab-home" class="hidden">
-          <p class="muted" style="text-align:left">Edit the home-page hero and the four headline statistics. Changes appear on the home page.</p>
+          <p class="muted" style="text-align:left" data-i18n="admin.home.hint">Edit the home-page hero and the four headline statistics. Changes appear on the home page.</p>
           <div id="home-editor"></div>
         </section>
       </div>
@@ -98,7 +98,7 @@
   <!-- Detail drawer -->
   <div id="drawer" class="drawer hidden">
     <div class="drawer-panel">
-      <button class="drawer-close" id="drawer-close" aria-label="Close">×</button>
+      <button class="drawer-close" id="drawer-close" aria-label="Close" data-i18n-attr="aria-label=common.close">×</button>
       <div id="drawer-body"></div>
     </div>
   </div>
@@ -114,6 +114,9 @@
   <script src="js/categories.js"></script>
   <script src="js/dir.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script src="js/admin-shared.js"></script>
   <script src="js/admin.js"></script>
 </body>

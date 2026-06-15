@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>My Account · BBI Africa</title>
-  <meta name="description" content="Your BBI account: track your certification applications and their status." />
+  <title data-i18n="account.meta.title">My Account · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=account.meta.desc" content="Your BBI account: track your certification applications and their status." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,21 +15,21 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / My Account</div>
-      <h1>My account</h1>
-      <p>Manage your profile and preferences, and track your certification applications.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.account">My Account</span></div>
+      <h1 data-i18n="account.head.title">My account</h1>
+      <p data-i18n="account.head.subtitle">Manage your profile and preferences, and track your certification applications.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container" style="max-width:880px">
-      <div id="not-config" class="notice hidden">🔧 Accounts are being set up. Please check back shortly.</div>
+      <div id="not-config" class="notice hidden">🔧 <span data-i18n="account.notConfigured">Accounts are being set up. Please check back shortly.</span></div>
 
       <div id="signed-out" class="card center hidden">
         <div class="ico" style="margin:0 auto 12px">🔐</div>
-        <h3>Please sign in</h3>
-        <p class="muted">Sign in with your email to manage your profile and applications.</p>
-        <a class="btn btn-primary" href="login.html?next=account.html">Sign in / create account</a>
+        <h3 data-i18n="account.signedOut.title">Please sign in</h3>
+        <p class="muted" data-i18n="account.signedOut.body">Sign in with your email to manage your profile and applications.</p>
+        <a class="btn btn-primary" href="login.html?next=account.html" data-i18n="common.signInCreate">Sign in / create account</a>
       </div>
 
       <div id="account" class="hidden">
@@ -38,29 +38,29 @@
           <div style="flex:1;min-width:200px;text-align:left">
             <h3 style="margin:0" id="acc-name"></h3>
             <div class="muted" id="acc-email" style="font-size:.9rem"></div>
-            <div class="muted" style="font-size:.78rem">User ID: <code id="acc-uid"></code></div>
+            <div class="muted" style="font-size:.78rem"><span data-i18n="account.userId">User ID:</span> <code id="acc-uid"></code></div>
           </div>
-          <button class="btn btn-outline" id="signout">Sign out</button>
+          <button class="btn btn-outline" id="signout" data-i18n="common.signOut">Sign out</button>
         </div>
 
         <div id="pending-banner" class="notice hidden" style="margin-bottom:16px">
-          ⏳ <strong>Your account is pending approval.</strong> An administrator will review it shortly; you’ll be able to submit applications once approved.
+          ⏳ <span data-i18n-html="account.banner.pending"><strong>Your account is pending approval.</strong> An administrator will review it shortly; you’ll be able to submit applications once approved.</span>
         </div>
         <div id="approved-banner" class="notice hidden" style="margin-bottom:16px;background:#e3f2ec;border-color:#bcdfcd">
-          ✅ <strong>Your account is approved.</strong> You can submit and track applications.
+          ✅ <span data-i18n-html="account.banner.approved"><strong>Your account is approved.</strong> You can submit and track applications.</span>
         </div>
         <div id="admin-link" class="notice hidden" style="background:#e6effd;border-color:#bcd4fb;margin-bottom:16px">
-          🛡️ You have admin access. <a href="admin.html">Open the admin panel →</a>
+          🛡️ <span data-i18n-html="account.banner.admin">You have admin access. <a href="admin.html">Open the admin panel →</a></span>
         </div>
 
         <div class="tabs" style="max-width:540px;margin-inline:auto">
-          <button class="tab active" data-ptab="apps">My applications</button>
-          <button class="tab" data-ptab="profile">Profile</button>
-          <button class="tab" data-ptab="settings">Settings</button>
+          <button class="tab active" data-ptab="apps" data-i18n="account.tabs.applications">My applications</button>
+          <button class="tab" data-ptab="profile" data-i18n="account.tabs.profile">Profile</button>
+          <button class="tab" data-ptab="settings" data-i18n="account.tabs.settings">Settings</button>
         </div>
 
         <section id="ptab-apps">
-          <a class="btn btn-primary" href="apply.html" id="new-app">+ New application</a>
+          <a class="btn btn-primary" href="apply.html" id="new-app" data-i18n="account.newApplication">+ New application</a>
           <div id="apps" style="margin-top:16px"></div>
         </section>
 
@@ -69,35 +69,35 @@
             <div style="display:flex;gap:14px;align-items:center">
               <img id="pf-photo" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--line);display:none" />
               <div style="flex:1">
-                <label style="margin:0">Headshot photo URL <span class="muted" style="font-weight:400">(link to your photo)</span>
+                <label style="margin:0"><span data-i18n="account.profile.photoLabel">Headshot photo URL</span> <span class="muted" style="font-weight:400" data-i18n="account.profile.photoHint">(link to your photo)</span>
                   <input name="photo" type="url" placeholder="https://…/your-photo.jpg" />
                 </label>
               </div>
             </div>
-            <label>Full name<input name="name" required /></label>
+            <label><span data-i18n="account.profile.fullName">Full name</span><input name="name" required /></label>
             <div class="grid cols-2">
-              <label>Country<input name="country" /></label>
-              <label>Organisation<input name="org" /></label>
+              <label><span data-i18n="account.profile.country">Country</span><input name="country" /></label>
+              <label><span data-i18n="account.profile.org">Organisation</span><input name="org" /></label>
             </div>
-            <label>LinkedIn profile URL<input name="linkedin" type="url" placeholder="https://www.linkedin.com/in/your-handle" /></label>
-            <label>Biography <span class="muted" id="bio-count" style="font-weight:400">(0 / 150 words)</span>
-              <textarea name="bio" rows="4" placeholder="A short professional bio — recommended up to 150 words."></textarea>
+            <label><span data-i18n="account.profile.linkedin">LinkedIn profile URL</span><input name="linkedin" type="url" placeholder="https://www.linkedin.com/in/your-handle" /></label>
+            <label><span data-i18n="account.profile.bio">Biography</span> <span class="muted" id="bio-count" style="font-weight:400">(0 / 150 words)</span>
+              <textarea name="bio" rows="4" placeholder="A short professional bio — recommended up to 150 words." data-i18n-attr="placeholder=account.profile.bioPlaceholder"></textarea>
             </label>
-            <label>Email <span class="muted" style="font-weight:400">(contact support to change)</span><input id="pf-email" disabled /></label>
-            <button class="btn btn-primary" type="submit" id="pf-btn">Save profile</button>
+            <label><span data-i18n="account.profile.email">Email</span> <span class="muted" style="font-weight:400" data-i18n="account.profile.emailHint">(contact support to change)</span><input id="pf-email" disabled /></label>
+            <button class="btn btn-primary" type="submit" id="pf-btn" data-i18n="account.profile.save">Save profile</button>
             <div id="pf-msg" class="notice hidden"></div>
           </form>
         </section>
 
         <section id="ptab-settings" class="hidden">
           <div class="card" style="max-width:560px;margin-inline:auto;text-align:left">
-            <h3 style="margin-top:0">Password</h3>
-            <p class="muted">We’ll email you a secure link to set a new password.</p>
-            <button class="btn btn-outline" id="reset-pw">Send password reset email</button>
+            <h3 style="margin-top:0" data-i18n="account.settings.passwordTitle">Password</h3>
+            <p class="muted" data-i18n="account.settings.passwordBody">We’ll email you a secure link to set a new password.</p>
+            <button class="btn btn-outline" id="reset-pw" data-i18n="account.settings.sendReset">Send password reset email</button>
             <div id="pw-msg" class="notice hidden" style="margin-top:12px"></div>
             <hr style="border:0;border-top:1px solid var(--line);margin:22px 0" />
-            <h3>Session</h3>
-            <button class="btn btn-outline" id="signout2">Sign out</button>
+            <h3 data-i18n="account.settings.sessionTitle">Session</h3>
+            <button class="btn btn-outline" id="signout2" data-i18n="common.signOut">Sign out</button>
           </div>
         </section>
       </div>
@@ -113,6 +113,9 @@
   <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script src="js/admin-shared.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -125,7 +128,7 @@
         $('account').classList.remove('hidden');
         const approved = A.isApproved();
         const p = A.profile || {};
-        $('acc-name').textContent = p.name || 'My account';
+        $('acc-name').textContent = p.name || BBI.t('account.defaultName','My account');
         $('acc-email').textContent = user.email || '';
         $('acc-uid').textContent = user.uid;
         $('admin-link').classList.toggle('hidden', !admin);
@@ -148,7 +151,7 @@
         const apps = await A.myApplications();
         $('apps').innerHTML = apps.length
           ? apps.map(BBI.renderAppCard).join('')
-          : `<div class="card center muted">${approved ? 'No applications yet. <a href="apply.html">Start one →</a>' : 'You can apply once your account is approved.'}</div>`;
+          : `<div class="card center muted">${approved ? BBI.t('account.apps.empty','No applications yet. <a href="apply.html">Start one →</a>') : BBI.t('account.apps.notApproved','You can apply once your account is approved.')}</div>`;
       });
 
       // Tabs
@@ -165,7 +168,7 @@
       function updateBioCount() {
         const n = wordCount($('profile-form').bio.value);
         const el = $('bio-count');
-        el.textContent = `(${n} / ${BIO_MAX} words)`;
+        el.textContent = BBI.t('account.profile.wordCount','({n} / {max} words)').replace('{n}', n).replace('{max}', BIO_MAX);
         el.style.color = n > BIO_MAX ? '#c0392b' : '';
       }
       function updatePhotoPreview() {
@@ -182,26 +185,26 @@
         e.preventDefault();
         const f = e.target, m = $('pf-msg'), b = $('pf-btn');
         if (wordCount(f.bio.value) > BIO_MAX) {
-          m.textContent = `Please shorten your biography to ${BIO_MAX} words or fewer.`;
+          m.textContent = BBI.t('account.profile.bioTooLong','Please shorten your biography to {max} words or fewer.').replace('{max}', BIO_MAX);
           m.style.background = '#fff8e8'; m.classList.remove('hidden'); return;
         }
-        b.disabled = true; b.textContent = 'Saving…'; m.classList.add('hidden');
+        b.disabled = true; b.textContent = BBI.t('account.profile.saving','Saving…'); m.classList.add('hidden');
         try {
           await A.updateMyProfile({
             name: f.name.value, country: f.country.value, org: f.org.value,
             linkedin: f.linkedin.value.trim(), photo: f.photo.value.trim(), bio: f.bio.value.trim()
           });
           $('acc-name').textContent = f.name.value;
-          m.textContent = 'Profile saved.'; m.style.background = '#e3f2ec'; m.classList.remove('hidden');
-        } catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
-        finally { b.disabled = false; b.textContent = 'Save profile'; }
+          m.textContent = BBI.t('account.profile.saved','Profile saved.'); m.style.background = '#e3f2ec'; m.classList.remove('hidden');
+        } catch (err) { m.textContent = BBI.t('account.profile.saveError','Could not save: ') + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+        finally { b.disabled = false; b.textContent = BBI.t('account.profile.save','Save profile'); }
       });
 
       // Reset password
       $('reset-pw').addEventListener('click', async () => {
         const m = $('pw-msg');
-        try { await A.resetPassword(A.user.email); m.textContent = 'Password reset email sent to ' + A.user.email + '.'; m.style.background = '#e3f2ec'; }
-        catch (err) { m.textContent = 'Could not send: ' + (err.message || err); m.style.background = '#fff8e8'; }
+        try { await A.resetPassword(A.user.email); m.textContent = BBI.t('account.settings.resetSent','Password reset email sent to {email}.').replace('{email}', A.user.email); m.style.background = '#e3f2ec'; }
+        catch (err) { m.textContent = BBI.t('account.settings.resetError','Could not send: ') + (err.message || err); m.style.background = '#fff8e8'; }
         m.classList.remove('hidden');
       });
 

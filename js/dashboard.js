@@ -26,9 +26,9 @@
 
     // --- Status donut (active / emerging / planned) ---
     const statuses = [
-      { key: 'active', label: 'Active', color: '#13654d' },
-      { key: 'emerging', label: 'Emerging', color: '#e0a92e' },
-      { key: 'planned', label: 'Planned', color: '#c0392b' }
+      { key: 'active', label: BBI.t('common.statusActive', 'Active'), color: '#13654d' },
+      { key: 'emerging', label: BBI.t('common.statusEmerging', 'Emerging'), color: '#e0a92e' },
+      { key: 'planned', label: BBI.t('common.statusPlanned', 'Planned'), color: '#c0392b' }
     ];
     const counts = statuses.map(s => ({ ...s, n: C.filter(c => c.status === s.key).length }));
     const total = counts.reduce((a, b) => a + b.n, 0) || 1;
@@ -47,7 +47,7 @@
         <div class="donut-wrap">
           <div class="progress-ring" style="position:relative">
             <svg width="140" height="140" viewBox="0 0 140 140">${segs}</svg>
-            <div class="center"><b>${C.length}</b><div class="muted" style="font-size:.74rem">countries<br>engaged</div></div>
+            <div class="center"><b>${C.length}</b><div class="muted" style="font-size:.74rem">${BBI.t('dashboard.donutEngaged', 'countries<br>engaged')}</div></div>
           </div>
           <ul class="legend">
             ${counts.map(s => `<li><span class="dot" style="background:${s.color}"></span> ${s.label} <b style="margin-left:auto">${s.n}</b></li>`).join('')}
@@ -57,12 +57,12 @@
 
     // --- Pillar progress ---
     const pillarProg = [
-      { t: 'Strategic focus at Africa CDC', v: 85 },
-      { t: 'Continental & Regional TWGs', v: 100 },
-      { t: 'Legal framework endorsed', v: 100 },
-      { t: 'Institutional certification', v: 45 },
-      { t: 'Training & certification', v: 78 },
-      { t: 'National capabilities', v: 60 }
+      { t: BBI.t('dashboard.prog.p1', 'Strategic focus at Africa CDC'), v: 85 },
+      { t: BBI.t('dashboard.prog.p2', 'Continental & Regional TWGs'), v: 100 },
+      { t: BBI.t('dashboard.prog.p3', 'Legal framework endorsed'), v: 100 },
+      { t: BBI.t('dashboard.prog.p4', 'Institutional certification'), v: 45 },
+      { t: BBI.t('dashboard.prog.p5', 'Training & certification'), v: 78 },
+      { t: BBI.t('dashboard.prog.p6', 'National capabilities'), v: 60 }
     ];
     const pp = document.getElementById('pillar-progress');
     if (pp) {
@@ -82,10 +82,11 @@
       const sorted = [...C].sort((a, b) => order[a.status] - order[b.status] || a.name.localeCompare(b.name));
       ct.innerHTML = sorted.map(c => {
         const cls = c.status === 'active' ? '' : c.status === 'emerging' ? 'gold' : 'blue';
+        const statusLbl = BBI.t('common.status' + c.status.charAt(0).toUpperCase() + c.status.slice(1), c.status);
         return `<div class="res-item" style="padding:11px 0">
           <span class="ficon" style="background:${H.regionColor(c.region)}22;color:${H.regionColor(c.region)}">${H.initials(c.name)}</span>
           <div style="flex:1"><b>${c.name}</b><div class="muted" style="font-size:.82rem">${H.regionName(c.region)}</div></div>
-          <span class="tag ${cls}">${c.status}</span>
+          <span class="tag ${cls}">${statusLbl}</span>
         </div>`;
       }).join('');
     }

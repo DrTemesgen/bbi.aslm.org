@@ -14,9 +14,12 @@
   function editables() { return document.querySelectorAll('[data-edit]'); }
 
   function applyOverrides() {
+    // Resolve admin content for the ACTIVE language; falls back to the
+    // translated default (set by the i18n engine) rather than English.
+    const ov = (window.BBI && BBI.i18n) ? BBI.i18n.activeOverride(CONTENT) : CONTENT;
     editables().forEach((el) => {
       const k = el.getAttribute('data-edit');
-      if (CONTENT[k] != null) el.innerHTML = CONTENT[k];
+      if (ov[k] != null) el.innerHTML = ov[k];
     });
   }
 
@@ -39,8 +42,9 @@
     if (toolbar) return;
     toolbar = document.createElement('div');
     toolbar.className = 'cms-bar';
+    const curLang = (window.BBI && BBI.i18n) ? BBI.i18n.current().toUpperCase() : 'EN';
     toolbar.innerHTML = `
-      <span class="cms-tag">Admin</span>
+      <span class="cms-tag">Admin · ${curLang}</span>
       <button class="btn btn-primary" id="cms-edit">✎ Edit this page</button>
       <button class="btn btn-primary hidden" id="cms-save">Save changes</button>
       <button class="btn btn-outline hidden" id="cms-cancel">Cancel</button>
@@ -76,8 +80,13 @@
         $('cms-status').textContent = 'Content didn’t load — reload the page before saving.';
         return;
       }
-      editables().forEach((el) => { CONTENT[el.getAttribute('data-edit')] = el.innerHTML.trim(); });
-      $('cms-status').textContent = 'Saving…';
+      // Save per-language so each language's edits are stored separately and
+      // never overwrite another language's content.
+      const lang = (window.BBI && BBI.i18n) ? BBI.i18n.current() : 'en';
+      CONTENT.__i18n = CONTENT.__i18n || {};
+      CONTENT.__i18n[lang] = CONTENT.__i18n[lang] || {};
+      editables().forEach((el) => { CONTENT.__i18n[lang][el.getAttribute('data-edit')] = el.innerHTML.trim(); });
+      $('cms-status').textContent = 'Saving… (' + lang.toUpperCase() + ')';
       try {
         await window.BBIAuth.saveSetting(DOC, CONTENT);
         setEditing(false);

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Professional Directory · BBI Africa</title>
-  <meta name="description" content="Searchable directory of biosafety and biosecurity professionals certified through the BBI regional programme." />
+  <title data-i18n="directory.meta.title">Professional Directory · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=directory.meta.desc" content="Searchable directory of biosafety and biosecurity professionals certified through the BBI regional programme." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,22 +15,22 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Directory</div>
-      <h1>Professional directory</h1>
-      <p>Connect with biosafety and biosecurity professionals and trainers across Africa’s regional networks.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.directory">Directory</span></div>
+      <h1 data-i18n="directory.head.title">Professional directory</h1>
+      <p data-i18n="directory.head.intro">Connect with biosafety and biosecurity professionals and trainers across Africa’s regional networks.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container">
-      <div class="notice" style="margin-bottom:20px">👥 The profiles below are <strong>illustrative samples</strong> demonstrating the directory. Replace them with the official roster of certified professionals in <code>js/data.js</code>.</div>
+      <div class="notice" style="margin-bottom:20px" data-i18n-html="directory.notice">👥 The profiles below are <strong>illustrative samples</strong> demonstrating the directory. Replace them with the official roster of certified professionals in <code>js/data.js</code>.</div>
 
       <div class="toolbar">
-        <input type="search" id="q" placeholder="Search by name, organisation, country or specialty…" aria-label="Search professionals" />
-        <select id="f-region" aria-label="Filter by region"><option value="">All regions</option></select>
-        <select id="f-cert" aria-label="Filter by certification"><option value="">All certifications</option></select>
-        <select id="f-level" aria-label="Filter by level"><option value="">All levels</option></select>
-        <label class="chk"><input type="checkbox" id="f-mentor" /> Mentors only</label>
+        <input type="search" id="q" placeholder="Search by name, organisation, country or specialty…" aria-label="Search professionals" data-i18n-attr="placeholder=directory.toolbar.searchPlaceholder;aria-label=directory.toolbar.searchAria" />
+        <select id="f-region" aria-label="Filter by region" data-i18n-attr="aria-label=directory.toolbar.regionAria"><option value="" data-i18n="common.allRegions">All regions</option></select>
+        <select id="f-cert" aria-label="Filter by certification" data-i18n-attr="aria-label=directory.toolbar.certAria"><option value="" data-i18n="common.allCertifications">All certifications</option></select>
+        <select id="f-level" aria-label="Filter by level" data-i18n-attr="aria-label=directory.toolbar.levelAria"><option value="" data-i18n="common.allLevels">All levels</option></select>
+        <label class="chk"><input type="checkbox" id="f-mentor" /> <span data-i18n="directory.toolbar.mentorsOnly">Mentors only</span></label>
         <span class="count-tag" id="result-count"></span>
       </div>
 
@@ -48,6 +48,9 @@
   <script src="js/categories.js"></script>
   <script src="js/dir.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script src="js/directory.js"></script>
 </body>
 </html>

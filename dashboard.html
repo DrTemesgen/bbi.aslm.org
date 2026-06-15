@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Dashboard · BBI Africa</title>
-  <meta name="description" content="BBI progress dashboard: regional technical working groups, country engagement, certifications and pillar progress." />
+  <title data-i18n="dashboard.meta.title">Dashboard · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=dashboard.meta.desc" content="BBI progress dashboard: regional technical working groups, country engagement, certifications and pillar progress." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,9 +15,9 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Dashboard</div>
-      <h1>Continental progress dashboard</h1>
-      <p>A live view of biosafety and biosecurity capacity-building across Africa’s five regions.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.dashboard">Dashboard</span></div>
+      <h1 data-i18n="dashboard.head.title">Continental progress dashboard</h1>
+      <p data-i18n="dashboard.head.intro">A live view of biosafety and biosecurity capacity-building across Africa’s five regions.</p>
     </div>
   </section>
 
@@ -25,51 +25,54 @@
     <div class="container">
 
       <div class="grid cols-4" style="margin-bottom:28px">
-        <div class="stat"><div class="num" data-count="47">0</div><div class="lbl">Countries engaged</div><div class="sub">of 55 Member States</div></div>
-        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Regional TWGs</div><div class="sub">100% operational</div></div>
-        <div class="stat"><div class="num" data-count="400" data-suffix="+">0</div><div class="lbl">Certified professionals</div><div class="sub">Regional programme</div></div>
-        <div class="stat"><div class="num" data-count="18">0</div><div class="lbl">Institutions certified</div><div class="sub">High-consequence facilities</div></div>
+        <div class="stat"><div class="num" data-count="47">0</div><div class="lbl" data-i18n="dashboard.stats.countriesLbl">Countries engaged</div><div class="sub" data-i18n="dashboard.stats.countriesSub">of 55 Member States</div></div>
+        <div class="stat"><div class="num" data-count="5">0</div><div class="lbl" data-i18n="dashboard.stats.twgsLbl">Regional TWGs</div><div class="sub" data-i18n="dashboard.stats.twgsSub">100% operational</div></div>
+        <div class="stat"><div class="num" data-count="400" data-suffix="+">0</div><div class="lbl" data-i18n="dashboard.stats.certifiedLbl">Certified professionals</div><div class="sub" data-i18n="dashboard.stats.certifiedSub">Regional programme</div></div>
+        <div class="stat"><div class="num" data-count="18">0</div><div class="lbl" data-i18n="dashboard.stats.institutionsLbl">Institutions certified</div><div class="sub" data-i18n="dashboard.stats.institutionsSub">High-consequence facilities</div></div>
       </div>
 
       <div class="card" style="margin-bottom:22px">
-        <h3>Continental coverage map</h3>
-        <p class="muted" style="font-size:.88rem">Member States coloured by engagement status. Hover or tap a highlighted country for details.</p>
+        <h3 data-i18n="dashboard.map.title">Continental coverage map</h3>
+        <p class="muted" style="font-size:.88rem" data-i18n="dashboard.map.desc">Member States coloured by engagement status. Hover or tap a highlighted country for details.</p>
         <div id="africa-map" style="margin-top:14px"></div>
       </div>
 
       <div class="grid cols-2" style="margin-bottom:22px">
         <div class="card">
-          <h3>Country engagement by region</h3>
-          <p class="muted" style="font-size:.88rem">Number of engaged Member States in each regional bloc.</p>
+          <h3 data-i18n="dashboard.region.title">Country engagement by region</h3>
+          <p class="muted" style="font-size:.88rem" data-i18n="dashboard.region.desc">Number of engaged Member States in each regional bloc.</p>
           <div id="region-bars" style="margin-top:18px"></div>
         </div>
         <div class="card">
-          <h3>Engagement status</h3>
-          <p class="muted" style="font-size:.88rem">Distribution of engaged countries by current status.</p>
+          <h3 data-i18n="dashboard.status.title">Engagement status</h3>
+          <p class="muted" style="font-size:.88rem" data-i18n="dashboard.status.desc">Distribution of engaged countries by current status.</p>
           <div id="status-donut" style="margin-top:14px"></div>
         </div>
       </div>
 
       <div class="grid cols-2" style="margin-bottom:22px">
         <div class="card">
-          <h3>Strategic pillar progress</h3>
-          <p class="muted" style="font-size:.88rem">Indicative implementation against the five BBI pillars.</p>
+          <h3 data-i18n="dashboard.pillar.title">Strategic pillar progress</h3>
+          <p class="muted" style="font-size:.88rem" data-i18n="dashboard.pillar.desc">Indicative implementation against the five BBI pillars.</p>
           <div id="pillar-progress" style="margin-top:18px"></div>
         </div>
         <div class="card">
-          <h3>Country tracker</h3>
-          <p class="muted" style="font-size:.88rem">Engaged Member States, sorted by status.</p>
+          <h3 data-i18n="dashboard.tracker.title">Country tracker</h3>
+          <p class="muted" style="font-size:.88rem" data-i18n="dashboard.tracker.desc">Engaged Member States, sorted by status.</p>
           <div id="country-list" style="margin-top:8px;max-height:360px;overflow:auto"></div>
         </div>
       </div>
 
-      <div class="notice">📊 Figures shown are indicative, drawn from public Africa CDC and ASLM communications about the BBI (2019–2025). Connect this dashboard to your programme database to display live, official data.</div>
+      <div class="notice" data-i18n="dashboard.notice">📊 Figures shown are indicative, drawn from public Africa CDC and ASLM communications about the BBI (2019–2025). Connect this dashboard to your programme database to display live, official data.</div>
     </div>
   </main>
 
   <div id="app-footer"></div>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script src="js/dashboard.js"></script>
   <script src="js/map.js"></script>
 </body>

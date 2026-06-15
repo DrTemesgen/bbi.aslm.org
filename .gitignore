@@ -5,6 +5,7 @@ npm-debug.log*
 
 # Local tooling
 .claude/
+serve.json
 
 # Draft / working documents — not for public publication unless approved
 *.docx

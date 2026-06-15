@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Sign in · BBI Africa</title>
-  <meta name="description" content="Create an account or sign in with your email to apply to the BBI training and certification programme." />
+  <title data-i18n="login.meta.title">Sign in · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=login.meta.desc" content="Create an account or sign in with your email to apply to the BBI training and certification programme." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,50 +15,50 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / Sign in</div>
-      <h1>Sign in or create an account</h1>
-      <p>Register with your email to apply. New accounts are reviewed by an administrator before you can submit.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="login.crumb">Sign in</span></div>
+      <h1 data-i18n="login.head.title">Sign in or create an account</h1>
+      <p data-i18n="login.head.intro">Register with your email to apply. New accounts are reviewed by an administrator before you can submit.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container" style="max-width:480px">
       <div class="card">
-        <div id="not-config" class="notice hidden">🔧 Sign-in is being set up. Please check back shortly.</div>
+        <div id="not-config" class="notice hidden" data-i18n-html="login.notConfig">🔧 Sign-in is being set up. Please check back shortly.</div>
 
         <div id="signed-in" class="hidden center">
           <div class="ico" style="margin:0 auto 12px">✅</div>
-          <h3>You’re signed in</h3>
+          <h3 data-i18n="login.signedIn.title">You’re signed in</h3>
           <p class="muted" id="si-email"></p>
           <div class="grid" style="gap:10px">
-            <a class="btn btn-primary" href="account.html">Go to my account →</a>
-            <a class="btn btn-outline" href="apply.html">Start an application</a>
-            <button class="btn btn-outline" id="signout">Sign out</button>
+            <a class="btn btn-primary" href="account.html" data-i18n="login.signedIn.account">Go to my account →</a>
+            <a class="btn btn-outline" href="apply.html" data-i18n="login.signedIn.apply">Start an application</a>
+            <button class="btn btn-outline" id="signout" data-i18n="login.signedIn.signOut">Sign out</button>
           </div>
         </div>
 
         <div id="auth-ui">
           <div class="tabs">
-            <button class="tab active" data-tab="signin">Sign in</button>
-            <button class="tab" data-tab="register">Create account</button>
+            <button class="tab active" data-tab="signin" data-i18n="login.tab.signin">Sign in</button>
+            <button class="tab" data-tab="register" data-i18n="login.tab.register">Create account</button>
           </div>
 
           <form id="signin-form" class="form">
-            <label>Email<input type="email" name="email" required autocomplete="email" /></label>
-            <label>Password<input type="password" name="password" required autocomplete="current-password" /></label>
-            <button class="btn btn-primary" type="submit" id="signin-btn">Sign in</button>
-            <button class="btn btn-outline" type="button" id="forgot">Forgot password?</button>
+            <label><span data-i18n="login.form.email">Email</span><input type="email" name="email" required autocomplete="email" /></label>
+            <label><span data-i18n="login.form.password">Password</span><input type="password" name="password" required autocomplete="current-password" /></label>
+            <button class="btn btn-primary" type="submit" id="signin-btn" data-i18n="login.tab.signin">Sign in</button>
+            <button class="btn btn-outline" type="button" id="forgot" data-i18n="login.form.forgot">Forgot password?</button>
           </form>
 
           <form id="register-form" class="form hidden">
             <div class="grid cols-2">
-              <label>Full name<input name="name" required /></label>
-              <label>Country<input name="country" required /></label>
+              <label><span data-i18n="login.form.fullName">Full name</span><input name="name" required /></label>
+              <label><span data-i18n="login.form.country">Country</span><input name="country" required /></label>
             </div>
-            <label>Organisation<input name="org" required /></label>
-            <label>Email<input type="email" name="email" required autocomplete="email" /></label>
-            <label>Password (min 6 characters)<input type="password" name="password" minlength="6" required autocomplete="new-password" /></label>
-            <button class="btn btn-primary" type="submit" id="register-btn">Create account</button>
+            <label><span data-i18n="login.form.org">Organisation</span><input name="org" required /></label>
+            <label><span data-i18n="login.form.email">Email</span><input type="email" name="email" required autocomplete="email" /></label>
+            <label><span data-i18n="login.form.passwordMin">Password (min 6 characters)</span><input type="password" name="password" minlength="6" required autocomplete="new-password" /></label>
+            <button class="btn btn-primary" type="submit" id="register-btn" data-i18n="login.tab.register">Create account</button>
           </form>
 
           <div id="auth-msg" class="notice hidden" style="margin-top:14px"></div>
@@ -78,6 +78,9 @@
   <script src="js/notify.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const A = window.BBIAuth, $ = (id) => document.getElementById(id);
@@ -103,13 +106,13 @@
       }));
 
       $('signin-form').addEventListener('submit', async (e) => {
-        e.preventDefault(); msg(''); const b = $('signin-btn'); b.disabled = true; b.textContent = 'Signing in…';
+        e.preventDefault(); msg(''); const b = $('signin-btn'); b.disabled = true; b.textContent = BBI.t('login.form.signingIn','Signing in…');
         try { await A.signIn(e.target.email.value.trim(), e.target.password.value); location.href = next; }
-        catch (err) { msg(friendly(err)); } finally { b.disabled = false; b.textContent = 'Sign in'; }
+        catch (err) { msg(friendly(err)); } finally { b.disabled = false; b.textContent = BBI.t('login.tab.signin','Sign in'); }
       });
 
       $('register-form').addEventListener('submit', async (e) => {
-        e.preventDefault(); msg(''); const b = $('register-btn'); b.disabled = true; b.textContent = 'Creating…';
+        e.preventDefault(); msg(''); const b = $('register-btn'); b.disabled = true; b.textContent = BBI.t('login.form.creating','Creating…');
         const f = e.target;
         try {
           const email = f.email.value.trim();
@@ -125,13 +128,13 @@
             });
           }
           location.href = 'account.html';
-        } catch (err) { msg(friendly(err)); } finally { b.disabled = false; b.textContent = 'Create account'; }
+        } catch (err) { msg(friendly(err)); } finally { b.disabled = false; b.textContent = BBI.t('login.tab.register','Create account'); }
       });
 
       $('forgot').addEventListener('click', async () => {
         const email = $('signin-form').email.value.trim();
-        if (!email) { msg('Enter your email above first, then tap “Forgot password?”.'); return; }
-        try { await A.resetPassword(email); msg('Password reset email sent to ' + email + '.', true); }
+        if (!email) { msg(BBI.t('login.msg.enterEmail','Enter your email above first, then tap “Forgot password?”.')); return; }
+        try { await A.resetPassword(email); msg(BBI.t('login.msg.resetSent','Password reset email sent to ') + email + '.', true); }
         catch (err) { msg(friendly(err)); }
       });
 
@@ -139,14 +142,14 @@
 
       function friendly(err) {
         const c = (err && err.code) || '';
-        if (c.includes('email-already-in-use')) return 'That email is already registered — try signing in instead.';
-        if (c.includes('invalid-email')) return 'That doesn’t look like a valid email address.';
-        if (c.includes('weak-password')) return 'Please choose a password of at least 6 characters.';
-        if (c.includes('wrong-password') || c.includes('invalid-credential')) return 'Incorrect email or password.';
-        if (c.includes('user-not-found')) return 'No account found with that email — create one instead.';
-        if (c.includes('too-many-requests')) return 'Too many attempts. Please wait a moment and try again.';
-        if (c.includes('operation-not-allowed')) return 'Email sign-in isn’t enabled yet in Firebase (Authentication → Sign-in method → Email/Password).';
-        return 'Something went wrong: ' + (err.message || err);
+        if (c.includes('email-already-in-use')) return BBI.t('login.err.emailInUse','That email is already registered — try signing in instead.');
+        if (c.includes('invalid-email')) return BBI.t('login.err.invalidEmail','That doesn’t look like a valid email address.');
+        if (c.includes('weak-password')) return BBI.t('login.err.weakPassword','Please choose a password of at least 6 characters.');
+        if (c.includes('wrong-password') || c.includes('invalid-credential')) return BBI.t('login.err.wrongPassword','Incorrect email or password.');
+        if (c.includes('user-not-found')) return BBI.t('login.err.userNotFound','No account found with that email — create one instead.');
+        if (c.includes('too-many-requests')) return BBI.t('login.err.tooMany','Too many attempts. Please wait a moment and try again.');
+        if (c.includes('operation-not-allowed')) return BBI.t('login.err.notAllowed','Email sign-in isn’t enabled yet in Firebase (Authentication → Sign-in method → Email/Password).');
+        return BBI.t('login.err.generic','Something went wrong: ') + (err.message || err);
       }
     });
   </script>

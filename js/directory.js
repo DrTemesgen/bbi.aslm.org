@@ -46,10 +46,10 @@
         <div style="flex:1;min-width:0">
           <h3>${p.name}</h3>
           <div class="role">${p.role || ''}${p.org ? ' · ' + p.org : ''}</div>
-          <div>${badges(p)}${p.mentor ? '<span class="tag gold" title="Available as a mentor">🧭 Mentor</span>' : ''}</div>
+          <div>${badges(p)}${p.mentor ? `<span class="tag gold" title="${BBI.t('directory.mentorTitle', 'Available as a mentor')}">${BBI.t('common.tagMentor', '🧭 Mentor')}</span>` : ''}</div>
           <div class="flag">📍 ${p.country || ''} · ${H.regionName(p.region)}${p.level ? ' · ' + p.level : ''}</div>
         </div>
-        <span class="li-btn" data-li="${li}" title="View LinkedIn profile">${LI_SVG}</span>
+        <span class="li-btn" data-li="${li}" title="${BBI.t('directory.liTitle', 'View LinkedIn profile')}">${LI_SVG}</span>
       </a>`;
     }
 
@@ -71,10 +71,11 @@
         }
         return true;
       });
-      countEl.textContent = `${filtered.length} of ${data.length} professionals`;
+      countEl.textContent = BBI.t('directory.count', '{n} of {total} professionals')
+        .replace('{n}', filtered.length).replace('{total}', data.length);
       grid.innerHTML = filtered.length
         ? filtered.map(card).join('')
-        : `<div class="card center muted" style="grid-column:1/-1">No professionals match your search. Try clearing filters.</div>`;
+        : `<div class="card center muted" style="grid-column:1/-1">${BBI.t('directory.empty', 'No professionals match your search. Try clearing filters.')}</div>`;
       grid.querySelectorAll('.li-btn').forEach(b => b.addEventListener('click', (e) => {
         e.preventDefault(); e.stopPropagation();
         window.open(b.getAttribute('data-li'), '_blank', 'noopener');

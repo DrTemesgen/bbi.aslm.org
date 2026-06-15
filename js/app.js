@@ -1,24 +1,24 @@
 /* BBI Africa — shared shell: header, footer, nav, service worker */
 (function () {
   const PRIMARY = [
-    { href: 'index.html', label: 'Home' },
-    { href: 'dashboard.html', label: 'Dashboard' },
-    { href: 'directory.html', label: 'Directory' },
-    { href: 'framework.html', label: 'Framework' },
-    { href: 'training.html', label: 'Training' }
+    { href: 'index.html', label: 'Home', key: 'nav.home' },
+    { href: 'dashboard.html', label: 'Dashboard', key: 'nav.dashboard' },
+    { href: 'directory.html', label: 'Directory', key: 'nav.directory' },
+    { href: 'framework.html', label: 'Framework', key: 'nav.framework' },
+    { href: 'training.html', label: 'Training', key: 'nav.training' }
   ];
   const MORE = [
-    { href: 'program.html', label: 'Programme' },
-    { href: 'ecc.html', label: 'ECC' },
-    { href: 'mentorship.html', label: 'Mentorship' },
-    { href: 'events.html', label: 'Events' },
-    { href: 'resources.html', label: 'Resources' },
-    { href: 'news.html', label: 'News' },
-    { href: 'get-involved.html', label: 'Get Involved' },
-    { href: 'about.html', label: 'About' },
-    { href: 'account.html', label: 'My Account' }
+    { href: 'program.html', label: 'Programme', key: 'nav.programme' },
+    { href: 'ecc.html', label: 'ECC', key: 'nav.ecc' },
+    { href: 'mentorship.html', label: 'Mentorship', key: 'nav.mentorship' },
+    { href: 'events.html', label: 'Events', key: 'nav.events' },
+    { href: 'resources.html', label: 'Resources', key: 'nav.resources' },
+    { href: 'news.html', label: 'News', key: 'nav.news' },
+    { href: 'get-involved.html', label: 'Get Involved', key: 'nav.getInvolved' },
+    { href: 'about.html', label: 'About', key: 'nav.about' },
+    { href: 'account.html', label: 'My Account', key: 'nav.account' }
   ];
-  const CTA = { href: 'apply.html', label: 'Apply' };
+  const CTA = { href: 'apply.html', label: 'Apply', key: 'nav.apply' };
   const PAGES = [...PRIMARY, ...MORE, CTA]; // full list (footer + profile link targets)
 
   const current = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -32,52 +32,54 @@
   </svg>`;
 
   function header() {
-    const link = p => `<a href="${p.href}" class="${p.href === current ? 'active' : ''}">${p.label}</a>`;
+    const link = p => `<a href="${p.href}" class="${p.href === current ? 'active' : ''}" data-i18n="${p.key}">${p.label}</a>`;
     const primaryLinks = PRIMARY.map(link).join('');
     const moreLinks = MORE.map(link).join('');
     const moreActive = MORE.some(p => p.href === current) ? ' active' : '';
     return `<header class="appbar"><div class="container">
-      <a class="brand" href="index.html">${LOGO}<span><small>Africa CDC · ASLM</small><b>Biosafety &amp; Biosecurity Initiative</b></span></a>
+      <a class="brand" href="index.html">${LOGO}<span><small data-i18n="brand.org">Africa CDC · ASLM</small><b data-i18n="brand.name">Biosafety &amp; Biosecurity Initiative</b></span></a>
       <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
       <nav class="nav">
         ${primaryLinks}
         <span class="more">
-          <button class="more-btn${moreActive}" aria-expanded="false">More <span aria-hidden="true">▾</span></button>
+          <button class="more-btn${moreActive}" aria-expanded="false"><span data-i18n="nav.more">More</span> <span aria-hidden="true">▾</span></button>
           <span class="more-menu">${moreLinks}</span>
         </span>
-        <a href="${CTA.href}" class="nav-cta${CTA.href === current ? ' active' : ''}">${CTA.label}</a>
+        <a href="${CTA.href}" class="nav-cta${CTA.href === current ? ' active' : ''}" data-i18n="${CTA.key}">${CTA.label}</a>
+        <span class="lang-switch" id="lang-switch"></span>
       </nav>
     </div></header>`;
   }
 
   function footer() {
     const y = 2026;
+    const fLink = p => `<li><a href="${p.href}" data-i18n="${p.key}">${p.label}</a></li>`;
     return `<footer class="footer"><div class="container">
       <div class="cols">
         <div>
-          <div class="brand" style="margin-bottom:12px">${LOGO}<span><small>Africa CDC · ASLM</small><b>Biosafety &amp; Biosecurity Initiative</b></span></div>
-          <p class="partners">A continental programme strengthening biosafety and biosecurity systems across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.</p>
-          <p class="partners">Supported by Canada's Weapons Threat Reduction Program, the World Bank, US CDC, US DTRA, NTI, WHO, WAHO, WOAH and AU Member States.</p>
+          <div class="brand" style="margin-bottom:12px">${LOGO}<span><small data-i18n="brand.org">Africa CDC · ASLM</small><b data-i18n="brand.name">Biosafety &amp; Biosecurity Initiative</b></span></div>
+          <p class="partners" data-i18n="footer.blurb1">A continental programme strengthening biosafety and biosecurity systems across all 55 African Union Member States, in line with IHR (2005), the Biological Weapons Convention and UNSCR 1540.</p>
+          <p class="partners" data-i18n="footer.blurb2">Supported by Canada's Weapons Threat Reduction Program, the World Bank, US CDC, US DTRA, NTI, WHO, WAHO, WOAH and AU Member States.</p>
         </div>
         <div>
-          <h4>Explore</h4>
-          <ul>${PAGES.slice(0, Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
+          <h4 data-i18n="footer.explore">Explore</h4>
+          <ul>${PAGES.slice(0, Math.ceil(PAGES.length / 2)).map(fLink).join('')}</ul>
         </div>
         <div>
-          <h4>Programme</h4>
-          <ul>${PAGES.slice(Math.ceil(PAGES.length / 2)).map(p => `<li><a href="${p.href}">${p.label}</a></li>`).join('')}</ul>
+          <h4 data-i18n="footer.programme">Programme</h4>
+          <ul>${PAGES.slice(Math.ceil(PAGES.length / 2)).map(fLink).join('')}</ul>
         </div>
         <div>
-          <h4>Partners</h4>
+          <h4 data-i18n="footer.partners">Partners</h4>
           <ul>
             <li><a href="https://africacdc.org" target="_blank" rel="noopener">Africa CDC</a></li>
             <li><a href="https://aslm.org" target="_blank" rel="noopener">ASLM</a></li>
-            <li><a href="https://au.int" target="_blank" rel="noopener">African Union</a></li>
+            <li><a href="https://au.int" target="_blank" rel="noopener" data-i18n="footer.au">African Union</a></li>
             <li><a href="mailto:academy@aslm.org">academy@aslm.org</a></li>
           </ul>
         </div>
       </div>
-      <div class="copy">© ${y} African Society for Laboratory Medicine (ASLM) &amp; Africa CDC · Biosafety &amp; Biosecurity Initiative. Unofficial reference application built for the BBI programme. Figures are indicative and based on public BBI communications.</div>
+      <div class="copy" data-i18n="footer.copy">© ${y} African Society for Laboratory Medicine (ASLM) &amp; Africa CDC · Biosafety &amp; Biosecurity Initiative. Unofficial reference application built for the BBI programme. Figures are indicative and based on public BBI communications.</div>
     </div></footer>`;
   }
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>News &amp; Events · BBI Africa</title>
-  <meta name="description" content="Latest missions, trainings and strategy milestones from the Biosafety and Biosecurity Initiative." />
+  <title data-i18n="news.meta.title">News &amp; Events · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=news.meta.desc" content="Latest missions, trainings and strategy milestones from the Biosafety and Biosecurity Initiative." />
   <meta name="theme-color" content="#0b3d2e" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
@@ -15,16 +15,16 @@
 
   <section class="page-head">
     <div class="container">
-      <div class="breadcrumb"><a href="index.html">Home</a> / News</div>
-      <h1>News &amp; events</h1>
-      <p>Missions, regional trainings and strategy milestones from across the continent.</p>
+      <div class="breadcrumb"><a href="index.html" data-i18n="common.home">Home</a> / <span data-i18n="nav.news">News</span></div>
+      <h1 data-i18n="news.head.title">News &amp; events</h1>
+      <p data-i18n="news.head.intro">Missions, regional trainings and strategy milestones from across the continent.</p>
     </div>
   </section>
 
   <main class="section">
     <div class="container">
       <div class="toolbar">
-        <select id="nreg" aria-label="Filter by region"><option value="">All regions</option></select>
+        <select id="nreg" aria-label="Filter by region" data-i18n-attr="aria-label=news.filter.region"><option value="" data-i18n="common.allRegions">All regions</option></select>
         <span class="count-tag" id="ncount"></span>
       </div>
       <div class="card"><div id="news-list"></div></div>
@@ -34,6 +34,9 @@
   <div id="app-footer"></div>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const list = document.getElementById('news-list');
@@ -43,10 +46,10 @@
       function render() {
         const reg = nreg.value;
         const items = BBI.news.filter(n => !reg || n.region === reg);
-        ncount.textContent = `${items.length} updates`;
+        ncount.textContent = `${items.length} ${BBI.t('news.count', 'updates')}`;
         list.innerHTML = items.map(n => `
           <div class="news-item">
-            <div class="date"><b>${n.d}</b><span>${n.m} ${n.y}</span></div>
+            <div class="date"><b>${n.d}</b><span>${BBI.i18n.month(n.m)} ${n.y}</span></div>
             <div>
               <span class="tag gold">${n.tag}</span> <span class="tag">${BBI.helpers.regionName(n.region)}</span>
               <h3 style="margin-top:8px">${n.title}</h3>
