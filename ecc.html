@@ -79,7 +79,9 @@
       function start(E) { build(E); }
       if (A && A.ready) {
         A.getSetting('ecc').then(d => {
-          const ov = (window.BBI && BBI.i18n) ? BBI.i18n.activeOverride(d) : d;
+          // Only honour PER-LANGUAGE admin content (__i18n); ignore a stale legacy
+          // flat doc so the up-to-date code content shows in every language (incl. English).
+          const ov = (d && d.__i18n && window.BBI && BBI.i18n) ? BBI.i18n.activeOverride(d) : {};
           start(mergeEcc(ov));
         }).catch(() => start(BBI.ecc));
       } else { start(BBI.ecc); }
