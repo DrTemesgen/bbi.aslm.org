@@ -36,6 +36,8 @@
         <div class="tabs" style="max-width:560px">
           <button class="tab active" data-atab="apps" data-i18n="admin.tab.applications">Applications</button>
           <button class="tab" data-atab="regs"><span data-i18n="admin.tab.registrations">Registrations</span> <span id="pending-pill"></span></button>
+          <button class="tab" data-atab="events" data-i18n="admin.tab.events">Events</button>
+          <button class="tab" data-atab="evregs" data-i18n="admin.tab.eventRegs">Event sign-ups</button>
           <button class="tab" data-atab="cats" data-i18n="admin.tab.categories">Categories</button>
           <button class="tab" data-atab="dir" data-i18n="nav.directory">Directory</button>
           <button class="tab" data-atab="ecc" data-i18n="admin.tab.ecc">ECC</button>
@@ -62,6 +64,26 @@
             <button class="btn btn-primary" id="new-account" style="padding:8px 14px" data-i18n="admin.regs.newAccount">+ New account</button>
           </div>
           <div id="urows"></div>
+        </section>
+
+        <section id="tab-events" class="hidden">
+          <div class="toolbar">
+            <input type="search" id="eq" placeholder="Search events by title, location, region…" />
+            <span class="count-tag" id="ecount"></span>
+            <button class="btn btn-outline" id="seed-events" style="padding:8px 14px">↺ Load sample events</button>
+            <button class="btn btn-primary" id="new-event" style="padding:8px 14px">+ New event</button>
+          </div>
+          <div id="erows"></div>
+        </section>
+
+        <section id="tab-evregs" class="hidden">
+          <div class="toolbar">
+            <input type="search" id="rq" placeholder="Search sign-ups by name, email, event…" />
+            <select id="r-status"><option value="">All statuses</option></select>
+            <span class="count-tag" id="rcount"></span>
+            <button class="btn btn-outline" id="r-export" style="padding:8px 14px">⤓ Export CSV</button>
+          </div>
+          <div id="rrows"></div>
         </section>
 
         <section id="tab-cats" class="hidden">

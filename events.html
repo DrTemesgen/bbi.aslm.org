@@ -33,27 +33,34 @@
   </main>
 
   <div id="app-footer"></div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/offerings.js"></script>
   <script src="js/app.js"></script>
   <script src="js/i18n.js"></script>
   <script src="lang/en.js"></script>
   <script>BBI.i18n.loadActive();</script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       const H = BBI.helpers;
       const grid = document.getElementById('events-grid');
       const etype = document.getElementById('etype');
       const eregion = document.getElementById('eregion');
       const ecount = document.getElementById('ecount');
-      [...new Set(BBI.events.map(e => e.type))].sort().forEach(t => etype.add(new Option(t, t)));
+      const items0 = await BBIOfferings.byKind('event');
+      [...new Set(items0.map(e => e.type).filter(Boolean))].sort().forEach(t => etype.add(new Option(t, t)));
       BBI.regions.forEach(r => eregion.add(new Option(r.name, r.key)));
 
       function render() {
         const t = etype.value, reg = eregion.value;
-        const items = BBI.events.filter(e => (!t || e.type === t) && (!reg || e.region === reg));
+        const items = items0.filter(e => (!t || e.type === t) && (!reg || e.region === reg));
         ecount.textContent = `${items.length} ${BBI.t('events.count', 'events')}`;
         grid.innerHTML = items.map(e => `
-          <div class="card" style="display:flex;gap:16px">
+          <a class="card" href="event.html?id=${encodeURIComponent(e.id)}" style="display:flex;gap:16px;text-decoration:none;color:inherit">
             <div class="date" style="background:var(--green-100);border-radius:10px;text-align:center;padding:12px 10px;align-self:start;min-width:64px">
               <b style="display:block;font-size:1.5rem;color:var(--green-800);line-height:1">${e.d}</b>
               <span style="font-size:.72rem;color:var(--muted);text-transform:uppercase">${BBI.i18n.month(e.m)} ${e.y}</span>
@@ -63,9 +70,9 @@
               <h3 style="margin:0 0 4px">${e.title}</h3>
               <div class="muted" style="font-size:.86rem;margin-bottom:8px">📍 ${e.loc}</div>
               <p class="muted" style="margin:0 0 12px">${e.desc}</p>
-              ${e.reg ? '<a class="btn btn-outline" href="mailto:academy@aslm.org?subject=Registration%20interest%20-%20' + encodeURIComponent(e.title) + '">' + BBI.t('events.registerInterest', 'Register interest →') + '</a>' : '<span class="muted" style="font-size:.85rem">' + BBI.t('events.regSoon', 'Registration opening soon') + '</span>'}
+              ${e.reg ? '<span class="btn btn-outline">' + BBI.t('events.viewRegister', 'View & register →') + '</span>' : '<span class="muted" style="font-size:.85rem">' + BBI.t('events.regSoon', 'Registration opening soon') + '</span>'}
             </div>
-          </div>`).join('') || `<div class="card center muted" style="grid-column:1/-1">${BBI.t('events.empty', 'No events match.')}</div>`;
+          </a>`).join('') || `<div class="card center muted" style="grid-column:1/-1">${BBI.t('events.empty', 'No events match.')}</div>`;
       }
       [etype, eregion].forEach(el => el.addEventListener('input', render));
       render();

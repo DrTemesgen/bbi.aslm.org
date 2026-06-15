@@ -37,12 +37,16 @@
         const which = t.getAttribute('data-atab');
         $('tab-apps').classList.toggle('hidden', which !== 'apps');
         $('tab-regs').classList.toggle('hidden', which !== 'regs');
+        $('tab-events').classList.toggle('hidden', which !== 'events');
+        $('tab-evregs').classList.toggle('hidden', which !== 'evregs');
         $('tab-cats').classList.toggle('hidden', which !== 'cats');
         $('tab-dir').classList.toggle('hidden', which !== 'dir');
         $('tab-ecc').classList.toggle('hidden', which !== 'ecc');
         $('tab-home').classList.toggle('hidden', which !== 'home');
         if (which === 'cats') loadCats();
         if (which === 'dir') loadDir();
+        if (which === 'events') loadEvents();
+        if (which === 'evregs') loadEventRegs();
         if (which === 'ecc') loadEcc();
         if (which === 'home') loadHome();
       }));
@@ -52,7 +56,17 @@
       [$('uq'), $('f-appr')].forEach(el => el.addEventListener('input', renderUsers));
       $('new-account').addEventListener('click', openCreateDrawer);
       $('new-cat').addEventListener('click', () => openCatDrawer(null));
+      $('new-event').addEventListener('click', () => openEventDrawer(null));
+      $('seed-events').addEventListener('click', seedEvents);
+      $('eq').addEventListener('input', renderEvents);
+      [$('rq'), $('r-status')].forEach(el => el.addEventListener('input', renderEventRegs));
+      $('r-export').addEventListener('click', exportRegsCSV);
     }
+
+    // The six interface languages — used by the per-language editor strips.
+    const I18N_LANGS = (BBI.i18n && BBI.i18n.LANGS) || [
+      { code: 'en' }, { code: 'fr' }, { code: 'ar' }, { code: 'pt' }, { code: 'es' }, { code: 'sw' }
+    ];
 
     // ---- Categories management ----
     let CATS = [];
@@ -121,6 +135,234 @@
       if (!confirm('Delete this category? Applicants will no longer be able to choose it (existing applications keep their value).')) return;
       try { await A.deleteCategory(key); BBICats._cache = null; await loadCats(); }
       catch (e) { alert('Could not delete: ' + (e.message || e)); }
+    }
+
+    // ---- Events management ----
+    let EVENTS = [];
+    async function loadEvents() {
+      try {
+        const all = await A.listOfferings();
+        EVENTS = all.filter(o => (o.kind || 'event') === 'event');
+      } catch (e) { $('erows').innerHTML = `<div class="notice">Could not load events: ${e.message || e}</div>`; return; }
+      renderEvents();
+    }
+    function renderEvents() {
+      const term = ($('eq').value || '').toLowerCase().trim();
+      const list = EVENTS.filter(e => !term || `${e.title} ${e.loc} ${e.region} ${e.type} ${e.category}`.toLowerCase().includes(term));
+      $('ecount').textContent = `${list.length} of ${EVENTS.length}`;
+      $('erows').innerHTML = list.length ? `
+        <div class="table-wrap"><table class="adm-table">
+          <thead><tr><th>Event</th><th>Date</th><th>Location</th><th>Region</th><th>Type</th><th>Reg.</th><th></th></tr></thead>
+          <tbody>${list.map(eventRow).join('')}</tbody>
+        </table></div>` : `<div class="card center muted">No events yet. Use “+ New event” or “Load sample events”.</div>`;
+      $('erows').querySelectorAll('[data-eedit]').forEach(b => b.addEventListener('click', () => openEventDrawer(b.getAttribute('data-eedit'))));
+      $('erows').querySelectorAll('[data-edel]').forEach(b => b.addEventListener('click', () => removeEvent(b.getAttribute('data-edel'))));
+    }
+    function eventRow(e) {
+      const reg = e.reg
+        ? `<span class="tag" style="background:#0f4f3c1a;color:#0f4f3c">Open</span>`
+        : `<span class="tag" style="background:#9991;color:#777">Closed</span>`;
+      const date = [e.d, e.m, e.y].filter(Boolean).join(' ');
+      return `<tr>
+        <td><strong>${esc(e.title || '')}</strong>${e.category ? `<div class="muted" style="font-size:.8rem">${esc(e.category)}</div>` : ''}</td>
+        <td>${esc(date)}</td>
+        <td>${esc(e.loc || '')}</td>
+        <td>${esc(BBI.helpers.regionName(e.region) || e.region || '')}</td>
+        <td>${esc(e.type || '')}</td>
+        <td>${reg}${e.capacity ? `<div class="muted" style="font-size:.78rem">cap ${esc(e.capacity)}</div>` : ''}</td>
+        <td style="white-space:nowrap">
+          <button class="btn btn-outline" style="padding:6px 10px" data-eedit="${esc(e.id)}">Edit</button>
+          <button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-edel="${esc(e.id)}">Delete</button>
+        </td></tr>`;
+    }
+    async function seedEvents() {
+      if (!confirm('Load the built-in sample events into the database? Existing events are kept; samples with the same id are overwritten.')) return;
+      try {
+        await A.seedOfferings(BBI.events.map(e => Object.assign({ kind: 'event' }, e)));
+        BBIOfferings._cache = null;
+        await loadEvents();
+      } catch (e) { alert('Could not load samples: ' + (e.message || e)); }
+    }
+    async function removeEvent(id) {
+      const e = EVENTS.find(x => x.id === id);
+      if (!confirm(`Delete event "${e ? e.title : ''}"? This cannot be undone.`)) return;
+      try { await A.deleteOffering(id); BBIOfferings._cache = null; await loadEvents(); }
+      catch (err) { alert('Could not delete: ' + (err.message || err)); }
+    }
+    function langStrip(group) {
+      // A small tab strip (EN FR AR PT ES SW). The first tab is active.
+      return `<div class="tabs lang-strip" data-langstrip="${group}" style="max-width:none;margin-bottom:12px">
+        ${I18N_LANGS.map((l, i) => `<button type="button" class="tab${i === 0 ? ' active' : ''}" data-lang="${l.code}">${l.code.toUpperCase()}</button>`).join('')}
+      </div>`;
+    }
+    function wireLangStrip(group, onSwitch) {
+      const strip = document.querySelector(`[data-langstrip="${group}"]`);
+      if (!strip) return;
+      strip.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => {
+        strip.querySelectorAll('[data-lang]').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        onSwitch(b.getAttribute('data-lang'));
+      }));
+    }
+    function openEventDrawer(id) {
+      const e = id ? (EVENTS.find(x => x.id === id) || {}) : {};
+      const i18n = JSON.parse(JSON.stringify(e.i18n || {}));   // working copy of translations
+      let curLang = 'en';
+      const regionOpts = BBI.regions.map(r => `<option value="${r.key}" ${e.region === r.key ? 'selected' : ''}>${esc(r.name)}</option>`).join('');
+      $('drawer-body').innerHTML = `
+        <h2 style="margin-bottom:14px">${id ? 'Edit event' : 'New event'}</h2>
+        <form id="e-form" class="form">
+          ${langStrip('event')}
+          <p class="muted" id="e-langnote" style="margin:-4px 0 10px;font-size:.82rem"></p>
+          <label>Title<input id="e-title" /></label>
+          <label>Description<textarea id="e-desc" rows="3"></textarea></label>
+          <label>Location<input id="e-loc" /></label>
+          <div class="grid cols-3 lang-en-only">
+            <label>Day<input name="d" value="${escAttr(e.d || '')}" placeholder="e.g. 22" /></label>
+            <label>Month<input name="m" value="${escAttr(e.m || '')}" placeholder="e.g. Jan" /></label>
+            <label>Year<input name="y" value="${escAttr(e.y || '')}" placeholder="e.g. 2026" /></label>
+          </div>
+          <div class="grid cols-2 lang-en-only">
+            <label>Region<select name="region"><option value="">—</option>${regionOpts}</select></label>
+            <label>Type<input name="type" value="${escAttr(e.type || '')}" placeholder="Conference / Training / Workshop / Summit" /></label>
+          </div>
+          <div class="grid cols-2 lang-en-only">
+            <label>Category<input name="category" value="${escAttr(e.category || '')}" placeholder="Optional grouping" /></label>
+            <label>Capacity<input name="capacity" type="number" min="0" value="${escAttr(e.capacity != null ? e.capacity : '')}" placeholder="Optional" /></label>
+          </div>
+          <label class="chk-row lang-en-only"><input type="checkbox" name="reg" ${e.reg ? 'checked' : ''} /> Registration open</label>
+          <button class="btn btn-primary" type="submit">Save event</button>
+          <div id="e-msg" class="notice hidden"></div>
+        </form>`;
+      showDrawer();
+
+      const tEl = $('e-title'), dEl = $('e-desc'), lEl = $('e-loc'), note = $('e-langnote');
+      function valuesFor(lang) {
+        if (lang === 'en') return { title: e.title || '', desc: e.desc || '', loc: e.loc || '' };
+        const tr = i18n[lang] || {};
+        return { title: tr.title || '', desc: tr.desc || '', loc: tr.loc || '' };
+      }
+      function loadLang(lang) {
+        const v = valuesFor(lang);
+        tEl.value = v.title; dEl.value = v.desc; lEl.value = v.loc;
+        const en = lang === 'en';
+        tEl.placeholder = en ? '' : (e.title || '') + ' (English fallback)';
+        dEl.placeholder = en ? '' : (e.desc || '') + (e.desc ? ' (English fallback)' : '');
+        lEl.placeholder = en ? '' : (e.loc || '') + (e.loc ? ' (English fallback)' : '');
+        note.textContent = en
+          ? 'English is the base. Date, region, type, etc. are shared across languages.'
+          : `Translating ${lang.toUpperCase()} — leave a field blank to fall back to the English text.`;
+        document.querySelectorAll('#e-form .lang-en-only').forEach(x => x.style.display = en ? '' : 'none');
+      }
+      function stash(lang) {
+        const title = tEl.value, desc = dEl.value, loc = lEl.value;
+        if (lang === 'en') { e.title = title; e.desc = desc; e.loc = loc; }
+        else { i18n[lang] = { title, desc, loc }; }
+      }
+      loadLang('en');
+      wireLangStrip('event', (lang) => { stash(curLang); curLang = lang; loadLang(lang); });
+
+      $('e-form').addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        stash(curLang);
+        const f = ev.target, m = $('e-msg');
+        if (!(e.title || '').trim()) {
+          curLang = 'en'; const strip = document.querySelector('[data-langstrip="event"]');
+          strip.querySelectorAll('[data-lang]').forEach(x => x.classList.toggle('active', x.getAttribute('data-lang') === 'en'));
+          loadLang('en');
+          m.textContent = 'Please enter the English title.'; m.style.background = '#fff8e8'; m.classList.remove('hidden'); return;
+        }
+        // strip empty translation maps so we don't store noise
+        Object.keys(i18n).forEach(k => {
+          const v = i18n[k] || {};
+          if (!((v.title || '').trim() || (v.desc || '').trim() || (v.loc || '').trim())) delete i18n[k];
+        });
+        const cap = parseInt(f.capacity.value, 10);
+        const obj = {
+          id: id || undefined, kind: 'event',
+          title: e.title.trim(), desc: (e.desc || '').trim(), loc: (e.loc || '').trim(),
+          d: f.d.value.trim(), m: f.m.value.trim(), y: f.y.value.trim(),
+          region: f.region.value, type: f.type.value.trim(), category: f.category.value.trim(),
+          reg: f.reg.checked, capacity: isNaN(cap) ? null : cap,
+          i18n: i18n
+        };
+        if (e.order != null) obj.order = e.order;
+        try { await A.saveOffering(obj); BBIOfferings._cache = null; closeDrawer(); await loadEvents(); }
+        catch (err) { m.textContent = 'Could not save: ' + (err.message || err); m.style.background = '#fff8e8'; m.classList.remove('hidden'); }
+      });
+    }
+
+    // ---- Event sign-ups (registrations for events / courses / activities) ----
+    let EREGS = [];
+    async function loadEventRegs() {
+      try { EREGS = await A.allRegistrations(); }
+      catch (e) { $('rrows').innerHTML = `<div class="notice">Could not load sign-ups: ${e.message || e}</div>`; return; }
+      // populate the status filter once from the data + common statuses
+      const sel = $('r-status');
+      if (sel.options.length <= 1) {
+        const statuses = [...new Set(['registered', 'waitlisted', 'attended', 'cancelled'].concat(EREGS.map(r => r.status).filter(Boolean)))];
+        statuses.forEach(s => sel.add(new Option(s.charAt(0).toUpperCase() + s.slice(1), s)));
+      }
+      renderEventRegs();
+    }
+    function regName(r) { return r.name || r.fullName || (r.profile && r.profile.name) || '—'; }
+    function regTitle(r) { return r.offeringTitle || r.title || r.eventTitle || r.offering || r.offeringId || '—'; }
+    function regKind(r) { return r.kind || r.offeringKind || 'event'; }
+    function filteredRegs() {
+      const term = ($('rq').value || '').toLowerCase().trim();
+      const st = $('r-status').value;
+      return EREGS.filter(r => {
+        if (st && r.status !== st) return false;
+        if (term && !(`${regName(r)} ${r.email || ''} ${regTitle(r)}`.toLowerCase().includes(term))) return false;
+        return true;
+      });
+    }
+    function renderEventRegs() {
+      const list = filteredRegs();
+      $('rcount').textContent = `${list.length} of ${EREGS.length}`;
+      $('rrows').innerHTML = list.length ? `
+        <div class="table-wrap"><table class="adm-table">
+          <thead><tr><th>Registrant</th><th>Email</th><th>Offering</th><th>Kind</th><th>Status</th><th>Date</th><th></th></tr></thead>
+          <tbody>${list.map(regRow).join('')}</tbody>
+        </table></div>` : `<div class="card center muted">No sign-ups match.</div>`;
+      $('rrows').querySelectorAll('[data-rstatus]').forEach(sel => sel.addEventListener('change', () => changeRegStatus(sel.getAttribute('data-rstatus'), sel.value)));
+      $('rrows').querySelectorAll('[data-rdel]').forEach(b => b.addEventListener('click', () => removeReg(b.getAttribute('data-rdel'))));
+    }
+    function regRow(r) {
+      const statusOpts = [...new Set(['registered', 'waitlisted', 'attended', 'cancelled'].concat(r.status ? [r.status] : []))]
+        .map(s => `<option value="${esc(s)}" ${r.status === s ? 'selected' : ''}>${esc(s.charAt(0).toUpperCase() + s.slice(1))}</option>`).join('');
+      return `<tr>
+        <td><strong>${esc(regName(r))}</strong></td>
+        <td>${esc(r.email || '')}</td>
+        <td>${esc(regTitle(r))}</td>
+        <td>${esc(regKind(r))}</td>
+        <td><select class="reg-status" data-rstatus="${esc(r.id)}" style="padding:6px 8px;font:inherit;border:1px solid var(--line);border-radius:8px">${statusOpts}</select></td>
+        <td>${BBI.fmtDate(r.createdAt)}</td>
+        <td><button class="btn btn-outline" style="padding:6px 10px;color:#c0392b" data-rdel="${esc(r.id)}">Delete</button></td>
+      </tr>`;
+    }
+    async function changeRegStatus(id, status) {
+      try {
+        await A.setRegStatus(id, status);
+        const r = EREGS.find(x => x.id === id); if (r) r.status = status;
+      } catch (e) { alert('Could not update: ' + (e.message || e)); }
+    }
+    async function removeReg(id) {
+      const r = EREGS.find(x => x.id === id);
+      if (!confirm(`Delete the sign-up from ${r ? regName(r) : 'this person'}? This cannot be undone.`)) return;
+      try { await A.deleteRegistration(id); EREGS = EREGS.filter(x => x.id !== id); renderEventRegs(); }
+      catch (e) { alert('Could not delete: ' + (e.message || e)); }
+    }
+    function exportRegsCSV() {
+      const head = ['name', 'email', 'offering', 'kind', 'status', 'date'].join(',');
+      const rows = filteredRegs().map(r => [
+        csv(regName(r)), csv(r.email), csv(regTitle(r)), csv(regKind(r)), csv(r.status), csv(BBI.fmtDate(r.createdAt))
+      ].join(','));
+      const blob = new Blob([head + '\n' + rows.join('\n')], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = 'bbi-event-signups.csv'; link.click();
+      URL.revokeObjectURL(url);
     }
 
     // ---- Directory editor ----
@@ -246,29 +488,64 @@
       });
     }
 
-    // ---- Home page editor ----
-    let HOME = null;
+    // ---- Home page editor (per-language) ----
+    let HOME = null, homeLang = 'en';
+    function normHome(h) {
+      h.stats = h.stats || [];
+      while (h.stats.length < 4) h.stats.push({ num: 0, suffix: '', label: '', sub: '' });
+      return h;
+    }
     async function loadHome() {
       try { HOME = await A.getSetting('home'); } catch (e) { HOME = null; }
       if (!HOME) HOME = JSON.parse(JSON.stringify(BBI.home));
-      HOME.stats = HOME.stats || [];
-      while (HOME.stats.length < 4) HOME.stats.push({ num: 0, suffix: '', label: '', sub: '' });
+      HOME.__i18n = HOME.__i18n || {};
+      normHome(HOME);
+      homeLang = 'en';
       renderHomeEditor();
     }
+    // The editable object for the active language: base fields for English,
+    // else a per-language clone under HOME.__i18n[lang] (seeded from the base so
+    // numbers/symbols carry over and the public override is self-contained).
+    function homeView() {
+      if (homeLang === 'en') return HOME;
+      if (!HOME.__i18n[homeLang]) {
+        HOME.__i18n[homeLang] = JSON.parse(JSON.stringify({ heroTitle: '', heroLead: '', stats: HOME.stats }));
+        HOME.__i18n[homeLang].stats.forEach(s => { s.label = ''; s.sub = ''; });
+      }
+      return normHome(HOME.__i18n[homeLang]);
+    }
+    function homeSync() {
+      const v = homeView();
+      const ti = $('h-title'), le = $('h-lead');
+      if (ti) v.heroTitle = ti.value;
+      if (le) v.heroLead = le.value;
+      document.querySelectorAll('#home-editor [data-h]').forEach(inp => {
+        const p = inp.getAttribute('data-h').split('.');
+        let val = inp.value;
+        if (p[1] === 'num') val = parseFloat(val) || 0;
+        v.stats[p[0]][p[1]] = val;
+      });
+    }
     function renderHomeEditor() {
+      const v = homeView();
+      const en = homeLang === 'en';
       $('home-editor').innerHTML = `
+        ${langStrip('home')}
+        <p class="muted" style="margin:-4px 0 12px;font-size:.82rem">${en
+          ? 'English is the base content shown to everyone by default.'
+          : `Translating ${homeLang.toUpperCase()} — fill in the headings for this language; numbers/symbols default to the English values.`}</p>
         <div class="card" style="text-align:left;margin-bottom:16px">
           <h3 style="margin-top:0">Hero</h3>
           <label class="form" style="margin:0 0 12px">Title
-            <input id="h-title" value="${escAttr(HOME.heroTitle || '')}" />
+            <input id="h-title" value="${escAttr(v.heroTitle || '')}" />
           </label>
           <label class="form" style="margin:0">Subtitle <span class="muted" style="font-weight:400">(HTML allowed, e.g. &lt;strong&gt;)</span>
-            <textarea id="h-lead" rows="4">${esc(HOME.heroLead || '')}</textarea>
+            <textarea id="h-lead" rows="4">${esc(v.heroLead || '')}</textarea>
           </label>
         </div>
         <div class="card" style="text-align:left;margin-bottom:16px">
           <h3 style="margin-top:0">Headline statistics</h3>
-          ${HOME.stats.slice(0, 4).map((s, i) => `
+          ${v.stats.slice(0, 4).map((s, i) => `
             <div class="ecc-row">
               <input data-h="${i}.num" value="${escAttr(s.num != null ? s.num : '')}" placeholder="Number" style="max-width:110px" />
               <input data-h="${i}.suffix" value="${escAttr(s.suffix || '')}" placeholder="+ / %" style="max-width:80px" />
@@ -282,22 +559,17 @@
           <a class="btn btn-outline" href="index.html" target="_blank" rel="noopener">Preview ↗</a>
           <span id="home-msg" class="muted" style="margin-left:10px"></span>
         </div>`;
+      wireLangStrip('home', (lang) => { homeSync(); homeLang = lang; renderHomeEditor(); });
       $('home-reset').addEventListener('click', () => {
-        HOME = JSON.parse(JSON.stringify(BBI.home));
-        HOME.stats = HOME.stats || [];
-        while (HOME.stats.length < 4) HOME.stats.push({ num: 0, suffix: '', label: '', sub: '' });
+        const keep = HOME.__i18n;
+        HOME = normHome(JSON.parse(JSON.stringify(BBI.home)));
+        HOME.__i18n = keep || {};           // keep existing translations
+        homeLang = 'en';
         renderHomeEditor();
         const m = $('home-msg'); m.textContent = 'Loaded the latest content from code — review, then Save to publish.'; m.style.color = '#0f4f3c';
       });
       $('home-save').addEventListener('click', async () => {
-        HOME.heroTitle = $('h-title').value;
-        HOME.heroLead = $('h-lead').value;
-        document.querySelectorAll('#home-editor [data-h]').forEach(inp => {
-          const p = inp.getAttribute('data-h').split('.');
-          let v = inp.value;
-          if (p[1] === 'num') v = parseFloat(v) || 0;
-          HOME.stats[p[0]][p[1]] = v;
-        });
+        homeSync();
         const m = $('home-msg'); m.textContent = 'Saving…'; m.style.color = '';
         try { await A.saveSetting('home', HOME); m.textContent = 'Saved ✓'; m.style.color = '#0f4f3c'; }
         catch (e) { m.textContent = 'Could not save: ' + (e.message || e); m.style.color = '#c0392b'; }
@@ -312,22 +584,44 @@
       members: [{ f: 'name', ph: 'Name' }, { f: 'role', ph: 'Role / expertise' }, { f: 'country', ph: 'Country / Region' }],
       history: [{ f: 'yr', ph: 'Year' }, { f: 'title', ph: 'Title' }, { f: 'text', ph: 'Description' }]
     };
+    let eccLang = 'en';
+    function normEcc(e) { ['mandate', 'leadership', 'members', 'history'].forEach(k => { e[k] = e[k] || []; }); return e; }
     async function loadEcc() {
       try { ECC = await A.getSetting('ecc'); } catch (e) { ECC = null; }
       if (!ECC) ECC = JSON.parse(JSON.stringify(BBI.ecc));
-      ['mandate', 'leadership', 'members', 'history'].forEach(k => { ECC[k] = ECC[k] || []; });
+      ECC.__i18n = ECC.__i18n || {};
+      normEcc(ECC);
+      eccLang = 'en';
       renderEcc();
     }
+    // The editable ECC object for the active language: base for English, else a
+    // per-language clone under ECC.__i18n[lang] seeded from the base structure
+    // (so the row layout matches and the public override is self-contained).
+    function eccView() {
+      if (eccLang === 'en') return ECC;
+      if (!ECC.__i18n[eccLang]) {
+        const clone = JSON.parse(JSON.stringify({ about: '', mandate: ECC.mandate, leadership: ECC.leadership, members: ECC.members, history: ECC.history }));
+        // blank the translatable text fields, keep structural/shared fields
+        clone.mandate.forEach(x => { x.title = ''; x.text = ''; });
+        clone.leadership.forEach(x => { x.role = ''; x.country = ''; });
+        clone.members.forEach(x => { x.role = ''; x.country = ''; });
+        clone.history.forEach(x => { x.title = ''; x.text = ''; });
+        ECC.__i18n[eccLang] = clone;
+      }
+      return normEcc(ECC.__i18n[eccLang]);
+    }
     function eccSync() {
-      const ab = $('ecc-about'); if (ab) ECC.about = ab.value;
+      const E = eccView();
+      const ab = $('ecc-about'); if (ab) E.about = ab.value;
       document.querySelectorAll('#ecc-editor [data-ecc]').forEach(inp => {
         const p = inp.getAttribute('data-ecc').split('.');
-        if (ECC[p[0]] && ECC[p[0]][p[1]]) ECC[p[0]][p[1]][p[2]] = inp.value;
+        if (E[p[0]] && E[p[0]][p[1]]) E[p[0]][p[1]][p[2]] = inp.value;
       });
     }
     function eccList(list, label) {
       const cols = ECC_COLS[list];
-      const rows = ECC[list].map((it, i) => `
+      const E = eccView();
+      const rows = E[list].map((it, i) => `
         <div class="ecc-row">
           ${cols.map(c => `<input data-ecc="${list}.${i}.${c.f}" value="${escAttr(it[c.f] || '')}" placeholder="${c.ph}" />`).join('')}
           <button type="button" class="btn btn-outline ecc-x" data-eccdel="${list}.${i}">×</button>
@@ -339,10 +633,16 @@
       </div>`;
     }
     function renderEcc() {
+      const E = eccView();
+      const en = eccLang === 'en';
       $('ecc-editor').innerHTML = `
+        ${langStrip('ecc')}
+        <p class="muted" style="margin:-4px 0 12px;font-size:.82rem">${en
+          ? 'English is the base content shown to everyone by default.'
+          : `Translating ${eccLang.toUpperCase()} — fill in the text for this language; rows mirror the English structure.`}</p>
         <div class="card" style="text-align:left;margin-bottom:16px">
           <h3 style="margin-top:0">About</h3>
-          <textarea id="ecc-about" rows="4" style="width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px">${esc(ECC.about || '')}</textarea>
+          <textarea id="ecc-about" rows="4" style="width:100%;font:inherit;padding:10px;border:1px solid var(--line);border-radius:8px">${esc(E.about || '')}</textarea>
         </div>
         ${eccList('mandate', 'Mandate')}
         ${eccList('leadership', 'Leadership')}
@@ -354,15 +654,18 @@
           <a class="btn btn-outline" href="ecc.html" target="_blank" rel="noopener">Preview page ↗</a>
           <span id="ecc-msg" class="muted" style="margin-left:10px"></span>
         </div>`;
+      wireLangStrip('ecc', (lang) => { eccSync(); eccLang = lang; renderEcc(); });
       $('ecc-editor').querySelectorAll('[data-eccadd]').forEach(b => b.addEventListener('click', () => {
-        eccSync(); ECC[b.getAttribute('data-eccadd')].push({}); renderEcc();
+        eccSync(); eccView()[b.getAttribute('data-eccadd')].push({}); renderEcc();
       }));
       $('ecc-editor').querySelectorAll('[data-eccdel]').forEach(b => b.addEventListener('click', () => {
-        eccSync(); const p = b.getAttribute('data-eccdel').split('.'); ECC[p[0]].splice(p[1], 1); renderEcc();
+        eccSync(); const p = b.getAttribute('data-eccdel').split('.'); eccView()[p[0]].splice(p[1], 1); renderEcc();
       }));
       $('ecc-reset').addEventListener('click', () => {
-        ECC = JSON.parse(JSON.stringify(BBI.ecc));
-        ['mandate', 'leadership', 'members', 'history'].forEach(k => { ECC[k] = ECC[k] || []; });
+        const keep = ECC.__i18n;
+        ECC = normEcc(JSON.parse(JSON.stringify(BBI.ecc)));
+        ECC.__i18n = keep || {};            // keep existing translations
+        eccLang = 'en';
         renderEcc();
         const m = $('ecc-msg'); m.textContent = 'Loaded the latest content from code — review, then Save to publish.'; m.style.color = '#0f4f3c';
       });

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title data-i18n="event.meta.title">Event · BBI Africa</title>
+  <meta name="description" data-i18n-attr="content=event.meta.desc" content="Event details and registration for biosafety and biosecurity offerings across Africa." />
+  <meta name="theme-color" content="#0b3d2e" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app-header"></div>
+  <main id="event-main"></main>
+  <div id="app-footer"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/offerings.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="lang/en.js"></script>
+  <script>BBI.i18n.loadActive();</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tt = (k, d) => (window.BBI && BBI.t ? BBI.t(k, d) : d);
+      const H = BBI.helpers;
+      const A = window.BBIAuth;
+      const id = new URLSearchParams(location.search).get('id');
+      const main = document.getElementById('event-main');
+
+      const esc = (s) => String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+      function notFound() {
+        document.title = tt('event.notFound.metaTitle', 'Event not found · BBI Africa');
+        main.innerHTML = `
+          <section class="page-head"><div class="container">
+            <div class="breadcrumb"><a href="index.html">${tt('common.home', 'Home')}</a> / <a href="events.html">${tt('nav.events', 'Events')}</a> / ${tt('event.crumb.notFound', 'Not found')}</div>
+            <h1>${tt('event.notFound.title', 'Event not found')}</h1>
+            <p>${tt('event.notFound.text', 'We couldn’t find that event.')}</p>
+          </div></section>
+          <section class="section"><div class="container">
+            <a class="btn btn-outline" href="events.html">${tt('event.backToEvents', '← Back to events')}</a>
+          </div></section>`;
+      }
+
+      // ---- Registration card states ----
+      function regClosedHtml() {
+        return `<div class="card"><div class="muted">⏳ ${tt('event.regClosed', 'Registration opening soon')}</div></div>`;
+      }
+      function signInHtml() {
+        return `<div class="card">
+          <p style="margin:0 0 12px">${tt('event.signInToRegister', 'Sign in to register')}</p>
+          <a class="btn btn-primary" href="login.html?next=${encodeURIComponent('event.html?id=' + (id || ''))}">${tt('common.signInCreate', 'Sign in / create account')}</a>
+        </div>`;
+      }
+      function registeredHtml(already) {
+        return `<div class="card" style="background:#e3f2ec;border-color:#bcdfcd">
+          <p style="margin:0 0 12px"><strong>${already ? tt('event.already', 'You’re already registered for this event ✓') : tt('event.registeredOk', 'You’re registered ✓')}</strong></p>
+          <a class="btn btn-outline" href="account.html">${tt('event.viewMyRegistrations', 'View my registrations →')}</a>
+        </div>`;
+      }
+      function registerHtml() {
+        return `<div class="card">
+          <button class="btn btn-primary" id="reg-btn">${tt('event.registerBtn', 'Register')}</button>
+          <div id="reg-msg" class="notice hidden" style="margin-top:12px"></div>
+        </div>`;
+      }
+
+      // Resolve the registration card based on the (async-resolved) auth state.
+      // Renders into #reg-card; re-runs whenever auth state changes.
+      async function refreshRegCard(o, user) {
+        const slot = document.getElementById('reg-card');
+        if (!slot) return;
+        if (o.reg === false) { slot.innerHTML = regClosedHtml(); return; }
+        if (!A || !A.ready || !user) { slot.innerHTML = signInHtml(); return; }
+        try {
+          const mine = await A.myRegistrations();
+          if (mine.some((r) => r.offeringId === id)) { slot.innerHTML = registeredHtml(true); return; }
+        } catch (e) { /* fall through to register button */ }
+        slot.innerHTML = registerHtml();
+        wireRegister(o);
+      }
+
+      function wireRegister(o) {
+        const btn = document.getElementById('reg-btn');
+        if (!btn) return;
+        btn.addEventListener('click', async () => {
+          const msg = document.getElementById('reg-msg');
+          btn.disabled = true;
+          const original = btn.textContent;
+          btn.textContent = tt('event.registering', 'Registering…');
+          msg.classList.add('hidden');
+          try {
+            await A.submitRegistration({
+              offeringId: id,
+              kind: o.kind || 'event',
+              title: o.title,
+              category: o.category || o.type || '',
+              loc: o.loc || ''
+            });
+            document.getElementById('reg-card').innerHTML = registeredHtml(false);
+          } catch (err) {
+            btn.disabled = false;
+            btn.textContent = original;
+            msg.textContent = tt('event.registerError', 'Could not register: ') + (err.message || err);
+            msg.style.background = '#fff8e8';
+            msg.classList.remove('hidden');
+          }
+        });
+      }
+
+      function render(o) {
+        if (!o) { notFound(); return; }
+        document.title = `${o.title} · BBI Africa`;
+        const dateLine = `${BBI.i18n.month(o.m)} ${o.d}, ${o.y}`;
+
+        main.innerHTML = `
+          <section class="page-head">
+            <div class="container">
+              <div class="breadcrumb"><a href="index.html">${tt('common.home', 'Home')}</a> / <a href="events.html">${tt('nav.events', 'Events')}</a> / ${esc(o.title)}</div>
+              <h1>${esc(o.title)}</h1>
+              <p style="margin:8px 0 0;color:#bfe0d3;font-size:.95rem">📅 ${dateLine}${o.loc ? ' · 📍 ' + esc(o.loc) : ''}</p>
+              <div style="margin-top:10px">
+                ${o.region ? `<span class="tag">${esc(H.regionName(o.region))}</span> ` : ''}
+                ${o.type ? `<span class="tag gold">${esc(o.type)}</span>` : ''}
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="container" style="max-width:860px">
+              <div class="grid cols-2" style="gap:24px;align-items:start">
+                <div>
+                  <h2>${tt('event.about.title', 'About this event')}</h2>
+                  <p class="muted">${esc(o.desc || '')}</p>
+                </div>
+                <div>
+                  <h2>${tt('event.registration.title', 'Registration')}</h2>
+                  <div id="reg-card"><div class="card"><div class="muted">${tt('event.loading', 'Loading…')}</div></div></div>
+                </div>
+              </div>
+              <div style="margin-top:30px">
+                <a class="btn btn-outline" href="events.html">${tt('event.backToEvents', '← Back to events')}</a>
+              </div>
+            </div>
+          </section>`;
+
+        // Resolve the registration card against the real auth state. onAuth fires
+        // immediately with the current state and again once Firebase resolves.
+        if (A && A.ready) { A.onAuth((user) => refreshRegCard(o, user)); }
+        else { refreshRegCard(o, null); }
+      }
+
+      if (!id) { notFound(); return; }
+      try {
+        const o = await BBIOfferings.get(id);
+        render(o);
+      } catch (e) {
+        notFound();
+      }
+    });
+  </script>
+</body>
+</html>

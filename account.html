@@ -55,6 +55,7 @@
 
         <div class="tabs" style="max-width:540px;margin-inline:auto">
           <button class="tab active" data-ptab="apps" data-i18n="account.tabs.applications">My applications</button>
+          <button class="tab" data-ptab="regs" data-i18n="account.tabs.registrations">My registrations</button>
           <button class="tab" data-ptab="profile" data-i18n="account.tabs.profile">Profile</button>
           <button class="tab" data-ptab="settings" data-i18n="account.tabs.settings">Settings</button>
         </div>
@@ -62,6 +63,10 @@
         <section id="ptab-apps">
           <a class="btn btn-primary" href="apply.html" id="new-app" data-i18n="account.newApplication">+ New application</a>
           <div id="apps" style="margin-top:16px"></div>
+        </section>
+
+        <section id="ptab-regs" class="hidden">
+          <div id="regs" style="margin-top:16px"></div>
         </section>
 
         <section id="ptab-profile" class="hidden">
@@ -112,6 +117,7 @@
   <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/offerings.js"></script>
   <script src="js/app.js"></script>
   <script src="js/i18n.js"></script>
   <script src="lang/en.js"></script>
@@ -152,14 +158,66 @@
         $('apps').innerHTML = apps.length
           ? apps.map(BBI.renderAppCard).join('')
           : `<div class="card center muted">${approved ? BBI.t('account.apps.empty','No applications yet. <a href="apply.html">Start one →</a>') : BBI.t('account.apps.notApproved','You can apply once your account is approved.')}</div>`;
+
+        await loadRegistrations();
       });
+
+      // My registrations
+      const KIND_LABEL = {
+        event: () => BBI.t('account.reg.kind.event', 'Event'),
+        course: () => BBI.t('account.reg.kind.course', 'Course'),
+        activity: () => BBI.t('account.reg.kind.activity', 'Activity')
+      };
+      const REG_STATUS_LABEL = {
+        registered: () => BBI.t('account.reg.status.registered', 'Registered'),
+        confirmed: () => BBI.t('account.reg.status.confirmed', 'Confirmed'),
+        waitlisted: () => BBI.t('account.reg.status.waitlisted', 'Waitlisted'),
+        cancelled: () => BBI.t('account.reg.status.cancelled', 'Cancelled')
+      };
+      function regKindLabel(k) { return (KIND_LABEL[k] || (() => k || BBI.t('account.reg.kind.event', 'Event')))(); }
+      function regStatusLabel(s) { return (REG_STATUS_LABEL[s] || (() => s || ''))(); }
+      function renderRegCard(r) {
+        const title = r.title || r.offeringTitle || BBI.t('account.reg.untitled', 'Registration');
+        const kind = r.kind || 'event';
+        const dateLine = (r.d != null && r.m != null)
+          ? `${r.d} ${BBI.i18n.month(r.m)}${r.y ? ' ' + r.y : ''}`
+          : '';
+        return `<div class="card" style="margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">
+            <span class="tag">${regKindLabel(kind)}</span>
+            <strong>${title}</strong>
+            <span class="muted" style="margin-left:auto;font-size:.82rem">${BBI.fmtDate(r.createdAt)}</span>
+          </div>
+          <div class="muted" style="font-size:.9rem">
+            <span>${BBI.t('account.reg.statusLabel', 'Status:')} ${regStatusLabel(r.status)}</span>${dateLine ? ' · <span>' + dateLine + '</span>' : ''}
+          </div>
+        </div>`;
+      }
+      async function loadRegistrations() {
+        const box = $('regs');
+        if (!box) return;
+        box.innerHTML = `<div class="card center muted">${BBI.t('account.reg.loading', 'Loading…')}</div>`;
+        let regs = [];
+        try { regs = await A.myRegistrations(); } catch (e) { regs = []; }
+        if (!regs.length) {
+          box.innerHTML = `<div class="card center muted">${BBI.t('account.reg.empty', 'No registrations yet.')} <a href="events.html">${BBI.t('account.reg.browse', 'Browse events →')}</a></div>`;
+          return;
+        }
+        // Fill in missing offering titles from the offerings catalogue when only an id is stored.
+        await Promise.all(regs.map(async (r) => {
+          if (!r.title && !r.offeringTitle && r.offeringId && window.BBIOfferings) {
+            try { const o = await BBIOfferings.get(r.offeringId); if (o) { r.title = o.title; r.kind = r.kind || o.kind; } } catch (e) {}
+          }
+        }));
+        box.innerHTML = regs.map(renderRegCard).join('');
+      }
 
       // Tabs
       document.querySelectorAll('[data-ptab]').forEach(t => t.addEventListener('click', () => {
         document.querySelectorAll('[data-ptab]').forEach(x => x.classList.remove('active'));
         t.classList.add('active');
         const which = t.getAttribute('data-ptab');
-        ['apps', 'profile', 'settings'].forEach(k => $('ptab-' + k).classList.toggle('hidden', k !== which));
+        ['apps', 'regs', 'profile', 'settings'].forEach(k => $('ptab-' + k).classList.toggle('hidden', k !== which));
       }));
 
       // Biography word counter (recommended up to 150 words)
