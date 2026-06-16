@@ -57,3 +57,10 @@ window.BBI_FIREBASE_READY =
 // empty answer, the widget silently falls back to on-device retrieval. See
 // backend/README.md for the deployment + key setup.
 window.BBI_AI_ENDPOINT = "https://ebc.drtemesgen.com/chat.php";
+
+// BBI server mail relay (cPanel @ ebc.drtemesgen.com). Public-facing forms
+// (TWG expression of interest, mentorship requests, etc.) POST JSON
+// { subject, message, replyTo?, name?, formType?, hp? } here and it sends the
+// email to the BBI team — no EmailJS / mailto needed. See js/notify.js
+// (BBIMail.send) for the client side. Leave blank to disable.
+window.BBI_MAIL_ENDPOINT = "https://ebc.drtemesgen.com/mail.php";

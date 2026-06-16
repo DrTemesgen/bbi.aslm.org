@@ -39,7 +39,7 @@
       <div class="card" id="join" style="max-width:760px;margin:0 auto">
         <div class="eyebrow" data-i18n="mentorship.join.eyebrow">Join the programme</div>
         <h2 style="margin-top:4px" data-i18n="mentorship.join.title">Request a mentor or become one</h2>
-        <p class="muted" data-i18n="mentorship.join.intro">Complete the form and your email app will open with the details ready to send to the programme team.</p>
+        <p class="muted" data-i18n="mentorship.join.intro">Complete the form and we’ll forward your request to the BBI programme team.</p>
         <form id="mentor-form" class="form">
           <div class="grid cols-2">
             <label><span data-i18n="mentorship.form.fullName">Full name</span><input name="name" required /></label>
@@ -65,6 +65,8 @@
   </main>
 
   <div id="app-footer"></div>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/notify.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/i18n.js"></script>
@@ -90,12 +92,44 @@
       BBI.certTypes.forEach(c => area.add(new Option(c.name, c.name)));
       area.add(new Option(BBI.t('mentorship.form.areaGeneral', 'General / not sure'), 'General'));
 
-      document.getElementById('mentor-form').addEventListener('submit', (e) => {
+      const form = document.getElementById('mentor-form');
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const f = e.target;
         const subject = `BBI Mentorship — ${f.role.value} (${f.area.value})`;
         const body = `Name: ${f.name.value}\nEmail: ${f.email.value}\nCountry: ${f.country.value}\nRequest: ${f.role.value}\nArea of interest: ${f.area.value}\n\n${f.message.value}`;
-        window.location.href = `mailto:academy@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoHref = `mailto:academy@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        const btn = f.querySelector('button[type="submit"]');
+        const btnLabel = btn ? btn.textContent : '';
+        if (btn) { btn.disabled = true; btn.textContent = BBI.t('mentorship.form.sending', 'Sending…'); }
+
+        const ok = await (window.BBIMail ? BBIMail.send({
+          subject: subject,
+          message: body,
+          replyTo: f.email.value,
+          name: f.name.value,
+          formType: 'Mentorship request'
+        }) : Promise.resolve(false));
+
+        if (ok) {
+          const card = document.getElementById('join');
+          card.innerHTML = `<div class="eyebrow">${BBI.t('mentorship.join.eyebrow', 'Join the programme')}</div>
+            <h2 style="margin-top:4px">${BBI.t('mentorship.form.thanksTitle', 'Thank you')}</h2>
+            <p class="muted">${BBI.t('mentorship.form.thanks', 'Thanks — your message has been sent to the BBI team.')}</p>`;
+        } else {
+          if (btn) { btn.disabled = false; btn.textContent = btnLabel; }
+          let notice = document.getElementById('mentor-error');
+          if (!notice) {
+            notice = document.createElement('p');
+            notice.id = 'mentor-error';
+            notice.className = 'muted';
+            notice.style.color = '#b3261e';
+            notice.style.marginTop = '12px';
+            form.appendChild(notice);
+          }
+          notice.innerHTML = `${BBI.t('mentorship.form.sendError', 'Sorry — we couldn’t send your message just now.')} <a href="${mailtoHref}">${BBI.t('mentorship.form.emailInstead', 'Email us instead')}</a>`;
+        }
       });
     });
   </script>

@@ -251,6 +251,39 @@ to local retrieval — so a "working" widget is **not** proof; check Network.)
 
 ---
 
+## Contact mail endpoint (`mail.php`)
+
+`mail.php` powers the site's contact forms (National TWG interest, mentorship
+requests) and the admin alerts — they POST to it and it emails **academy@aslm.org**
+through the server (no `mailto`, no EmailJS). It reuses chat.php's CORS + rate-limit
+hardening and is injection/relay-proof: the recipient is fixed server-side, every
+header value is CR/LF-sanitised, there's a honeypot, and Reply-To is a validated
+submitter address.
+
+**Deploy** (same docroot as chat.php — one line, no extra setup):
+
+```bash
+wget -qO /home/<cpanel-user>/ebc.drtemesgen.com/mail.php https://raw.githubusercontent.com/DrTemesgen/bbi.aslm.org/main/backend/mail.php
+```
+
+Config constants at the top of `mail.php`: `MAIL_TO` (recipient, default
+`academy@aslm.org`) and `MAIL_FROM_EMAIL` (a domain address so SPF passes — for
+best deliverability create `noreply@drtemesgen.com` in cPanel → **Email Accounts**,
+or change it to an existing mailbox). The front-end is already wired via
+`window.BBI_MAIL_ENDPOINT` in `js/firebase-config.js`.
+
+**Test:**
+
+```bash
+curl -s https://ebc.drtemesgen.com/mail.php -H 'Content-Type: application/json' \
+  -H 'Origin: https://drtemesgen.github.io' \
+  -d '{"subject":"BBI test","message":"hello from curl","replyTo":"you@example.com"}'; echo
+```
+
+Expect `{"ok":true}` and an email arriving at academy@aslm.org. If you get
+`{"ok":false,"error":"send failed"}`, the server's `mail()` is disabled or the
+From domain isn't deliverable — create/verify `noreply@drtemesgen.com`.
+
 ## Switching to Claude later
 
 `chat.php` has a `PROVIDER` switch. Set `PROVIDER = 'claude'`, supply

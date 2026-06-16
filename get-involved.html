@@ -28,7 +28,7 @@
       <div class="card" id="join" style="max-width:760px;margin:0 auto">
         <div class="eyebrow" data-i18n="getInvolved.join.eyebrow">National Technical Working Group</div>
         <h2 style="margin-top:4px" data-i18n="getInvolved.join.title">Express interest in joining a National TWG</h2>
-        <p class="muted" data-i18n="getInvolved.join.intro">Tell us about yourself and your country’s biosafety and biosecurity work. Your email app will open with the details ready to send.</p>
+        <p class="muted" data-i18n="getInvolved.join.intro">Tell us about yourself and your country’s biosafety and biosecurity work, and we’ll forward your details to the BBI team.</p>
         <form id="join-form" class="form">
           <div class="grid cols-2">
             <label><span data-i18n="getInvolved.form.fullName">Full name</span><input name="name" required /></label>
@@ -56,6 +56,8 @@
   </main>
 
   <div id="app-footer"></div>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/notify.js"></script>
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
   <script src="js/i18n.js"></script>
@@ -70,12 +72,44 @@
           <a class="btn btn-outline" href="${g.href}">${g.cta} →</a>
         </div>`).join('');
 
-      document.getElementById('join-form').addEventListener('submit', (e) => {
+      const form = document.getElementById('join-form');
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const f = e.target;
         const subject = `BBI National TWG — expression of interest (${f.country.value})`;
         const body = `Name: ${f.name.value}\nEmail: ${f.email.value}\nOrganisation: ${f.org.value}\nCountry: ${f.country.value}\nSector: ${f.sector.value}\n\n${f.message.value}`;
-        window.location.href = `mailto:academy@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailtoHref = `mailto:academy@aslm.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        const btn = f.querySelector('button[type="submit"]');
+        const btnLabel = btn ? btn.textContent : '';
+        if (btn) { btn.disabled = true; btn.textContent = BBI.t('getInvolved.form.sending', 'Sending…'); }
+
+        const ok = await (window.BBIMail ? BBIMail.send({
+          subject: subject,
+          message: body,
+          replyTo: f.email.value,
+          name: f.name.value,
+          formType: 'TWG interest'
+        }) : Promise.resolve(false));
+
+        if (ok) {
+          const card = document.getElementById('join');
+          card.innerHTML = `<div class="eyebrow" data-i18n="getInvolved.join.eyebrow">${BBI.t('getInvolved.join.eyebrow', 'National Technical Working Group')}</div>
+            <h2 style="margin-top:4px">${BBI.t('getInvolved.form.thanksTitle', 'Thank you')}</h2>
+            <p class="muted">${BBI.t('getInvolved.form.thanks', 'Thanks — your message has been sent to the BBI team.')}</p>`;
+        } else {
+          if (btn) { btn.disabled = false; btn.textContent = btnLabel; }
+          let notice = document.getElementById('join-error');
+          if (!notice) {
+            notice = document.createElement('p');
+            notice.id = 'join-error';
+            notice.className = 'muted';
+            notice.style.color = '#b3261e';
+            notice.style.marginTop = '12px';
+            form.appendChild(notice);
+          }
+          notice.innerHTML = `${BBI.t('getInvolved.form.sendError', 'Sorry — we couldn’t send your message just now.')} <a href="${mailtoHref}">${BBI.t('getInvolved.form.emailInstead', 'Email us instead')}</a>`;
+        }
       });
     });
   </script>
