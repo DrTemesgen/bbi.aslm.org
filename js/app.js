@@ -1,5 +1,66 @@
 /* BBI Africa — shared shell: header, footer, nav, service worker */
 (function () {
+  /* --- Site password gate (client-side; keeps casual visitors out) ---------
+     Runs immediately (this script is at the end of <body>, so document.body
+     exists). CSS in styles.css hides the page until <html>.gate-open is set. */
+  (function gate() {
+    try {
+      const KEY = 'bbi_site_gate';
+      // SHA-256 (hex) of the site password (the plaintext is never stored here).
+      const PASS_HASH = 'bbbc449ff2871aeba9109742ddde05cee297faf0ceb5813ce4459c73ec0cf169';
+
+      if (localStorage.getItem(KEY) === 'ok') {
+        document.documentElement.classList.add('gate-open');
+        return;
+      }
+      const wrap = document.createElement('div');
+      wrap.id = 'bbi-gate';
+      wrap.innerHTML =
+        '<form class="gate-card" autocomplete="off">' +
+          '<svg class="gate-logo" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+            '<path d="M12 2 4 5v6c0 5 3.4 8.3 8 11 4.6-2.7 8-6 8-11V5l-8-3Z" fill="#0f4f3c"/>' +
+            '<path d="M12 2 4 5v6c0 5 3.4 8.3 8 11 4.6-2.7 8-6 8-11V5l-8-3Z" stroke="#e0a92e" stroke-width="1.1"/>' +
+            '<path d="M9.4 12.2l1.9 1.9 3.5-3.7" stroke="#e0a92e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>' +
+          '<h1>Private site</h1>' +
+          '<p>Enter the password to continue.</p>' +
+          '<input type="password" id="bbi-gate-pw" placeholder="Password" aria-label="Password" autocomplete="off">' +
+          '<button type="submit">Enter</button>' +
+          '<div class="gate-err" id="bbi-gate-err" role="alert"></div>' +
+        '</form>';
+      document.body.appendChild(wrap);
+      const form = wrap.querySelector('form');
+      const input = wrap.querySelector('#bbi-gate-pw');
+      const errEl = wrap.querySelector('#bbi-gate-err');
+      input.focus();
+
+      async function sha256Hex(str) {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errEl.textContent = '';
+        try {
+          if (await sha256Hex(input.value) === PASS_HASH) {
+            localStorage.setItem(KEY, 'ok');
+            wrap.remove();
+            document.documentElement.classList.add('gate-open');
+          } else {
+            errEl.textContent = 'Incorrect password';
+            input.value = '';
+            input.focus();
+          }
+        } catch (_) {
+          document.documentElement.classList.add('gate-open'); // failsafe
+        }
+      });
+    } catch (_) {
+      // Never leave the site blank if the gate errors.
+      document.documentElement.classList.add('gate-open');
+    }
+  })();
+
   const PRIMARY = [
     { href: 'index.html', label: 'Home', key: 'nav.home' },
     { href: 'dashboard.html', label: 'Dashboard', key: 'nav.dashboard' },

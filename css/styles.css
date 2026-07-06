@@ -24,6 +24,39 @@
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* --- Site password gate (see js/app.js gate()) ------------------------------
+   Content is hidden by default (from the <head>, so there is no flash) and only
+   revealed once JS adds .gate-open to <html>. A failsafe in app.js also adds
+   .gate-open on any error, so a gate bug can never leave the site blank. */
+html { background: var(--green-900); }
+body { visibility: hidden; }
+html.gate-open body { visibility: visible; }
+#bbi-gate {
+  position: fixed; inset: 0; z-index: 2147483647; visibility: visible;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  background: radial-gradient(1100px 620px at 50% -10%, #12583f, var(--green-900));
+  font-family: var(--font);
+}
+#bbi-gate .gate-card {
+  background: var(--card); color: var(--ink); width: 100%; max-width: 380px;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 30px 26px 24px; text-align: center; border-top: 4px solid var(--gold);
+}
+#bbi-gate .gate-logo { width: 54px; height: 54px; margin: 0 auto 14px; display: block; }
+#bbi-gate h1 { font-size: 20px; margin: 0 0 6px; color: var(--green-900); }
+#bbi-gate p { font-size: 14px; color: var(--muted); margin: 0 0 18px; }
+#bbi-gate input {
+  width: 100%; padding: 12px 14px; font-size: 15px; color: var(--ink);
+  border: 1px solid var(--line); border-radius: var(--radius-sm); outline: none;
+}
+#bbi-gate input:focus { border-color: var(--green-700); }
+#bbi-gate button {
+  width: 100%; margin-top: 12px; padding: 12px 14px; font-size: 15px; font-weight: 600;
+  cursor: pointer; color: #fff; background: var(--green-800); border: 0; border-radius: var(--radius-sm);
+}
+#bbi-gate button:hover { background: var(--green-900); }
+#bbi-gate .gate-err { color: var(--red); font-size: 13px; min-height: 18px; margin-top: 10px; }
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {

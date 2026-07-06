@@ -27,3 +27,6 @@ backend/bbi-secret.php
 *.aab
 *.keystore
 signing-key-info.txt
+
+# BBI exam appliance — private (own nested git repo); never publish on the public site
+BBI LMS/
