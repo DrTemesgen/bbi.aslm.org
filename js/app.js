@@ -22,8 +22,8 @@
             '<path d="M12 2 4 5v6c0 5 3.4 8.3 8 11 4.6-2.7 8-6 8-11V5l-8-3Z" stroke="#e0a92e" stroke-width="1.1"/>' +
             '<path d="M9.4 12.2l1.9 1.9 3.5-3.7" stroke="#e0a92e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>' +
           '</svg>' +
-          '<h1>Private site</h1>' +
-          '<p>Enter the password to continue.</p>' +
+          '<h1>BBI Africa</h1>' +
+          '<p>Biosafety &amp; Biosecurity Initiative &mdash; enter the password to continue.</p>' +
           '<input type="password" id="bbi-gate-pw" placeholder="Password" aria-label="Password" autocomplete="off">' +
           '<button type="submit">Enter</button>' +
           '<div class="gate-err" id="bbi-gate-err" role="alert"></div>' +
