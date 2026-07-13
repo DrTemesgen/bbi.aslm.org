@@ -169,7 +169,7 @@ BBI.i18n.dicts.es = {
     "admin.tab.categories": "Categorías",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Registros",
-    "apply.areas.desc": "La certificación se ofrece en cuatro áreas técnicas, cada una con tres niveles de competencia, a través de dos rutas.",
+    "apply.areas.desc": "La certificación se ofrece en siete áreas técnicas, cada una con tres niveles de competencia, a través de dos rutas.",
     "apply.areas.eyebrow": "Áreas de certificación",
     "apply.areas.title": "Elige tu área y nivel",
     "apply.disclaimer": "ℹ️ Esta expresión de interés dentro de la aplicación se registra en el sistema BBI. El programa formal es administrado por Africa CDC y ASLM; la evaluación final corresponde al Comité de Examen y Certificación (ECC). Consulta el <a href=\"https://professionals.aslm.org/\" target=\"_blank\" rel=\"noopener\">portal oficial de ASLM</a>.",
@@ -605,6 +605,16 @@ BBI.i18n.dicts.es = {
         "name": "Ciberbioprotección e IA",
         "desc": "Protección de los datos biológicos, los sistemas digitales de laboratorio y las herramientas de IA frente a amenazas cibernéticas y de información.",
         "eligibility": "Formación en TI/ciberseguridad, bioinformática, ciencia de datos o sistemas de información de laboratorio, con experiencia pertinente."
+      },
+      "emc": {
+        "name": "Mantenimiento y calibración de equipos de laboratorio",
+        "desc": "Mantenimiento, calibración y metrología de los equipos de laboratorio para garantizar su fiabilidad y la exactitud de las mediciones.",
+        "eligibility": "Título o diploma en ingeniería, biomédica/instrumentación o tecnología de laboratorio, con experiencia práctica pertinente."
+      },
+      "bra": {
+        "name": "Evaluación del riesgo biológico",
+        "desc": "Identificación, evaluación y priorización sistemáticas de los riesgos biológicos para orientar su mitigación y gestión.",
+        "eligibility": "Título o diploma (3 a 4 años) en salud humana/animal/ambiental, biotecnología, microbiología o un campo relacionado."
       }
     },
     "certLevels": {

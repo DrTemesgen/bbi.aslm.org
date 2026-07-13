@@ -16,8 +16,15 @@ BBI.regions = [
   { key: 'western', name: 'Western Africa', color: '#c0392b' }
 ];
 
-// The four official technical areas of the Regional Training & Certification
-// Program for Biosafety & Biosecurity Professionals (RTCPBBP, Africa CDC BBI).
+// The official technical areas of the Regional Training & Certification Program
+// for Biosafety & Biosecurity Professionals (RTCP-BBP, Africa CDC BBI). Seven
+// areas per the Africa CDC RTCP-BBP Curriculum Review Workshop Concept Note
+// (Nairobi, 16-20 Feb 2026): the original four (BRM, BCE/Biocontainment, BWM,
+// BSC) plus the 2026 expansion — Laboratory Equipment Maintenance & Calibration,
+// BioRisk Assessment, and Cyberbiosecurity & AI. Area names match the concept
+// note verbatim. Eligibility text is drafted from the general proficiency-matrix
+// entry criteria (3-4yr degree/diploma + experience); refine per the final
+// per-area proficiency matrices when published.
 BBI.certTypes = [
   { key: 'brm', abbr: 'BRM', name: 'Biorisk Management', color: '#0f4f3c', order: 0,
     desc: 'Assessing and managing biological risk in laboratories and programmes.',
@@ -33,7 +40,13 @@ BBI.certTypes = [
     eligibility: 'Engineering/Biomedical degree, or a technical/vocational qualification relevant to safety-cabinet certification.' },
   { key: 'cba', abbr: 'CBA', name: 'Cyberbiosecurity & AI', color: '#6d4aab', order: 4,
     desc: 'Securing biological data, digital laboratory systems and AI tools against cyber and information threats.',
-    eligibility: 'Background in IT/cybersecurity, bioinformatics, data science or laboratory information systems, with relevant experience.' }
+    eligibility: 'Background in IT/cybersecurity, bioinformatics, data science or laboratory information systems, with relevant experience.' },
+  { key: 'emc', abbr: 'EMC', name: 'Laboratory Equipment Maintenance & Calibration', color: '#0e7490', order: 5,
+    desc: 'Maintenance, calibration and metrology of laboratory equipment to ensure reliability and measurement accuracy.',
+    eligibility: 'Engineering, biomedical/instrumentation or laboratory-technology degree or diploma, with relevant hands-on experience.' },
+  { key: 'bra', abbr: 'BRA', name: 'BioRisk Assessment', color: '#9a3412', order: 6,
+    desc: 'Systematic identification, assessment and prioritisation of biological risks to inform mitigation and management.',
+    eligibility: 'Degree or diploma (3–4 years) in Human/Animal/Environmental Health, Biotechnology, Microbiology or a related field.' }
 ];
 
 // RTCP-BBP certification levels

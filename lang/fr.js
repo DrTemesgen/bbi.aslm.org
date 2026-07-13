@@ -169,7 +169,7 @@ BBI.i18n.dicts.fr = {
     "admin.tab.categories": "Catégories",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Inscriptions",
-    "apply.areas.desc": "La certification est proposée dans quatre domaines techniques, chacun à trois niveaux de compétence, via deux parcours.",
+    "apply.areas.desc": "La certification est proposée dans sept domaines techniques, chacun à trois niveaux de compétence, via deux parcours.",
     "apply.areas.eyebrow": "Domaines de certification",
     "apply.areas.title": "Choisissez votre domaine et votre niveau",
     "apply.disclaimer": "ℹ️ Cette manifestation d'intérêt intégrée à l'application est enregistrée dans le système BBI. Le programme formel est administré par Africa CDC et l'ASLM ; l'évaluation finale relève de l'Examination & Certification Committee (ECC). Consultez le <a href=\"https://professionals.aslm.org/\" target=\"_blank\" rel=\"noopener\">portail officiel de l'ASLM</a>.",
@@ -605,6 +605,16 @@ BBI.i18n.dicts.fr = {
         "name": "Cyberbiosécurité et IA",
         "desc": "Protection des données biologiques, des systèmes numériques de laboratoire et des outils d'IA contre les cybermenaces et les menaces informationnelles.",
         "eligibility": "Formation en informatique/cybersécurité, bio-informatique, science des données ou systèmes d'information de laboratoire, avec une expérience pertinente."
+      },
+      "emc": {
+        "name": "Maintenance et étalonnage des équipements de laboratoire",
+        "desc": "Maintenance, étalonnage et métrologie des équipements de laboratoire pour garantir leur fiabilité et l'exactitude des mesures.",
+        "eligibility": "Diplôme universitaire ou technique en ingénierie, biomédical/instrumentation ou technologie de laboratoire, avec une expérience pratique pertinente."
+      },
+      "bra": {
+        "name": "Évaluation des risques biologiques",
+        "desc": "Identification, évaluation et hiérarchisation systématiques des risques biologiques afin d'orienter leur atténuation et leur gestion.",
+        "eligibility": "Diplôme universitaire ou technique (3 à 4 ans) en santé humaine/animale/environnementale, biotechnologie, microbiologie ou dans un domaine connexe."
       }
     },
     "certLevels": {

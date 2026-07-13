@@ -169,7 +169,7 @@ BBI.i18n.dicts.sw = {
     "admin.tab.categories": "Makundi",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Usajili",
-    "apply.areas.desc": "Uthibitishaji unatolewa katika maeneo manne ya kiufundi, kila moja katika viwango vitatu vya umahiri, kupitia njia mbili.",
+    "apply.areas.desc": "Uthibitishaji unatolewa katika maeneo saba ya kiufundi, kila moja katika viwango vitatu vya umahiri, kupitia njia mbili.",
     "apply.areas.eyebrow": "Maeneo ya uthibitishaji",
     "apply.areas.title": "Chagua eneo & kiwango chako",
     "apply.disclaimer": "ℹ️ Taarifa hii ya Nia ndani ya programu imehifadhiwa katika mfumo wa BBI. Programu rasmi inasimamiwa na Africa CDC & ASLM; tathmini ya mwisho hufanywa na Examination & Certification Committee (ECC). Tazama <a href=\"https://professionals.aslm.org/\" target=\"_blank\" rel=\"noopener\">tovuti rasmi ya ASLM</a>.",
@@ -605,6 +605,16 @@ BBI.i18n.dicts.sw = {
         "name": "Usalama-hifadhi wa Kibaolojia Mtandaoni na AI",
         "desc": "Kulinda data za kibaolojia, mifumo ya kidijitali ya maabara na zana za AI dhidi ya vitisho vya mtandaoni na vya taarifa.",
         "eligibility": "Msingi katika IT/usalama wa mtandaoni, bioinformatiki, sayansi ya data au mifumo ya taarifa za maabara, pamoja na uzoefu unaohusiana."
+      },
+      "emc": {
+        "name": "Matengenezo na Urekebishaji wa Vifaa vya Maabara",
+        "desc": "Matengenezo, urekebishaji na metrolojia ya vifaa vya maabara ili kuhakikisha uaminifu na usahihi wa vipimo.",
+        "eligibility": "Shahada au stashahada ya uhandisi, biomedikali/vifaa vya kupimia au teknolojia ya maabara, pamoja na uzoefu wa vitendo unaohusiana."
+      },
+      "bra": {
+        "name": "Tathmini ya Hatari za Kibaolojia",
+        "desc": "Utambuzi, tathmini na upangaji wa vipaumbele wa kimfumo wa hatari za kibaolojia ili kuongoza upunguzaji na usimamizi wake.",
+        "eligibility": "Shahada au stashahada (miaka 3–4) katika afya ya binadamu/wanyama/mazingira, bioteknolojia, mikrobiolojia au fani inayohusiana."
       }
     },
     "certLevels": {

@@ -169,7 +169,7 @@ BBI.i18n.dicts.en = {
     "admin.tab.categories": "Categories",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Registrations",
-    "apply.areas.desc": "Certification is offered in four technical areas, each at three levels of competency, via two pathways.",
+    "apply.areas.desc": "Certification is offered in seven technical areas, each at three levels of competency, via two pathways.",
     "apply.areas.eyebrow": "Certification areas",
     "apply.areas.title": "Choose your area & level",
     "apply.disclaimer": "ℹ️ This in-app Expression of Interest is captured in the BBI system. The formal programme is administered by Africa CDC & ASLM; final evaluation is by the Examination & Certification Committee (ECC). See the <a href=\"https://professionals.aslm.org/\" target=\"_blank\" rel=\"noopener\">official ASLM portal</a>.",

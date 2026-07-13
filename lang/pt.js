@@ -169,7 +169,7 @@ BBI.i18n.dicts.pt = {
     "admin.tab.categories": "Categorias",
     "admin.tab.ecc": "ECC",
     "admin.tab.registrations": "Registos",
-    "apply.areas.desc": "A certificação é oferecida em quatro áreas técnicas, cada uma com três níveis de competência, através de duas vias.",
+    "apply.areas.desc": "A certificação é oferecida em sete áreas técnicas, cada uma com três níveis de competência, através de duas vias.",
     "apply.areas.eyebrow": "Áreas de certificação",
     "apply.areas.title": "Escolha a sua área e nível",
     "apply.disclaimer": "ℹ️ Esta Manifestação de Interesse na aplicação é registada no sistema BBI. O programa formal é administrado pela Africa CDC e pela ASLM; a avaliação final é feita pela Comissão de Exame e Certificação (ECC). Consulte o <a href=\"https://professionals.aslm.org/\" target=\"_blank\" rel=\"noopener\">portal oficial da ASLM</a>.",
@@ -605,6 +605,16 @@ BBI.i18n.dicts.pt = {
         "name": "Ciberbiosseguridade e IA",
         "desc": "Proteger os dados biológicos, os sistemas laboratoriais digitais e as ferramentas de IA contra ameaças cibernéticas e de informação.",
         "eligibility": "Formação em TI/cibersegurança, bioinformática, ciência de dados ou sistemas de informação laboratorial, com experiência relevante."
+      },
+      "emc": {
+        "name": "Manutenção e calibração de equipamentos de laboratório",
+        "desc": "Manutenção, calibração e metrologia dos equipamentos de laboratório para garantir a sua fiabilidade e a exatidão das medições.",
+        "eligibility": "Diploma ou grau em engenharia, biomédica/instrumentação ou tecnologia de laboratório, com experiência prática relevante."
+      },
+      "bra": {
+        "name": "Avaliação do risco biológico",
+        "desc": "Identificação, avaliação e priorização sistemáticas dos riscos biológicos para orientar a sua mitigação e gestão.",
+        "eligibility": "Diploma ou grau (3 a 4 anos) em saúde humana/animal/ambiental, biotecnologia, microbiologia ou área relacionada."
       }
     },
     "certLevels": {
